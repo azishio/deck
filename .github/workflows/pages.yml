@@ -17,6 +17,7 @@ concurrency:
 
 env:
   CARGO_TERM_COLOR: always
+  MDBOOK_VERSION: "0.5.4"
 
 jobs:
   build:
@@ -33,13 +34,35 @@ jobs:
         with:
           enablement: true
 
+      - name: Install mdBook
+        run: |
+          curl -sSfL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C /usr/local/bin
+
+      # No prebuilt binaries for the i18n helpers, but it is a small crate and
+      # the registry is cached.
+      - name: Install mdbook-i18n-helpers
+        run: cargo install mdbook-i18n-helpers --locked
+
+      # The guide lands at the root, the deck at /slide/, so they never fight
+      # over URLs. The base path is "/deck" for a project site, "" for a user one.
       - name: Build the introduction deck
-        # The site lives at /<repo>/, so the deck is built for that base URL.
         run: |
           cargo run --release -p deck-cli -- \
             --root site build \
-            --base-url "${{ steps.pages.outputs.base_path }}/" \
-            --out "${{ github.workspace }}/_site"
+            --base-url "${{ steps.pages.outputs.base_path }}/slide/" \
+            --out "${{ github.workspace }}/_site/slide"
+
+      - name: Build the guide (English)
+        env:
+          MDBOOK_OUTPUT__HTML__SITE_URL: ${{ steps.pages.outputs.base_path }}/
+        run: mdbook build docs --dest-dir "${{ github.workspace }}/_site"
+
+      - name: Build the guide (Japanese)
+        env:
+          MDBOOK_BOOK__LANGUAGE: ja
+          MDBOOK_OUTPUT__HTML__SITE_URL: ${{ steps.pages.outputs.base_path }}/ja/
+        run: mdbook build docs --dest-dir "${{ github.workspace }}/_site/ja"
 
       - uses: actions/upload-pages-artifact@v5
         with:

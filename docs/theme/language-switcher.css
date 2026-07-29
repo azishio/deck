@@ -1,0 +1,11 @@
+.language-switch {
+  margin-inline-start: 0.6rem;
+  color: var(--icons);
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.language-switch:hover {
+  color: var(--icons-hover);
+}

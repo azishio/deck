@@ -2,3 +2,5 @@
 /_site/
 site/dist/
 site/.deck/
+docs/book/
+po/*.mo

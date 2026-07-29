@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="architecture">
+    <deck-heading eyebrow="Architecture">
+      One pipeline, end to end
+    </deck-heading>
+
+    <deck-grid columns="2" class="grow">
+      <deck-card data-step="1">
+        <h2 class="text-body font-bold">Collection</h2>
+        <p>Probes push measurements into the ingest tier.</p>
+      </deck-card>
+
+      <deck-card data-step="2" variant="accent">
+        <h2 class="text-body font-bold">Visualization</h2>
+        <p>Queries fan out to the visualisation layer.</p>
+      </deck-card>
+    </deck-grid>
+
+    <deck-footer divider>
+      <span>ACME · 2026</span>
+      <deck-slide-number></deck-slide-number>
+    </deck-footer>
+
+    <deck-notes>Explain the ingest path and the query path separately.</deck-notes>
+  </deck-slide>
+</body>
+</html>

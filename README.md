@@ -8,8 +8,12 @@ slide body hidden inside TOML or JSON. The design system is delivered as Web Com
 CSS Custom Properties and Tailwind CSS, all of which you are free to override, extend or
 ignore.
 
-📊 **[See the introduction deck](https://azishio.github.io/deck/present)** — it is built
-by `deck build` from [`site/`](site) and published to GitHub Pages.
+📖 **[Read the guide](https://azishio.github.io/deck/)** ([日本語](https://azishio.github.io/deck/ja/)) —
+the full documentation: writing slides, editing the template, adding components, theming,
+checking and deploying.
+
+📊 **[See the introduction deck](https://azishio.github.io/deck/slide/present)** — itself a
+deck, built by `deck build` from [`site/`](site) and published next to the guide.
 
 ```bash
 cargo install --git https://github.com/azishio/deck --locked deck-cli
@@ -443,6 +447,25 @@ cargo test --workspace      # unit + end-to-end (browser tests skip without Chro
 cargo clippy --workspace --all-targets
 cargo fmt --all
 ```
+
+The guide lives in [`docs/`](docs) as an mdBook. English is the source of truth;
+translations are gettext catalogues under `docs/po/`, applied at build time by
+[mdbook-i18n-helpers](https://github.com/google/mdbook-i18n-helpers).
+
+```bash
+cargo install mdbook mdbook-i18n-helpers --locked
+
+mdbook serve docs                                   # English
+MDBOOK_BOOK__LANGUAGE=ja mdbook serve docs          # Japanese
+
+# after editing a chapter, refresh the catalogues
+python3 docs/sync-translations.py
+```
+
+`sync-translations.py` re-extracts `docs/po/messages.pot` and carries existing
+translations onto it, so no gettext tooling is needed. An entry whose English text changed
+loses its translation and falls back to English — a stale translation of an edited
+paragraph is worse than none.
 
 ```text
 crates/

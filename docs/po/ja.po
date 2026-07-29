@@ -1,0 +1,2793 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: deck\n"
+"POT-Creation-Date: 2026-07-30T07:32:40+09:00\n"
+"PO-Revision-Date: \n"
+"Last-Translator: azishio\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/SUMMARY.md:1
+msgid "Summary"
+msgstr ""
+
+#: src/SUMMARY.md:3
+msgid "Introduction"
+msgstr ""
+
+#: src/SUMMARY.md:5
+msgid "Getting started"
+msgstr ""
+
+#: src/SUMMARY.md:7 src/getting-started.md:1
+msgid "Install and create a deck"
+msgstr ""
+
+#: src/SUMMARY.md:8 src/layout.md:1
+msgid "The project layout"
+msgstr ""
+
+#: src/SUMMARY.md:10
+msgid "Authoring"
+msgstr ""
+
+#: src/SUMMARY.md:12 src/writing-slides.md:1
+msgid "Writing a slide"
+msgstr ""
+
+#: src/SUMMARY.md:13 src/components.md:1
+msgid "Built-in components"
+msgstr ""
+
+#: src/SUMMARY.md:14 src/editing-the-template.md:1
+msgid "Editing the template"
+msgstr ""
+
+#: src/SUMMARY.md:15 src/styling.md:1
+msgid "Styling and theming"
+msgstr ""
+
+#: src/SUMMARY.md:16 src/own-components.md:1
+msgid "Adding your own components"
+msgstr ""
+
+#: src/SUMMARY.md:17 src/assets.md:1
+msgid "Assets, fonts and the cursor"
+msgstr ""
+
+#: src/SUMMARY.md:18 src/animation.md:1
+msgid "Animation"
+msgstr ""
+
+#: src/SUMMARY.md:20
+msgid "Delivering"
+msgstr ""
+
+#: src/SUMMARY.md:22 src/presenting.md:1
+msgid "Presenting and printing"
+msgstr ""
+
+#: src/SUMMARY.md:23 src/own-components.md:84 src/checking.md:1
+msgid "Checking"
+msgstr ""
+
+#: src/SUMMARY.md:24 src/deploying.md:1
+msgid "Static build and deployment"
+msgstr ""
+
+#: src/SUMMARY.md:26
+msgid "Reference"
+msgstr ""
+
+#: src/SUMMARY.md:28 src/configuration.md:1
+msgid "Configuration"
+msgstr ""
+
+#: src/SUMMARY.md:29 src/cli.md:1
+msgid "CLI"
+msgstr ""
+
+#: src/SUMMARY.md:30 src/agents.md:1
+msgid "Working with agents"
+msgstr ""
+
+#: src/introduction.md:1
+msgid "deck"
+msgstr ""
+
+#: src/introduction.md:3
+msgid "**One slide is one complete HTML document.**"
+msgstr ""
+
+#: src/introduction.md:5
+msgid ""
+"`deck` is a local slide runtime and development environment written in Rust. "
+"A slide is a file you can read, diff and review — plain HTML, CSS and "
+"JavaScript. There is no slide DSL, no required Markdown, and no slide body "
+"hidden inside TOML or JSON."
+msgstr ""
+
+#: src/introduction.md:11
+msgid ""
+"New here? Read [Install and create a deck](./getting-started.md), then "
+"[Writing a slide](./writing-slides.md). Everything else is reference "
+"material you can come back to."
+msgstr ""
+
+#: src/introduction.md:17
+msgid "See it running"
+msgstr ""
+
+#: src/introduction.md:19
+msgid ""
+"The [introduction deck](/deck/slide/present) is itself a deck, built by "
+"`deck build` and published next to this guide. Its source lives in "
+"[`site/`](https://github.com/azishio/deck/tree/main/site) if you want to "
+"read a real deck rather than snippets."
+msgstr ""
+
+#: src/introduction.md:23
+msgid "What you get"
+msgstr ""
+
+#: src/introduction.md:27
+msgid "**Directory-based discovery**"
+msgstr ""
+
+#: src/introduction.md:27
+msgid "`slides/**/*.html` in lexicographic order. No slide list to maintain."
+msgstr ""
+
+#: src/introduction.md:28
+msgid "**iframe isolation**"
+msgstr ""
+
+#: src/introduction.md:28
+msgid ""
+"Per-slide JavaScript, CSS and DOM state, with a three-frame ring so 100 "
+"slides do not mean 100 iframes."
+msgstr ""
+
+#: src/introduction.md:29
+msgid "**Absolute steps**"
+msgstr ""
+
+#: src/introduction.md:29
+msgid ""
+"`screen state = f(slide_id, step)`. Deep links and reloads land exactly "
+"where you left off."
+msgstr ""
+
+#: src/introduction.md:30
+msgid "**Tailwind CSS**"
+msgstr ""
+
+#: src/introduction.md:30
+msgid ""
+"v4 browser build, vendored. Utilities compile inside each slide — no "
+"bundler, no CDN."
+msgstr ""
+
+#: src/introduction.md:31
+msgid "**Anime.js**"
+msgstr ""
+
+#: src/introduction.md:31
+msgid "Vendored and importable straight from a slide."
+msgstr ""
+
+#: src/introduction.md:32
+msgid "**Hot reload**"
+msgstr ""
+
+#: src/introduction.md:32
+msgid ""
+"HTML, CSS and component edits apply while keeping the current slide, step "
+"and presenter timer."
+msgstr ""
+
+#: src/introduction.md:33
+msgid "**Presenter View**"
+msgstr ""
+
+#: src/introduction.md:33
+msgid ""
+"Current and next slide, speaker notes, timer, clock, blackout, live "
+"diagnostics."
+msgstr ""
+
+#: src/introduction.md:34
+msgid "**Printing**"
+msgstr ""
+
+#: src/introduction.md:34
+msgid ""
+"A real `/print` page for the browser's own print dialog. The CLI never "
+"generates a PDF."
+msgstr ""
+
+#: src/introduction.md:35
+msgid "**Checks**"
+msgstr ""
+
+#: src/introduction.md:35
+msgid ""
+"headless Chromium finds layout, runtime and asset problems. Human, JSON or "
+"SARIF output."
+msgstr ""
+
+#: src/introduction.md:36
+msgid "**Static build**"
+msgstr ""
+
+#: src/introduction.md:36
+msgid "`deck build` emits a folder any static host can serve."
+msgstr ""
+
+#: src/introduction.md:38
+msgid "Why plain HTML"
+msgstr ""
+
+#: src/introduction.md:40
+msgid ""
+"Most slide tools ask you to learn their format. This one asks you to use the "
+"web platform you already know."
+msgstr ""
+
+#: src/introduction.md:43
+msgid ""
+"**Editable by humans and agents alike.** No intermediate representation to "
+"translate through, so \"add a slide about X\" is a request an agent can "
+"carry out and you can review as a diff."
+msgstr ""
+
+#: src/introduction.md:46
+msgid ""
+"**Nothing is off-limits.** SVG, Canvas, WebGL, a live iframe, a custom "
+"element you wrote this morning — if it runs in Chromium, it runs in a slide."
+msgstr ""
+
+#: src/introduction.md:48
+msgid ""
+"**Isolated by construction.** One slide's JavaScript cannot leak into the "
+"next, so a broken experiment on slide 12 does not take down slide 13."
+msgstr ""
+
+#: src/introduction.md:50
+msgid ""
+"**Verifiable.** Overflow, clipped text, broken assets and console errors are "
+"lint rules, not things you discover from the back of the room."
+msgstr ""
+
+#: src/introduction.md:53
+msgid "What it is not"
+msgstr ""
+
+#: src/introduction.md:55
+msgid ""
+"`deck` targets **Chromium-based browsers only**, on purpose. The `iframe` "
+"boundary isolates DOM, CSS and JavaScript state; it is **not** a security "
+"sandbox, and slide HTML is treated as trusted local code. Running untrusted "
+"decks is out of scope."
+msgstr ""
+
+#: src/introduction.md:59
+msgid ""
+"The CLI never produces a PDF. Printing belongs to the browser, and `/print` "
+"is a real page you can inspect before committing to paper."
+msgstr ""
+
+#: src/getting-started.md:3
+msgid "Requirements"
+msgstr ""
+
+#: src/getting-started.md:5
+msgid "A Rust toolchain, to build the CLI."
+msgstr ""
+
+#: src/getting-started.md:6
+msgid "A Chromium-based browser — Chrome, Chromium, Edge or Brave."
+msgstr ""
+
+#: src/getting-started.md:8
+msgid ""
+"**Node.js is not required.** Tailwind CSS and Anime.js are vendored into the "
+"binary, so normal use touches neither npm nor a CDN."
+msgstr ""
+
+#: src/getting-started.md:11
+msgid "Install"
+msgstr ""
+
+#: src/getting-started.md:17
+msgid "Or from a clone, which is also what you want for hacking on deck itself:"
+msgstr ""
+
+#: src/getting-started.md:25
+msgid "Check that the environment is sound before you start authoring:"
+msgstr ""
+
+#: src/getting-started.md:31
+msgid ""
+"It reports the Chromium executable and version, the CDP connection, "
+"available fonts, writable directories, the port and whether `deck.lock` "
+"matches the running binary. If Chromium lives somewhere unusual, or its "
+"sandbox is unavailable (containers and most CI runners), see "
+"[Configuration](./configuration.md#browser)."
+msgstr ""
+
+#: src/getting-started.md:36
+msgid "Create a deck"
+msgstr ""
+
+#: src/getting-started.md:44
+msgid ""
+"`deck dev` starts a local server, opens the presenter view and watches your "
+"files. Editing a slide updates the screen without losing your place."
+msgstr ""
+
+#: src/getting-started.md:47
+msgid ""
+"The generated project is a working three-slide deck, not an empty shell — "
+"see [Editing the template](./editing-the-template.md) for a tour of what to "
+"change first."
+msgstr ""
+
+#: src/getting-started.md:50
+msgid "Pick a starting look with `--theme`:"
+msgstr ""
+
+#: src/getting-started.md:53
+msgid "# default | minimal-light | dark\n"
+msgstr ""
+
+#: src/getting-started.md:56
+msgid "The four commands you will actually use"
+msgstr ""
+
+#: src/getting-started.md:59
+msgid "# author, with hot reload\n"
+msgstr ""
+
+#: src/getting-started.md:60
+msgid "# lint the deck before you present\n"
+msgstr ""
+
+#: src/getting-started.md:61
+msgid "# present it\n"
+msgstr ""
+
+#: src/getting-started.md:62
+msgid "# hand it out as a static site\n"
+msgstr ""
+
+#: src/getting-started.md:65
+msgid "Everything else is in the [CLI reference](./cli.md)."
+msgstr ""
+
+#: src/layout.md:18
+msgid ""
+"The names `slides/`, `components/`, `design/` and `assets/` are **fixed by "
+"convention** and cannot be reconfigured. A predictable layout is what lets "
+"the CLI, the file watcher, the static build and any agent editing the deck "
+"all stay simple."
+msgstr ""
+
+#: src/layout.md:22
+msgid "What each directory is for"
+msgstr ""
+
+#: src/layout.md:24
+msgid ""
+"**`slides/`** — one complete HTML document per slide. Order comes from the "
+"file path, sorted lexicographically. Numbers go up in tens so there is room "
+"to insert:"
+msgstr ""
+
+#: src/layout.md:37
+msgid ""
+"Subdirectories are walked recursively and sort as part of the path, so "
+"`20-architecture/00-overview.html` comes after `10-background.html`. Files "
+"starting with `_` or `.` are skipped, which is handy for drafts."
+msgstr ""
+
+#: src/layout.md:41
+msgid ""
+"**`components/`** — your Custom Elements. `components/index.js` is the entry "
+"point; everything it imports is available in every slide. See [Adding your "
+"own components](./own-components.md)."
+msgstr ""
+
+#: src/layout.md:45
+msgid ""
+"**`design/`** — the deck's look, in four files that differ only in cascade "
+"order. See [Styling and theming](./styling.md)."
+msgstr ""
+
+#: src/layout.md:48
+msgid ""
+"**`assets/`** — anything served at `/assets/…`. Fonts placed in "
+"`assets/fonts/` register themselves. See [Assets, fonts and the "
+"cursor](./assets.md)."
+msgstr ""
+
+#: src/layout.md:51
+msgid ""
+"**`.deck/`** — generated: the `--changed` cache, reports and screenshots. "
+"Safe to delete."
+msgstr ""
+
+#: src/layout.md:53
+msgid "**`dist/`** — the static build. Safe to delete."
+msgstr ""
+
+#: src/layout.md:55
+msgid "Order, identity and title"
+msgstr ""
+
+#: src/layout.md:57
+msgid "Three different things, deliberately kept separate:"
+msgstr ""
+
+#: src/layout.md:59
+msgid "Comes from"
+msgstr ""
+
+#: src/layout.md:59
+msgid "Changes when"
+msgstr ""
+
+#: src/layout.md:61
+msgid "Order"
+msgstr ""
+
+#: src/layout.md:61
+msgid "the file path"
+msgstr ""
+
+#: src/layout.md:61
+msgid "you rename or renumber"
+msgstr ""
+
+#: src/layout.md:62
+msgid "Identity"
+msgstr ""
+
+#: src/layout.md:62
+msgid "`<deck-slide id=\"…\">`"
+msgstr ""
+
+#: src/layout.md:62
+msgid "you decide to change it"
+msgstr ""
+
+#: src/layout.md:63
+msgid "Title"
+msgstr ""
+
+#: src/layout.md:63
+msgid "`<title>`"
+msgstr ""
+
+#: src/layout.md:63
+msgid "you edit the heading"
+msgstr ""
+
+#: src/layout.md:65
+msgid ""
+"Because identity is independent of order, renumbering a deck never breaks a "
+"deep link, a presenter-view sync or a hot reload's idea of where you are. If "
+"you omit the `id`, it falls back to the relative path without the extension, "
+"which works but ties the two together — write an explicit `id` on any slide "
+"you might link to."
+msgstr ""
+
+#: src/writing-slides.md:3
+msgid ""
+"A slide is a complete HTML document. Nothing is generated from a template at "
+"build time, so what you read in the file is what the browser gets."
+msgstr ""
+
+#: src/writing-slides.md:8
+msgid "\"en\""
+msgstr ""
+
+#: src/writing-slides.md:10
+msgid "\"utf-8\""
+msgstr ""
+
+#: src/writing-slides.md:11
+msgid "\"viewport\""
+msgstr ""
+
+#: src/writing-slides.md:11
+msgid "\"width=device-width, initial-scale=1\""
+msgstr ""
+
+#: src/writing-slides.md:14
+msgid "\"stylesheet\""
+msgstr ""
+
+#: src/writing-slides.md:14
+msgid "\"/@deck/design.css\""
+msgstr ""
+
+#: src/writing-slides.md:15 src/writing-slides.md:93 src/animation.md:26
+msgid "\"module\""
+msgstr ""
+
+#: src/writing-slides.md:15
+msgid "\"/@deck/boot.js\""
+msgstr ""
+
+#: src/writing-slides.md:18
+msgid "\"architecture\""
+msgstr ""
+
+#: src/writing-slides.md:19
+msgid "\"Architecture\""
+msgstr ""
+
+#: src/writing-slides.md:23 src/writing-slides.md:29 src/writing-slides.md:80
+#: src/components.md:27
+msgid "\"2\""
+msgstr ""
+
+#: src/writing-slides.md:23 src/components.md:27
+msgid "\"grow\""
+msgstr ""
+
+#: src/writing-slides.md:24 src/writing-slides.md:79
+msgid "\"1\""
+msgstr ""
+
+#: src/writing-slides.md:25 src/writing-slides.md:30
+msgid "\"text-body font-bold\""
+msgstr ""
+
+#: src/writing-slides.md:29
+msgid "\"accent\""
+msgstr ""
+
+#: src/writing-slides.md:46
+msgid "Four things to notice:"
+msgstr ""
+
+#: src/writing-slides.md:48
+msgid ""
+"**The two runtime tags.** `/@deck/design.css` brings in the design system, "
+"and `/@deck/boot.js` starts the slide runtime. If you leave them out, the "
+"server injects them — but writing them keeps the file honest about its "
+"dependencies."
+msgstr ""
+
+#: src/writing-slides.md:51
+msgid ""
+"**`<deck-slide id=\"…\">` is the slide root.** One per document. Its `id` is "
+"the slide's stable identity."
+msgstr ""
+
+#: src/writing-slides.md:53
+msgid ""
+"**`<title>` is the display title**, shown in the presenter view and the "
+"index."
+msgstr ""
+
+#: src/writing-slides.md:54
+msgid "**`<deck-notes>` never renders on the slide.** It is speaker-only."
+msgstr ""
+
+#: src/writing-slides.md:56
+msgid "The canvas is fixed"
+msgstr ""
+
+#: src/writing-slides.md:58
+msgid ""
+"Every slide is laid out on exactly **1280×720 CSS pixels** (configurable, "
+"but constant across the deck). The presentation shell scales the whole "
+"iframe to fit the screen."
+msgstr ""
+
+#: src/writing-slides.md:61
+msgid ""
+"This means: **do not write responsive layout.** No `vw`, no `vh`, no media "
+"queries. Use absolute sizes and flexbox, and let the shell handle screens. A "
+"slide that reflows at different widths will look right on your laptop and "
+"wrong on the projector."
+msgstr ""
+
+#: src/writing-slides.md:65
+msgid ""
+"`deck-slide` is a flex column with the deck's padding applied. `layout` "
+"picks a variant:"
+msgstr ""
+
+#: src/writing-slides.md:67
+msgid "`layout`"
+msgstr ""
+
+#: src/writing-slides.md:67
+msgid "Effect"
+msgstr ""
+
+#: src/writing-slides.md:69
+msgid "_(none)_"
+msgstr ""
+
+#: src/writing-slides.md:69
+msgid "content stacked from the top"
+msgstr ""
+
+#: src/writing-slides.md:70
+msgid "`title`"
+msgstr ""
+
+#: src/writing-slides.md:70
+msgid "vertically centred, tighter gaps"
+msgstr ""
+
+#: src/writing-slides.md:71
+msgid "`center`"
+msgstr ""
+
+#: src/writing-slides.md:71
+msgid "vertically centred"
+msgstr ""
+
+#: src/writing-slides.md:72
+msgid "`bleed`"
+msgstr ""
+
+#: src/writing-slides.md:72
+msgid "no padding, for full-bleed imagery"
+msgstr ""
+
+#: src/writing-slides.md:74
+msgid "Steps and reveals"
+msgstr ""
+
+#: src/writing-slides.md:76
+msgid ""
+"`data-step=\"N\"` reveals an element at step _N_ and keeps it visible "
+"afterwards:"
+msgstr ""
+
+#: src/writing-slides.md:83
+msgid ""
+"Hidden elements keep their space, so revealing one never shifts the layout. "
+"The step count is simply the highest `data-step` in the document."
+msgstr ""
+
+#: src/writing-slides.md:86
+msgid ""
+"Steps are **absolute**, not a sequence of \"next\" commands. The screen is a "
+"function of `(slide id, step)`, which is why a deep link, a reload and a hot "
+"swap all land in exactly the same state. The URL carries it: "
+"`/present#/architecture/2`."
+msgstr ""
+
+#: src/writing-slides.md:90
+msgid "For anything richer than a reveal, listen for the change:"
+msgstr ""
+
+#: src/writing-slides.md:94
+msgid "\"deck:stepchange\""
+msgstr ""
+
+#: src/writing-slides.md:97
+msgid "// …\n"
+msgstr ""
+
+#: src/writing-slides.md:103
+msgid "Navigating"
+msgstr ""
+
+#: src/writing-slides.md:105
+msgid ""
+"Every page navigates the same way, including a single slide opened on its "
+"own:"
+msgstr ""
+
+#: src/writing-slides.md:109
+msgid "`→` `Space` `PageDown`, or a click on the **right half**"
+msgstr ""
+
+#: src/writing-slides.md:109 src/presenting.md:25
+msgid "next step, then the next slide"
+msgstr ""
+
+#: src/writing-slides.md:110
+msgid "`←` `PageUp`, right-click, or a click on the **left half**"
+msgstr ""
+
+#: src/writing-slides.md:110 src/presenting.md:26
+msgid "previous step, then the previous slide"
+msgstr ""
+
+#: src/writing-slides.md:111 src/presenting.md:27
+msgid "`↑` `↓`"
+msgstr ""
+
+#: src/writing-slides.md:111 src/presenting.md:27
+msgid "previous / next slide, skipping steps"
+msgstr ""
+
+#: src/writing-slides.md:112 src/presenting.md:28
+msgid "`Home` `End`"
+msgstr ""
+
+#: src/writing-slides.md:112 src/presenting.md:28
+msgid "first / last step"
+msgstr ""
+
+#: src/writing-slides.md:113
+msgid "`b`"
+msgstr ""
+
+#: src/writing-slides.md:113 src/presenting.md:29
+msgid "blackout"
+msgstr ""
+
+#: src/writing-slides.md:114 src/presenting.md:30
+msgid "`f`"
+msgstr ""
+
+#: src/writing-slides.md:114 src/presenting.md:30
+msgid "fullscreen"
+msgstr ""
+
+#: src/writing-slides.md:116
+msgid ""
+"Clicks on links, buttons, form controls and media are left alone, as is a "
+"click that ends a text selection. Mark anything else that must not advance "
+"the deck with `data-deck-no-nav`."
+msgstr ""
+
+#: src/writing-slides.md:120
+msgid "Adding slides"
+msgstr ""
+
+#: src/writing-slides.md:122
+msgid "Let the CLI pick the number, so gaps are used rather than guessed:"
+msgstr ""
+
+#: src/writing-slides.md:125
+msgid "# -> slides/25-security.html\n"
+msgstr ""
+
+#: src/writing-slides.md:126
+msgid "# -> appended, next multiple of ten\n"
+msgstr ""
+
+#: src/components.md:3
+msgid ""
+"The design system ships as Custom Elements in the `deck-*` namespace. "
+"Everything except `deck-code` renders in **Light DOM**, so ordinary CSS "
+"selectors, Tailwind utilities, Anime.js and DevTools all keep working on the "
+"insides."
+msgstr ""
+
+#: src/components.md:7
+msgid ""
+"Content goes in **child elements**, not attributes. A JSON blob in an "
+"attribute is a slide DSL in disguise; if you find yourself reaching for one, "
+"write plain HTML instead."
+msgstr ""
+
+#: src/components.md:11
+msgid "# what is available, built-in and yours\n"
+msgstr ""
+
+#: src/components.md:12
+msgid "# the built-in styles for one component\n"
+msgstr ""
+
+#: src/components.md:15
+msgid "Structure"
+msgstr ""
+
+#: src/components.md:17
+msgid ""
+"**`deck-slide`** — the slide root, one per document. `id` is the stable "
+"identity; `layout` is `title`, `center` or `bleed`."
+msgstr ""
+
+#: src/components.md:20
+msgid ""
+"**`deck-grid`** — a CSS grid. `columns=\"3\"`, `gap=\"24\"` (px or any CSS "
+"length), `align=\"start|center|stretch\"`."
+msgstr ""
+
+#: src/components.md:23
+msgid ""
+"**`deck-stack`** — a flex column, or a row with `direction=\"row\"`. `gap`, "
+"`align`, and `grow` to take the free space."
+msgstr ""
+
+#: src/components.md:27
+msgid "\"40\""
+msgstr ""
+
+#: src/components.md:28
+msgid "\"16\""
+msgstr ""
+
+#: src/components.md:29
+msgid "\"Ingest path\""
+msgstr ""
+
+#: src/components.md:30
+msgid "\"/assets/images/ingest.svg\""
+msgstr ""
+
+#: src/components.md:30 src/own-components.md:40
+msgid "\"\""
+msgstr ""
+
+#: src/components.md:35
+msgid "Headings"
+msgstr ""
+
+#: src/components.md:37
+msgid ""
+"**`deck-heading`** — a heading with optional `eyebrow` and `sub` attributes, "
+"and `level=\"title\"` for the larger size."
+msgstr ""
+
+#: src/components.md:40
+msgid ""
+"**`deck-eyebrow` / `deck-title` / `deck-subtitle`** — the same three parts "
+"as child elements. Use these when the text is content you want in the markup "
+"rather than configuration squeezed into attributes:"
+msgstr ""
+
+#: src/components.md:50
+msgid "Content blocks"
+msgstr ""
+
+#: src/components.md:52
+msgid "**`deck-card`** — a bordered surface. `variant=\"accent|outline|plain\"`."
+msgstr ""
+
+#: src/components.md:54
+msgid ""
+"**`deck-callout`** — an aside with a coloured edge. "
+"`tone=\"info|warning|success|danger\"` and `label=\"Note\"`."
+msgstr ""
+
+#: src/components.md:57
+msgid ""
+"**`deck-stat`** — a big number followed by a caption. Add `countup` to "
+"animate it from zero, and `countup-duration=\"1200\"` to slow it down:"
+msgstr ""
+
+#: src/components.md:67
+msgid ""
+"**`deck-figure`** — an image or SVG with a `caption`. The media is "
+"`object-fit: contain`, so it never overflows."
+msgstr ""
+
+#: src/components.md:70
+msgid ""
+"**`deck-code`** — syntax-highlighted code, and the one component that uses "
+"Shadow DOM, because the internal `<pre><code>` structure is not something a "
+"slide should style directly. `language` accepts `rust`, `js`/`ts`, `python`, "
+"`go`, `bash`, `toml` and `json`; `highlight-lines=\"3-5,8\"` marks lines."
+msgstr ""
+
+#: src/components.md:75
+msgid ""
+"Escape the markup inside it: `&lt;div&gt;`. Style it through "
+"`--deck-code-font-size` and the `part=\"pre\"` / `part=\"code\"` hooks."
+msgstr ""
+
+#: src/components.md:78
+msgid "Running furniture"
+msgstr ""
+
+#: src/components.md:80
+msgid ""
+"**`deck-footer`** — a bottom band. `divider` adds a rule. It is pushed down "
+"with `margin-block-start: auto` rather than positioned absolutely, so it can "
+"never overlap the content above it — give the block above it "
+"`class=\"grow\"` and the footer takes care of itself."
+msgstr ""
+
+#: src/components.md:85
+msgid ""
+"**`deck-slide-number`** — this slide's position. `format` is a template with "
+"`{number}`, `{total}` and `{percent}`, defaulting to `{number} / {total}`."
+msgstr ""
+
+#: src/components.md:88
+msgid ""
+"**`deck-progress`** — a thin bar showing how far through the deck the slide "
+"is."
+msgstr ""
+
+#: src/components.md:90
+msgid ""
+"Both read the deck manifest, so the numbering survives inserting and "
+"reordering slides."
+msgstr ""
+
+#: src/components.md:99
+msgid "Speaker notes"
+msgstr ""
+
+#: src/components.md:101
+msgid ""
+"**`deck-notes`** — never rendered on the slide. It appears in the presenter "
+"view, and in the print view when `[print] show_notes = true`."
+msgstr ""
+
+#: src/editing-the-template.md:3
+msgid ""
+"`deck init` gives you a working three-slide deck rather than an empty "
+"directory. This is a tour of what to change, roughly in the order you will "
+"want to change it."
+msgstr ""
+
+#: src/editing-the-template.md:21
+msgid "1. Deck metadata"
+msgstr ""
+
+#: src/editing-the-template.md:23
+msgid ""
+"```toml\n"
+"# deck.toml\n"
+"[deck]\n"
+"title = \"Chelamon Architecture\"\n"
+"author = \"Junta Goto\"\n"
+"lang = \"en\"                       # set \"ja\" for a Japanese deck\n"
+"```"
+msgstr ""
+
+#: src/editing-the-template.md:31
+msgid ""
+"`title` is used by the browser tab, the index page and the print view. "
+"`lang` lands on `<html lang>` in the pages deck generates — your slide files "
+"carry their own."
+msgstr ""
+
+#: src/editing-the-template.md:34
+msgid "2. The slides"
+msgstr ""
+
+#: src/editing-the-template.md:36
+msgid ""
+"Rewrite them; do not start from scratch. Each one demonstrates something "
+"worth keeping:"
+msgstr ""
+
+#: src/editing-the-template.md:38
+msgid ""
+"**`00-title.html`** — `layout=\"title\"`, `deck-heading` with `eyebrow` and "
+"`sub`, and a Tailwind gradient. Replace the text and you have your title "
+"slide."
+msgstr ""
+
+#: src/editing-the-template.md:40
+msgid ""
+"**`10-overview.html`** — three `data-step` reveals, numbered with Tailwind "
+"utilities. A good place to see how steps behave before you rely on them."
+msgstr ""
+
+#: src/editing-the-template.md:42
+msgid ""
+"**`20-architecture.html`** — `deck-grid` with two `deck-card`s, a "
+"`deck-callout`, and a `<script type=\"module\">` at the bottom that reacts "
+"to `deck:stepchange`. This is the pattern for slide-local behaviour."
+msgstr ""
+
+#: src/editing-the-template.md:46
+msgid "Then add your own:"
+msgstr ""
+
+#: src/editing-the-template.md:52
+msgid "3. The look"
+msgstr ""
+
+#: src/editing-the-template.md:54
+msgid ""
+"Change a **token** before you change anything else — one value restyles the "
+"whole deck:"
+msgstr ""
+
+#: src/editing-the-template.md:57 src/own-components.md:51
+msgid "/* design/theme.css */"
+msgstr ""
+
+#: src/editing-the-template.md:63
+msgid ""
+"The four files in `design/` differ only in cascade order, and [Styling and "
+"theming](./styling.md) explains which one to reach for. A useful default: "
+"sizes and fonts in `tokens.css`, colours and component tweaks in "
+"`theme.css`, Tailwind additions in `tailwind.css`, and `overrides.css` for "
+"the fix you are not proud of."
+msgstr ""
+
+#: src/editing-the-template.md:68
+msgid "4. Fonts"
+msgstr ""
+
+#: src/editing-the-template.md:70
+msgid ""
+"Drop a webfont into `assets/fonts/` and point a token at it. No `@font-face` "
+"to write — the file name carries the metadata:"
+msgstr ""
+
+#: src/editing-the-template.md:74 src/assets.md:51
+msgid "/* design/tokens.css */"
+msgstr ""
+
+#: src/editing-the-template.md:76 src/assets.md:53
+msgid "\"Inter\""
+msgstr ""
+
+#: src/editing-the-template.md:80
+msgid "See [Assets, fonts and the cursor](./assets.md)."
+msgstr ""
+
+#: src/editing-the-template.md:82
+msgid "5. Components"
+msgstr ""
+
+#: src/editing-the-template.md:84
+msgid ""
+"`components/example-badge.js` exists to be read once and deleted. When you "
+"want your own:"
+msgstr ""
+
+#: src/editing-the-template.md:91
+msgid "See [Adding your own components](./own-components.md)."
+msgstr ""
+
+#: src/editing-the-template.md:93
+msgid "6. Check as you go"
+msgstr ""
+
+#: src/editing-the-template.md:99
+msgid ""
+"A freshly generated deck passes with no errors and no warnings, so anything "
+"the check reports is something you introduced. Keep it that way and the deck "
+"stays presentable."
+msgstr ""
+
+#: src/styling.md:3
+msgid ""
+"Four project stylesheets, one Tailwind entry, and a cascade order that is "
+"fixed so you never have to fight it."
+msgstr ""
+
+#: src/styling.md:6
+msgid "File"
+msgstr ""
+
+#: src/styling.md:6
+msgid "For"
+msgstr ""
+
+#: src/styling.md:6
+msgid "Loaded into"
+msgstr ""
+
+#: src/styling.md:8
+msgid "`design/tokens.css`"
+msgstr ""
+
+#: src/styling.md:8
+msgid "`--deck-*` values: sizes, fonts, spacing"
+msgstr ""
+
+#: src/styling.md:8 src/styling.md:9 src/styling.md:10
+msgid "`@layer project`"
+msgstr ""
+
+#: src/styling.md:9
+msgid "`design/theme.css`"
+msgstr ""
+
+#: src/styling.md:9
+msgid "the project look: colours, component tweaks"
+msgstr ""
+
+#: src/styling.md:10
+msgid "`design/overrides.css`"
+msgstr ""
+
+#: src/styling.md:10
+msgid "the last word, for one-off fixes"
+msgstr ""
+
+#: src/styling.md:11
+msgid "`design/tailwind.css`"
+msgstr ""
+
+#: src/styling.md:11
+msgid "`@theme`, `@utility`, `@apply`"
+msgstr ""
+
+#: src/styling.md:11
+msgid "Tailwind's own layers"
+msgstr ""
+
+#: src/styling.md:13
+msgid ""
+"The first three are listed in `[theme].styles` in `deck.toml` and loaded in "
+"that order, so `overrides.css` wins ties. They are all in the same layer; "
+"the split is a convention for humans, not a mechanism."
+msgstr ""
+
+#: src/styling.md:17
+msgid "Start with a token"
+msgstr ""
+
+#: src/styling.md:19
+msgid ""
+"Every built-in style is driven by a custom property, so changing one value "
+"restyles the whole deck:"
+msgstr ""
+
+#: src/styling.md:30
+msgid ""
+"The families are `--deck-color-*`, `--deck-font-*`, `--deck-font-size-*`, "
+"`--deck-space-*`, `--deck-radius-*`, `--deck-slide-padding-*` and "
+"`--deck-step-*`. Run `deck component show deck-card` to see which ones a "
+"component actually reads."
+msgstr ""
+
+#: src/styling.md:34
+msgid "Tailwind CSS"
+msgstr ""
+
+#: src/styling.md:36
+msgid ""
+"Tailwind is part of the runtime, not an optional add-on. The vendored v4 "
+"**browser build** compiles utilities inside each slide document, so there is "
+"no build step, no bundler and no network access."
+msgstr ""
+
+#: src/styling.md:40
+msgid ""
+"deck's tokens are bridged into the Tailwind theme, which means the utilities "
+"follow your theme instead of duplicating it:"
+msgstr ""
+
+#: src/styling.md:44
+msgid "\"text-small text-muted font-mono\""
+msgstr ""
+
+#: src/styling.md:47
+msgid "Project additions go in `design/tailwind.css`:"
+msgstr ""
+
+#: src/styling.md:60
+msgid "The cascade"
+msgstr ""
+
+#: src/styling.md:62
+msgid ""
+"Declared in both `design.css` and the Tailwind entry, so it holds regardless "
+"of which stylesheet the browser applies first:"
+msgstr ""
+
+#: src/styling.md:70
+msgid "Reading left to right, lowest priority first:"
+msgstr ""
+
+#: src/styling.md:72
+msgid "**`base`** — Tailwind's preflight (the reset)."
+msgstr ""
+
+#: src/styling.md:73
+msgid "**`theme`** — Tailwind's theme variables."
+msgstr ""
+
+#: src/styling.md:74
+msgid ""
+"**`deck`** — the deck design system: `reset`, `tokens`, `base`, `components`."
+msgstr ""
+
+#: src/styling.md:75
+msgid "**`project`** — your `design/` files."
+msgstr ""
+
+#: src/styling.md:76
+msgid "**`slide`** — per-slide CSS."
+msgstr ""
+
+#: src/styling.md:77
+msgid "**`components`, `utilities`** — Tailwind's, which win over everything."
+msgstr ""
+
+#: src/styling.md:79
+msgid ""
+"So your CSS outranks the design system, and a Tailwind utility outranks your "
+"CSS. That is the intended order: utilities are the escape hatch for one "
+"element."
+msgstr ""
+
+#: src/styling.md:84
+msgid ""
+"`deck.base` means \"the `base` sub-layer of `deck`\", which is **not** "
+"Tailwind's top-level `base`. Listing them in a single `@layer` statement "
+"would place the whole `deck` layer wherever its first sub-layer appears and "
+"sink the entire design system below preflight — hence the two statements."
+msgstr ""
+
+#: src/styling.md:91
+msgid "Slide-local CSS"
+msgstr ""
+
+#: src/styling.md:93
+msgid "Wrap it so it stays in the right place:"
+msgstr ""
+
+#: src/styling.md:103
+msgid ""
+"Without the `@layer slide` wrapper the rule becomes unlayered, which puts it "
+"**above** Tailwind's utilities — so a `class=\"text-accent\"` on the same "
+"element would stop working."
+msgstr ""
+
+#: src/styling.md:106
+msgid "Taking a built-in apart"
+msgstr ""
+
+#: src/styling.md:108
+msgid "To edit a built-in component's styles rather than override them:"
+msgstr ""
+
+#: src/styling.md:111
+msgid "# -> design/ejected/deck-card.css\n"
+msgstr ""
+
+#: src/styling.md:114
+msgid ""
+"Add the file to `[theme].styles` and edit freely. The component keeps "
+"working; you have simply moved its appearance into the project."
+msgstr ""
+
+#: src/styling.md:117
+msgid "Themes"
+msgstr ""
+
+#: src/styling.md:119
+msgid "`deck init --theme` picks the starting point for `design/theme.css`:"
+msgstr ""
+
+#: src/styling.md:123
+msgid "`default`"
+msgstr ""
+
+#: src/styling.md:123
+msgid "light, red accent"
+msgstr ""
+
+#: src/styling.md:124
+msgid "`minimal-light`"
+msgstr ""
+
+#: src/styling.md:124
+msgid "light, blue accent, no shadows"
+msgstr ""
+
+#: src/styling.md:125
+msgid "`dark`"
+msgstr ""
+
+#: src/styling.md:125
+msgid "dark surfaces, light text"
+msgstr ""
+
+#: src/styling.md:127
+msgid ""
+"It writes a normal file. There is no theme system to fight — after `init`, "
+"the theme is just your CSS."
+msgstr ""
+
+#: src/own-components.md:3
+msgid ""
+"A component is a Custom Element. There is no registry to declare, no build "
+"step and no framework — if `customElements.define()` runs, the element works "
+"in every slide."
+msgstr ""
+
+#: src/own-components.md:6
+msgid "Scaffold one"
+msgstr ""
+
+#: src/own-components.md:12
+msgid ""
+"That writes `components/acme-metric.js` and adds the import to "
+"`components/index.js`, which is the entry point every slide loads. Hot "
+"reload picks it up immediately: only the frames that actually use the tag "
+"are reloaded."
+msgstr ""
+
+#: src/own-components.md:16
+msgid "The rules"
+msgstr ""
+
+#: src/own-components.md:18
+msgid ""
+"**Use a project prefix.** `deck-*` is reserved for the built-ins. `acme-*`, "
+"`rccs-*`, anything of yours — and a Custom Element name must contain a "
+"hyphen, which is a platform rule rather than a deck one."
+msgstr ""
+
+#: src/own-components.md:22
+msgid ""
+"**Prefer Light DOM.** Render into the normal document and everything keeps "
+"working: ordinary CSS selectors, Tailwind utilities, Anime.js, the layout "
+"checks, and DevTools. Reach for Shadow DOM only when hiding the internal "
+"structure genuinely pays for itself — a chart that builds its own SVG, a "
+"widget wrapping a third-party library. In the built-in set, only `deck-code` "
+"qualifies."
+msgstr ""
+
+#: src/own-components.md:28
+msgid ""
+"**Keep generated markup idempotent.** `connectedCallback` can run more than "
+"once, so check before you create:"
+msgstr ""
+
+#: src/own-components.md:34
+msgid "\":scope > .acme-metric__label\""
+msgstr ""
+
+#: src/own-components.md:36
+msgid "\"span\""
+msgstr ""
+
+#: src/own-components.md:37
+msgid "\"acme-metric__label\""
+msgstr ""
+
+#: src/own-components.md:40
+msgid "\"label\""
+msgstr ""
+
+#: src/own-components.md:44
+msgid "\"acme-metric\""
+msgstr ""
+
+#: src/own-components.md:47
+msgid ""
+"**Style it from `design/`, not from JavaScript.** Light DOM means a plain "
+"selector works, and the styles then live with the rest of the deck's look:"
+msgstr ""
+
+#: src/own-components.md:59
+msgid ""
+"**Never animate from `connectedCallback`.** An element is constructed when "
+"its iframe is created, and the shell preloads the neighbouring slides — so "
+"the animation would run off-screen and appear to fire at random. Use "
+"`deck.onReveal`, covered in [Animation](./animation.md):"
+msgstr ""
+
+#: src/own-components.md:67 src/animation.md:52
+msgid "\"abort\""
+msgstr ""
+
+#: src/own-components.md:71
+msgid "Reading the deck's state"
+msgstr ""
+
+#: src/own-components.md:73
+msgid ""
+"`window.deck` is available inside every slide, so a component can react to "
+"the deck rather than just to its own attributes:"
+msgstr ""
+
+#: src/own-components.md:78
+msgid "`"
+msgstr ""
+
+#: src/own-components.md:78
+msgid " / "
+msgstr ""
+
+#: src/own-components.md:82
+msgid "See [Animation](./animation.md#the-runtime-api) for the full surface."
+msgstr ""
+
+#: src/own-components.md:86
+msgid ""
+"`deck check` knows which tags exist. A typo in a tag name, or a component "
+"you forgot to import, is reported as `invalid_component_name` rather than "
+"silently rendering nothing — an undefined Custom Element is an empty inline "
+"box, which is easy to miss on a slide."
+msgstr ""
+
+#: src/own-components.md:91
+msgid "# built-ins, plus every tag found under components/\n"
+msgstr ""
+
+#: src/assets.md:3
+msgid "Everything under `assets/` is served from `/assets/…`."
+msgstr ""
+
+#: src/assets.md:14
+msgid ""
+"The subdirectories are a convention, not a mechanism — nothing breaks if you "
+"add `assets/video/`. They exist so a deck with fifty files still has an "
+"obvious place to put the fifty-first."
+msgstr ""
+
+#: src/assets.md:20
+msgid ""
+"**Always reference assets with a root-absolute path**: "
+"`/assets/images/diagram.svg`. `deck build` relocates each slide to "
+"`slides/<id>/index.html`, so a relative path that works during `deck dev` "
+"will 404 in the static build. `deck check` reports these as `missing_file` "
+"or `invalid_local_url`."
+msgstr ""
+
+#: src/assets.md:27
+msgid "Fonts"
+msgstr ""
+
+#: src/assets.md:29
+msgid ""
+"Drop font files into `assets/fonts/` and deck writes the `@font-face` rules. "
+"The file name carries the metadata:"
+msgstr ""
+
+#: src/assets.md:39
+msgid ""
+"Recognised: `.woff2`, `.woff`, `.ttf`, `.otf`. Weights may be numeric "
+"(`100`–`1000`) or named (`thin`, `light`, `regular`, `medium`, `semibold`, "
+"`bold`, `black`, …), and `italic` or `oblique` sets the style. "
+"Subdirectories are walked, so `assets/fonts/Inter/Inter-700.woff2` works too."
+msgstr ""
+
+#: src/assets.md:44
+msgid ""
+"They load with `font-display: block`, because a slide should never flash its "
+"fallback in front of an audience. Slide readiness waits for "
+"`document.fonts.ready`, so printing and checking always see the real font."
+msgstr ""
+
+#: src/assets.md:48
+msgid "Then point a token at the family:"
+msgstr ""
+
+#: src/assets.md:54
+msgid "\"JetBrains Mono\""
+msgstr ""
+
+#: src/assets.md:58
+msgid ""
+"`deck check` reports `missing_font` if a family is referenced but never "
+"loads — which catches the classic \"it works on my machine\" font, and is "
+"why `deck doctor` lists the families it can find."
+msgstr ""
+
+#: src/assets.md:62
+msgid "Custom cursor"
+msgstr ""
+
+#: src/assets.md:64
+msgid ""
+"Put `cursor.svg` — or `.png`, `.webp`, `.gif`, `.jpg` — directly in "
+"`assets/` and it replaces the mouse cursor on every slide and across the "
+"presentation view."
+msgstr ""
+
+#: src/assets.md:71
+msgid ""
+"Two constraints come from the browser, not from deck: an SVG cursor needs "
+"explicit `width` and `height` attributes, and images larger than 128×128 are "
+"ignored. A 24–32px image with the hotspot at its top-left corner behaves the "
+"way people expect."
+msgstr ""
+
+#: src/assets.md:75
+msgid "Override it per element with ordinary CSS:"
+msgstr ""
+
+#: src/animation.md:3
+msgid ""
+"Two layers, deliberately separated: the **shell** owns transitions between "
+"slides, and each **slide** owns what happens inside it."
+msgstr ""
+
+#: src/animation.md:6
+msgid "The standard reveal"
+msgstr ""
+
+#: src/animation.md:8
+msgid ""
+"`data-step` is enough for most slides. The runtime fades and lifts each "
+"element as it is revealed, with a small stagger, driven by tokens:"
+msgstr ""
+
+#: src/animation.md:18
+msgid ""
+"Nothing to write, and it is consistent across the deck. Reach for the rest "
+"of this page only when a reveal is not enough."
+msgstr ""
+
+#: src/animation.md:21
+msgid "Anime.js"
+msgstr ""
+
+#: src/animation.md:23
+msgid "Anime.js v4 is vendored, so importing it needs no install and no network:"
+msgstr ""
+
+#: src/animation.md:27
+msgid "\"/@deck/vendor/animejs.js\""
+msgstr ""
+
+#: src/animation.md:30
+msgid "// printing seeks it to its final frame"
+msgstr ""
+
+#: src/animation.md:34
+msgid ""
+"`registerTimeline` matters for print: `/print` drives each slide to its "
+"requested step and then seeks every registered timeline to the end, so a "
+"printed slide shows the final state rather than frame one."
+msgstr ""
+
+#: src/animation.md:38
+msgid "Animate on reveal, never on construction"
+msgstr ""
+
+#: src/animation.md:40
+msgid "This is the one rule worth internalising."
+msgstr ""
+
+#: src/animation.md:42
+msgid ""
+"An element is constructed when its **iframe** is created, and the shell "
+"preloads the neighbouring slides. So an animation started from "
+"`connectedCallback` runs while the slide is still off-screen, finishes "
+"before you arrive, and then appears to re-trigger at random depending on how "
+"far away the previous slide was."
+msgstr ""
+
+#: src/animation.md:47
+msgid "`deck.onReveal` ties the animation to visibility instead:"
+msgstr ""
+
+#: src/animation.md:56
+msgid ""
+"It fires when the slide is entered **and** the element's `data-step` "
+"threshold is reached, and the `AbortSignal` aborts as soon as either stops "
+"being true. So the animation cannot run off-screen, cannot outlive its "
+"reveal, and replays when you step back and forward again — the same "
+"behaviour as the standard reveal."
+msgstr ""
+
+#: src/animation.md:61
+msgid ""
+"`deck-stat`'s `countup` is built on it, and reflects its state in "
+"`data-deck-countup` (`idle`, `running`, `done`) if you want to hook CSS onto "
+"it."
+msgstr ""
+
+#: src/animation.md:64
+msgid "Reduced motion, print and check"
+msgstr ""
+
+#: src/animation.md:66
+msgid ""
+"Animation is skipped entirely in **print** and **check** mode, so "
+"screenshots, printed pages and layout checks are deterministic. `[animation] "
+"reduced_motion` decides what the OS preference does:"
+msgstr ""
+
+#: src/animation.md:72
+msgid "`instant` _(default)_"
+msgstr ""
+
+#: src/animation.md:72
+msgid "honour it, and jump to the final state"
+msgstr ""
+
+#: src/animation.md:73
+msgid "`respect`"
+msgstr ""
+
+#: src/animation.md:73
+msgid "honour it"
+msgstr ""
+
+#: src/animation.md:74
+msgid "`ignore`"
+msgstr ""
+
+#: src/animation.md:74
+msgid "always animate"
+msgstr ""
+
+#: src/animation.md:76
+msgid ""
+"`deck.animator()` returns `null` whenever animation is off, so the same code "
+"path handles all of it:"
+msgstr ""
+
+#: src/animation.md:82
+msgid "// final state, no animation\n"
+msgstr ""
+
+#: src/animation.md:87
+msgid "The runtime API"
+msgstr ""
+
+#: src/animation.md:89
+msgid "`window.deck` inside a slide:"
+msgstr ""
+
+#: src/animation.md:93
+msgid "`mode`"
+msgstr ""
+
+#: src/animation.md:93
+msgid "`present`, `presenter`, `print`, `check` or `standalone`"
+msgstr ""
+
+#: src/animation.md:94
+msgid "`slideId` `step` `stepCount`"
+msgstr ""
+
+#: src/animation.md:94
+msgid "where you are"
+msgstr ""
+
+#: src/animation.md:95
+msgid "`position` `whenPositioned()`"
+msgstr ""
+
+#: src/animation.md:95
+msgid "`{ index, number, total }` from the manifest"
+msgstr ""
+
+#: src/animation.md:96
+msgid "`canvas`"
+msgstr ""
+
+#: src/animation.md:96
+msgid "`{ width, height }`"
+msgstr ""
+
+#: src/animation.md:97
+msgid "`reducedMotion` `ready`"
+msgstr ""
+
+#: src/animation.md:97
+msgid "flags"
+msgstr ""
+
+#: src/animation.md:98
+msgid "`onReveal(element, cb)`"
+msgstr ""
+
+#: src/animation.md:98
+msgid "run `cb` when the element becomes visible"
+msgstr ""
+
+#: src/animation.md:99
+msgid "`animator()` `anime()`"
+msgstr ""
+
+#: src/animation.md:99
+msgid "Anime.js access, or `null` when animation is off"
+msgstr ""
+
+#: src/animation.md:100
+msgid "`registerTimeline(t)`"
+msgstr ""
+
+#: src/animation.md:100
+msgid "seek `t` to the end before printing"
+msgstr ""
+
+#: src/animation.md:101
+msgid "`waitUntil(promise)`"
+msgstr ""
+
+#: src/animation.md:101
+msgid "delay `deck:ready` until it settles"
+msgstr ""
+
+#: src/animation.md:102
+msgid "`setStepCount(n)`"
+msgstr ""
+
+#: src/animation.md:102
+msgid "declare steps not expressed with `data-step`"
+msgstr ""
+
+#: src/animation.md:103
+msgid "`advance(dir)` `goToStep(n)` `goToSlide(id)`"
+msgstr ""
+
+#: src/animation.md:103
+msgid "navigate"
+msgstr ""
+
+#: src/animation.md:105
+msgid "Events on `document`:"
+msgstr ""
+
+#: src/animation.md:107
+msgid "Event"
+msgstr ""
+
+#: src/animation.md:107
+msgid "When"
+msgstr ""
+
+#: src/animation.md:109
+msgid "`deck:init`"
+msgstr ""
+
+#: src/animation.md:109
+msgid "initial state is known; `waitUntil()` available"
+msgstr ""
+
+#: src/animation.md:110
+msgid "`deck:ready`"
+msgstr ""
+
+#: src/animation.md:110
+msgid "fonts, images, components and custom promises have settled"
+msgstr ""
+
+#: src/animation.md:111
+msgid "`deck:enter` / `deck:leave`"
+msgstr ""
+
+#: src/animation.md:111
+msgid "the slide became / stopped being current"
+msgstr ""
+
+#: src/animation.md:112
+msgid "`deck:stepchange`"
+msgstr ""
+
+#: src/animation.md:112
+msgid "a step was applied (`from`, `to`, `direction`, `instant`)"
+msgstr ""
+
+#: src/animation.md:113
+msgid "`deck:pause` / `deck:resume`"
+msgstr ""
+
+#: src/animation.md:113
+msgid "the presenter paused or resumed"
+msgstr ""
+
+#: src/animation.md:114
+msgid "`deck:prepare-print`"
+msgstr ""
+
+#: src/animation.md:114
+msgid "finalise state before printing; `waitUntil()` available"
+msgstr ""
+
+#: src/animation.md:115
+msgid "`deck:dispose`"
+msgstr ""
+
+#: src/animation.md:115
+msgid "the iframe is about to go away"
+msgstr ""
+
+#: src/animation.md:117
+msgid ""
+"Prefer `onReveal()` over `deck:enter` for animation: `deck:enter` fires once "
+"per visit and knows nothing about steps."
+msgstr ""
+
+#: src/animation.md:120
+msgid "Slide transitions"
+msgstr ""
+
+#: src/animation.md:122
+msgid ""
+"Transitions between slides belong to the shell, not to a slide. It "
+"crossfades frames; a hot reload uses the same crossfade between the old and "
+"new iframe, which is why editing the current slide never flashes white."
+msgstr ""
+
+#: src/presenting.md:4
+msgid "# opens /present\n"
+msgstr ""
+
+#: src/presenting.md:9
+msgid "The two views"
+msgstr ""
+
+#: src/presenting.md:11
+msgid ""
+"**`/present`** is what the audience sees: the slide scaled to the window, a "
+"progress bar, and a small HUD that fades out when the mouse stops moving."
+msgstr ""
+
+#: src/presenting.md:14
+msgid ""
+"**`/presenter`** is for you: the current slide, the next slide, speaker "
+"notes, a timer, a clock, the slide and step number, blackout, pause, and a "
+"live diagnostics panel showing anything the current slide reported. Open it "
+"on a second screen."
+msgstr ""
+
+#: src/presenting.md:18
+msgid ""
+"The two stay in sync over a websocket, so they work across two windows, two "
+"displays or two devices on the same network. Whichever one you drive, the "
+"other follows."
+msgstr ""
+
+#: src/presenting.md:21
+msgid "Controls"
+msgstr ""
+
+#: src/presenting.md:25
+msgid "`→` `Space` `PageDown`, click the **right half**"
+msgstr ""
+
+#: src/presenting.md:26
+msgid "`←` `PageUp`, right-click, click the **left half**"
+msgstr ""
+
+#: src/presenting.md:29
+msgid "`b` or `.`"
+msgstr ""
+
+#: src/presenting.md:31
+msgid "`p` or `s`"
+msgstr ""
+
+#: src/presenting.md:31
+msgid "open the presenter view"
+msgstr ""
+
+#: src/presenting.md:32
+msgid "`t` `r` _(presenter)_"
+msgstr ""
+
+#: src/presenting.md:32
+msgid "start/pause and reset the timer"
+msgstr ""
+
+#: src/presenting.md:34
+msgid ""
+"The position lives in the URL — `/present#/architecture/2` — so a reload, a "
+"bookmark or a pasted link all land in the same place."
+msgstr ""
+
+#: src/presenting.md:37
+msgid "Only three iframes"
+msgstr ""
+
+#: src/presenting.md:39
+msgid ""
+"The shell keeps a ring of three frames: previous, current, next. A "
+"hundred-slide deck never loads a hundred iframes, and stepping back and "
+"forth is instant because the neighbours are already warm."
+msgstr ""
+
+#: src/presenting.md:43
+msgid ""
+"Preloaded frames stay dormant: they do not run reveal animations until they "
+"are actually shown. `[server] preload` controls how many neighbours are kept."
+msgstr ""
+
+#: src/presenting.md:46
+msgid "Presenting from a second machine"
+msgstr ""
+
+#: src/presenting.md:52
+msgid ""
+"deck prints a warning, because that makes the deck readable by anyone on the "
+"network. The default binding is `127.0.0.1`."
+msgstr ""
+
+#: src/presenting.md:55
+msgid "Printing"
+msgstr ""
+
+#: src/presenting.md:57
+msgid ""
+"There is no PDF pipeline in the CLI. Printing is the browser's job, and "
+"`/print` is a real page you can inspect first."
+msgstr ""
+
+#: src/presenting.md:64
+msgid ""
+"The page loads every slide in print mode, drives each one to the requested "
+"step, waits for fonts, images and any promise a slide registered, and only "
+"then enables the **Print** button. `window.print()` is never called for you "
+"— the point is that you get to read the preflight report before committing "
+"to paper."
+msgstr ""
+
+#: src/presenting.md:69
+msgid "URL"
+msgstr ""
+
+#: src/presenting.md:69
+msgid "Pages"
+msgstr ""
+
+#: src/presenting.md:71
+msgid "`/print` or `/print?steps=final`"
+msgstr ""
+
+#: src/presenting.md:71
+msgid "one page per slide, fully revealed"
+msgstr ""
+
+#: src/presenting.md:72
+msgid "`/print?steps=initial`"
+msgstr ""
+
+#: src/presenting.md:72
+msgid "one page per slide, nothing revealed"
+msgstr ""
+
+#: src/presenting.md:73
+msgid "`/print?steps=each`"
+msgstr ""
+
+#: src/presenting.md:73
+msgid "one page per step"
+msgstr ""
+
+#: src/presenting.md:74
+msgid "`/print?slide=architecture`"
+msgstr ""
+
+#: src/presenting.md:74
+msgid "one slide only"
+msgstr ""
+
+#: src/presenting.md:76
+msgid "The preflight panel lists what loaded and what each slide reported:"
+msgstr ""
+
+#: src/presenting.md:85
+msgid "Errors do not block you. Print anyway if you know better."
+msgstr ""
+
+#: src/presenting.md:87
+msgid ""
+"In the browser's print dialog, choose **Save as PDF**, set margins to none "
+"and enable background graphics. `@page` is already sized to the canvas, so "
+"one slide is one page. Set `[print] show_notes = true` to print speaker "
+"notes under each slide."
+msgstr ""
+
+#: src/checking.md:3
+msgid ""
+"Slides fail in ways that are invisible until someone is in the room: a line "
+"of text one pixel too tall for its box, an image that 404s, a console error "
+"that stops the animation on slide 14. `deck check` finds them with headless "
+"Chromium."
+msgstr ""
+
+#: src/checking.md:8
+msgid "# static + runtime + layout\n"
+msgstr ""
+
+#: src/checking.md:9
+msgid "# no browser, fast\n"
+msgstr ""
+
+#: src/checking.md:10
+msgid "# only what you edited\n"
+msgstr ""
+
+#: src/checking.md:15
+msgid "Exit code `1` means violations, so it drops into CI as-is."
+msgstr ""
+
+#: src/checking.md:17
+msgid "What it checks"
+msgstr ""
+
+#: src/checking.md:19
+msgid "**Static** — no browser needed:"
+msgstr ""
+
+#: src/checking.md:21
+msgid ""
+"`duplicate_slide_id` · `missing_title` · `missing_deck_slide` · "
+"`duplicate_html_id` · `invalid_component_name` · `invalid_local_url` · "
+"`missing_file` · `external_url`"
+msgstr ""
+
+#: src/checking.md:24
+msgid "**Runtime** — with the slide actually running:"
+msgstr ""
+
+#: src/checking.md:26
+msgid ""
+"`console_error` · `javascript_exception` · `unhandled_rejection` · "
+"`missing_asset` · `missing_font` · `undefined_component` · "
+"`external_network` · `ready_timeout` · `step_count_mismatch`"
+msgstr ""
+
+#: src/checking.md:30
+msgid "**Layout** — measured in the browser at the real canvas size:"
+msgstr ""
+
+#: src/checking.md:32
+msgid ""
+"`slide_overflow` · `clipped_text` · `outside_canvas` · `outside_safe_area` · "
+"`text_overlap` · `min_font_size` · `low_contrast` · `text_density`"
+msgstr ""
+
+#: src/checking.md:35
+msgid "Reading a failure"
+msgstr ""
+
+#: src/checking.md:45
+msgid ""
+"Each finding carries the slide, the source file, a CSS selector and the "
+"element's bounding box, so you can go straight to it. With `--screenshots` "
+"the report also points at a PNG per slide under `.deck/screenshots/`."
+msgstr ""
+
+#: src/checking.md:49
+msgid "What they usually mean:"
+msgstr ""
+
+#: src/checking.md:51
+msgid "Rule"
+msgstr ""
+
+#: src/checking.md:51
+msgid "Usually means"
+msgstr ""
+
+#: src/checking.md:53
+msgid "`slide_overflow`"
+msgstr ""
+
+#: src/checking.md:53
+msgid "too much content; cut text or split the slide"
+msgstr ""
+
+#: src/checking.md:54
+msgid "`clipped_text`"
+msgstr ""
+
+#: src/checking.md:54
+msgid "a fixed-height box is smaller than its text"
+msgstr ""
+
+#: src/checking.md:55
+msgid "`outside_canvas`"
+msgstr ""
+
+#: src/checking.md:55
+msgid "an element escapes the 1280×720 canvas entirely"
+msgstr ""
+
+#: src/checking.md:56
+msgid "`outside_safe_area`"
+msgstr ""
+
+#: src/checking.md:56
+msgid "content is closer to an edge than the safe area allows"
+msgstr ""
+
+#: src/checking.md:57
+msgid "`min_font_size`"
+msgstr ""
+
+#: src/checking.md:57
+msgid "below 18px; unreadable from the back of a room"
+msgstr ""
+
+#: src/checking.md:58
+msgid "`low_contrast`"
+msgstr ""
+
+#: src/checking.md:58
+msgid "below WCAG AA against the actual computed background"
+msgstr ""
+
+#: src/checking.md:59
+msgid "`text_overlap`"
+msgstr ""
+
+#: src/checking.md:59
+msgid "two text blocks sit on top of each other"
+msgstr ""
+
+#: src/checking.md:60
+msgid "`missing_file`"
+msgstr ""
+
+#: src/checking.md:60
+msgid "a referenced asset does not exist, or the path is relative"
+msgstr ""
+
+#: src/checking.md:61
+msgid "`undefined_component`"
+msgstr ""
+
+#: src/checking.md:61
+msgid "a tag whose Custom Element never registered"
+msgstr ""
+
+#: src/checking.md:63
+msgid "Severity and suppression"
+msgstr ""
+
+#: src/checking.md:65
+msgid "Every rule is `error`, `warning` or `off`:"
+msgstr ""
+
+#: src/checking.md:67
+msgid ""
+"```toml\n"
+"[check.rules]\n"
+"outside_safe_area = \"warning\"\n"
+"text_density = \"off\"\n"
+"```"
+msgstr ""
+
+#: src/checking.md:73
+msgid "Suppress a single element, naming the rule:"
+msgstr ""
+
+#: src/checking.md:76
+msgid "\"outside-safe-area\""
+msgstr ""
+
+#: src/checking.md:77
+msgid "\"*\""
+msgstr ""
+
+#: src/checking.md:80
+msgid "Or by selector, deck-wide:"
+msgstr ""
+
+#: src/checking.md:82
+msgid ""
+"```toml\n"
+"[check.ignore]\n"
+"selectors = [\".background-decoration\", \"[data-intentional-overflow]\"]\n"
+"slides = [\"appendix\"]\n"
+"```"
+msgstr ""
+
+#: src/checking.md:88
+msgid ""
+"Prefer fixing over suppressing. A decorative shape that intentionally bleeds "
+"off the canvas is a fair suppression; a heading that does not fit is not."
+msgstr ""
+
+#: src/checking.md:91
+msgid "Reproducibility"
+msgstr ""
+
+#: src/checking.md:93
+msgid ""
+"Results are stable run to run: the viewport, device scale factor, locale, "
+"timezone and reduced-motion preference are pinned, animation is disabled in "
+"check mode, and each run gets its own browser profile. Two runs on the same "
+"deck produce the same report, which is what makes it useful in CI."
+msgstr ""
+
+#: src/checking.md:98
+msgid "In CI"
+msgstr ""
+
+#: src/checking.md:101 src/deploying.md:59
+msgid "run"
+msgstr ""
+
+#: src/checking.md:101
+msgid "deck check --report sarif --out check.sarif"
+msgstr ""
+
+#: src/checking.md:102
+msgid "env"
+msgstr ""
+
+#: src/checking.md:103
+msgid "DECK_BROWSER"
+msgstr ""
+
+#: src/checking.md:103
+msgid "chrome"
+msgstr ""
+
+#: src/checking.md:104
+msgid "DECK_BROWSER_SANDBOX"
+msgstr ""
+
+#: src/checking.md:104
+msgid "\"false\"   # runners restrict user namespaces\n"
+msgstr ""
+
+#: src/checking.md:107
+msgid ""
+"SARIF uploads as code-scanning results, which annotates the pull request "
+"line by line. `--report json` is easier to post-process yourself."
+msgstr ""
+
+#: src/deploying.md:7
+msgid ""
+"`dist/` is a plain folder any static HTTP server can serve. Neither Node.js "
+"nor the deck CLI is needed to run it."
+msgstr ""
+
+#: src/deploying.md:22
+msgid ""
+"Hot reload and the presenter/audience websocket sync are gone in a static "
+"build, as you would expect — the shell notices the missing server and "
+"carries on."
+msgstr ""
+
+#: src/deploying.md:25
+msgid "Serving under a sub-path"
+msgstr ""
+
+#: src/deploying.md:31
+msgid ""
+"Every root-absolute URL is rewritten onto that base exactly once, including "
+"the runtime tags and the fingerprinted asset names."
+msgstr ""
+
+#: src/deploying.md:36
+msgid ""
+"Reference assets with root-absolute paths (`/assets/diagram.svg`). The build "
+"relocates each slide to `slides/<id>/index.html`, so relative paths cannot "
+"resolve. `deck check` catches these before you deploy."
+msgstr ""
+
+#: src/deploying.md:42
+msgid "Fingerprinting"
+msgstr ""
+
+#: src/deploying.md:44
+msgid ""
+"`[build] fingerprint_assets` (on by default) renames assets with a content "
+"hash — `logo.a1b2c3d4.png` — and rewrites the references. Set a far-future "
+"cache header and never think about cache invalidation again."
+msgstr ""
+
+#: src/deploying.md:48
+msgid "GitHub Pages"
+msgstr ""
+
+#: src/deploying.md:50
+msgid ""
+"This guide and the [introduction deck](/deck/slide/present) are both "
+"published this way, from one workflow. The book goes to the root and the "
+"deck to a sub-path, so they never fight over URLs:"
+msgstr ""
+
+#: src/deploying.md:55
+msgid "uses"
+msgstr ""
+
+#: src/deploying.md:55
+msgid "actions/configure-pages@v6"
+msgstr ""
+
+#: src/deploying.md:56
+msgid "id"
+msgstr ""
+
+#: src/deploying.md:56
+msgid "pages"
+msgstr ""
+
+#: src/deploying.md:58
+msgid "name"
+msgstr ""
+
+#: src/deploying.md:58
+msgid "Build the deck"
+msgstr ""
+
+#: src/deploying.md:71
+msgid ""
+"`configure-pages` reports the base path (`/deck` for a project site, empty "
+"for a user site), which is exactly what `--base-url` needs."
+msgstr ""
+
+#: src/deploying.md:74
+msgid ""
+"The full workflow is in "
+"[`.github/workflows/pages.yml`](https://github.com/azishio/deck/blob/main/.github/workflows/pages.yml)."
+msgstr ""
+
+#: src/deploying.md:77
+msgid "Anywhere else"
+msgstr ""
+
+#: src/deploying.md:79
+msgid ""
+"`dist/` has no server requirements beyond serving files and directory "
+"indexes, so Netlify, Cloudflare Pages, S3 with CloudFront, `nginx`, or "
+"`python3 -m http.server` all work unchanged. For a one-off share, zip it — "
+"opening `index.html` from the file system will not work, because ES modules "
+"and `fetch` need an origin, but any local server does."
+msgstr ""
+
+#: src/configuration.md:3
+msgid ""
+"`deck.toml` holds deck-wide settings and nothing else — no slide list, no "
+"slide content."
+msgstr ""
+
+#: src/configuration.md:5
+msgid "Merge order, lowest priority first:"
+msgstr ""
+
+#: src/configuration.md:11
+msgid ""
+"`deck.local.toml` is for machine-specific values and is not committed. A "
+"Chromium path is the usual reason to have one:"
+msgstr ""
+
+#: src/configuration.md:14
+msgid ""
+"```toml\n"
+"# deck.local.toml\n"
+"[browser]\n"
+"command = \"/usr/bin/chromium\"\n"
+"sandbox = false\n"
+"```"
+msgstr ""
+
+#: src/configuration.md:21
+msgid "The whole file"
+msgstr ""
+
+#: src/configuration.md:23
+msgid ""
+"```toml\n"
+"schema = 1\n"
+"\n"
+"[deck]\n"
+"title = \"Chelamon Architecture\"\n"
+"author = \"Junta Goto\"\n"
+"lang = \"en\"\n"
+"\n"
+"[canvas]\n"
+"width = 1280\n"
+"height = 720\n"
+"safe_area = [56, 64, 56, 64]     # top, right, bottom, left\n"
+"\n"
+"[theme]\n"
+"styles = [\"design/tokens.css\", \"design/theme.css\", "
+"\"design/overrides.css\"]\n"
+"\n"
+"[components]\n"
+"entry = \"components/index.js\"\n"
+"\n"
+"[tailwind]\n"
+"entry = \"design/tailwind.css\"\n"
+"preflight = true\n"
+"\n"
+"[server]\n"
+"host = \"127.0.0.1\"\n"
+"port = 0                         # 0 asks the OS for a free port\n"
+"open = \"presenter\"               # none | index | present | presenter | "
+"print\n"
+"hot_reload = true\n"
+"preload = 1                      # neighbouring slides kept warm\n"
+"\n"
+"[animation]\n"
+"engine = \"animejs\"               # animejs | none\n"
+"reduced_motion = \"instant\"       # instant | respect | ignore\n"
+"\n"
+"[browser]\n"
+"command = \"chromium\"\n"
+"headless = true\n"
+"sandbox = true\n"
+"\n"
+"[check]\n"
+"on_save = \"changed\"              # off | changed | all\n"
+"timeout_ms = 10_000\n"
+"min_font_px = 18\n"
+"overflow_tolerance_px = 1\n"
+"max_characters = 900\n"
+"external_network = \"deny\"        # deny | allow\n"
+"\n"
+"[check.rules]\n"
+"slide_overflow = \"error\"\n"
+"outside_safe_area = \"warning\"\n"
+"# … every rule takes error | warning | off\n"
+"\n"
+"[check.ignore]\n"
+"selectors = [\".background-decoration\"]\n"
+"slides = [\"appendix\"]\n"
+"\n"
+"[print]\n"
+"route = \"/print\"\n"
+"steps = \"final\"                  # final | initial | each\n"
+"preflight = true\n"
+"show_notes = false\n"
+"\n"
+"[build]\n"
+"output_dir = \"dist\"\n"
+"base_url = \"/\"                   # must start and end with '/'\n"
+"fingerprint_assets = true\n"
+"```"
+msgstr ""
+
+#: src/configuration.md:91
+msgid "Notes on individual settings"
+msgstr ""
+
+#: src/configuration.md:93
+msgid "canvas"
+msgstr ""
+
+#: src/configuration.md:95
+msgid ""
+"`width` and `height` are the logical size every slide is laid out on; the "
+"shell scales it. `safe_area` is the margin the `outside_safe_area` check "
+"enforces — content outside it may be clipped by an unfamiliar projector."
+msgstr ""
+
+#: src/configuration.md:99
+msgid "browser"
+msgstr ""
+
+#: src/configuration.md:101
+msgid ""
+"`command` is resolved the way a shell would: an absolute path is used as "
+"given, a bare name is looked up in `PATH`."
+msgstr ""
+
+#: src/configuration.md:104
+msgid ""
+"`sandbox = false` is the documented workaround for Ubuntu 23.10+, most "
+"container images and CI runners, where unprivileged user namespaces are "
+"restricted and Chromium aborts with \"No usable sandbox\". Everything deck "
+"opens is localhost."
+msgstr ""
+
+#: src/configuration.md:108
+msgid "tailwind"
+msgstr ""
+
+#: src/configuration.md:110
+msgid ""
+"`preflight` puts Tailwind's reset at the head of the entry, in `@layer base` "
+"— below the deck design system, so it normalises the document without "
+"overriding components. Turn it off if you would rather rely on deck's own "
+"reset alone."
+msgstr ""
+
+#: src/configuration.md:114 src/cli.md:76
+msgid "check"
+msgstr ""
+
+#: src/configuration.md:116
+msgid ""
+"`on_save` reserves the behaviour for editor integrations; `deck check "
+"--changed` is the command-line equivalent, comparing content hashes recorded "
+"under `.deck/cache/`."
+msgstr ""
+
+#: src/configuration.md:119
+msgid ""
+"`external_network = \"deny\"` reports any request that leaves the local "
+"origin. A deck should not need the network while you present."
+msgstr ""
+
+#: src/configuration.md:122
+msgid "Environment variables"
+msgstr ""
+
+#: src/configuration.md:124
+msgid "Useful for CI and one-off overrides:"
+msgstr ""
+
+#: src/configuration.md:126
+msgid ""
+"`DECK_TITLE` · `DECK_LANG` · `DECK_HOST` · `DECK_PORT` · `DECK_OPEN` · "
+"`DECK_PRELOAD` · `DECK_HOT_RELOAD` · `DECK_BROWSER` · `DECK_HEADLESS` · "
+"`DECK_BROWSER_SANDBOX` · `DECK_CHECK_TIMEOUT_MS` · `DECK_EXTERNAL_NETWORK` · "
+"`DECK_CANVAS_WIDTH` · `DECK_CANVAS_HEIGHT` · `DECK_BASE_URL` · "
+"`DECK_OUTPUT_DIR` · `DECK_FINGERPRINT_ASSETS` · `DECK_TAILWIND_PREFLIGHT` · "
+"`DECK_PRINT_STEPS`"
+msgstr ""
+
+#: src/configuration.md:132
+msgid "`DECK_LOG` sets the tracing filter, e.g. `DECK_LOG=deck_core=debug`."
+msgstr ""
+
+#: src/configuration.md:134
+msgid "deck.lock"
+msgstr ""
+
+#: src/configuration.md:136
+msgid ""
+"Records the versions the deck was authored against: the deck runtime, "
+"Anime.js, Tailwind CSS, the built-in components and theme. `deck build` "
+"refreshes it, `deck doctor` reports drift. Commit it."
+msgstr ""
+
+#: src/configuration.md:140
+msgid "Reserved URLs"
+msgstr ""
+
+#: src/configuration.md:142
+msgid "Served by the dev server and emitted by the static build:"
+msgstr ""
+
+#: src/cli.md:15
+msgid "Global options, valid on every subcommand:"
+msgstr ""
+
+#: src/cli.md:25
+msgid "Exit codes:"
+msgstr ""
+
+#: src/cli.md:29
+msgid "`0`"
+msgstr ""
+
+#: src/cli.md:29
+msgid "success"
+msgstr ""
+
+#: src/cli.md:30
+msgid "`1`"
+msgstr ""
+
+#: src/cli.md:30
+msgid "check violations"
+msgstr ""
+
+#: src/cli.md:31
+msgid "`2`"
+msgstr ""
+
+#: src/cli.md:31
+msgid "configuration or input error"
+msgstr ""
+
+#: src/cli.md:32
+msgid "`3`"
+msgstr ""
+
+#: src/cli.md:32
+msgid "browser launch or connection error"
+msgstr ""
+
+#: src/cli.md:33
+msgid "`4`"
+msgstr ""
+
+#: src/cli.md:33
+msgid "render or build error"
+msgstr ""
+
+#: src/cli.md:35
+msgid "init"
+msgstr ""
+
+#: src/cli.md:38
+msgid "# in the current directory\n"
+msgstr ""
+
+#: src/cli.md:40
+msgid "\"Q1 Review\""
+msgstr ""
+
+#: src/cli.md:43
+msgid ""
+"`--theme` is `default`, `minimal-light` or `dark`. Writes a working "
+"three-slide deck plus the `deck-slides` agent skill — see [Working with "
+"agents](./agents.md)."
+msgstr ""
+
+#: src/cli.md:46
+msgid "add slide"
+msgstr ""
+
+#: src/cli.md:53
+msgid ""
+"Without `--after`, the file is appended at the next multiple of ten. With "
+"it, the number lands in the gap: `20-architecture` → **`25-security`** → "
+"`30-demo`. If the integers run out, a letter suffix keeps the order "
+"(`20a-…`, which still sorts between 20 and 21)."
+msgstr ""
+
+#: src/cli.md:57
+msgid "dev"
+msgstr ""
+
+#: src/cli.md:61
+msgid "# none | index | present | presenter | print\n"
+msgstr ""
+
+#: src/cli.md:62
+msgid "# start on this slide\n"
+msgstr ""
+
+#: src/cli.md:67
+msgid "present"
+msgstr ""
+
+#: src/cli.md:74
+msgid "Same server as `deck dev`, opening `/present`."
+msgstr ""
+
+#: src/cli.md:80
+msgid "# no browser\n"
+msgstr ""
+
+#: src/cli.md:81
+msgid "# only what changed since last run\n"
+msgstr ""
+
+#: src/cli.md:83
+msgid "# a PNG per slide in .deck/screenshots/\n"
+msgstr ""
+
+#: src/cli.md:87
+msgid "build"
+msgstr ""
+
+#: src/cli.md:94
+msgid "open"
+msgstr ""
+
+#: src/cli.md:97
+msgid "# opens /print; printing stays with the browser\n"
+msgstr ""
+
+#: src/cli.md:102
+msgid "component"
+msgstr ""
+
+#: src/cli.md:105
+msgid "# built-ins and yours\n"
+msgstr ""
+
+#: src/cli.md:106
+msgid "# its built-in styles\n"
+msgstr ""
+
+#: src/cli.md:107
+msgid "# copy them into design/ejected/\n"
+msgstr ""
+
+#: src/cli.md:108
+msgid "# scaffold and register\n"
+msgstr ""
+
+#: src/cli.md:111
+msgid "doctor"
+msgstr ""
+
+#: src/cli.md:118
+msgid ""
+"Checks the Chromium executable and version, the CDP connection, font "
+"availability, writable directories, the port, and whether `deck.lock` "
+"matches the running binary. The first thing to run when something behaves "
+"oddly."
+msgstr ""
+
+#: src/agents.md:3
+msgid ""
+"deck's input format is plain HTML, which makes \"add a slide about X\" a "
+"request a coding agent can carry out and you can review as a diff. There is "
+"no intermediate representation to translate through, and no build output to "
+"inspect separately from the source."
+msgstr ""
+
+#: src/agents.md:8
+msgid ""
+"`deck init` writes a skill so the agent starts with the house rules instead "
+"of guessing them:"
+msgstr ""
+
+#: src/agents.md:17
+msgid ""
+"One file, two paths. `.agents/skills/` is the vendor-neutral location; the "
+"symlink means Claude Code picks it up without a second copy to keep in sync. "
+"On Windows, where symlinks need elevation, `deck init` falls back to a copy "
+"and says so."
+msgstr ""
+
+#: src/agents.md:21
+msgid "What the skill covers"
+msgstr ""
+
+#: src/agents.md:23
+msgid ""
+"The same ground as this guide, compressed to what an agent needs while "
+"editing:"
+msgstr ""
+
+#: src/agents.md:25
+msgid ""
+"the ground rules — one file is one complete HTML document, the canvas is "
+"fixed at 1280×720, content goes in child elements, assets use root-absolute "
+"paths, run `deck check` before finishing"
+msgstr ""
+
+#: src/agents.md:28
+msgid ""
+"file conventions: order from the path, identity from `deck-slide[id]`, title "
+"from `<title>`, and `deck add slide --after` rather than inventing a number"
+msgstr ""
+
+#: src/agents.md:30
+msgid "a slide skeleton to copy"
+msgstr ""
+
+#: src/agents.md:31
+msgid "the built-in components and their attributes"
+msgstr ""
+
+#: src/agents.md:32
+msgid "the absolute step model and the `deck:*` events"
+msgstr ""
+
+#: src/agents.md:33
+msgid ""
+"where styling belongs: token, then Tailwind utility, then slide-local "
+"`@layer slide`"
+msgstr ""
+
+#: src/agents.md:34
+msgid "how to add a component, and why never to animate from `connectedCallback`"
+msgstr ""
+
+#: src/agents.md:35
+msgid "what each check rule means when it fires"
+msgstr ""
+
+#: src/agents.md:37
+msgid "Why the checks matter more with an agent"
+msgstr ""
+
+#: src/agents.md:39
+msgid ""
+"An agent cannot see the slide. `deck check` is what closes that loop: "
+"overflow, clipped text, contrast, broken assets and console errors all come "
+"back as text, with a selector and a bounding box, which is exactly the "
+"feedback an agent can act on."
+msgstr ""
+
+#: src/agents.md:47
+msgid ""
+"So the useful instruction is not \"make it look nice\" but \"make `deck "
+"check` pass\", which is checkable by both of you."
+msgstr ""
+
+#: src/agents.md:50
+msgid "Editing the skill"
+msgstr ""
+
+#: src/agents.md:52
+msgid ""
+"It is a normal file in your project — edit it. Deck-specific conventions "
+"belong there: the fonts you use, the components you have added, the slide "
+"numbering scheme for a hundred-slide deck, whatever your team keeps getting "
+"wrong."
+msgstr ""
+
+#: src/agents.md:56
+msgid ""
+"The frontmatter decides when the skill is loaded, so keep the `description` "
+"concrete about the situations it applies to:"
+msgstr ""

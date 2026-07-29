@@ -7,6 +7,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  MDBOOK_VERSION: "0.5.4"
   DECK_BROWSER: chrome
   # Ubuntu runners restrict unprivileged user namespaces, so Chromium's
   # sandbox cannot start. Everything it opens here is localhost.
@@ -41,3 +42,14 @@ jobs:
 
       - name: Lint the introduction deck
         run: cargo run --release -p deck-cli -- --root site --no-color check
+
+      - name: Install mdBook
+        run: |
+          curl -sSfL "https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
+            | tar -xz -C /usr/local/bin
+          cargo install mdbook-i18n-helpers --locked
+
+      - name: Build the guide
+        run: |
+          mdbook build docs
+          MDBOOK_BOOK__LANGUAGE=ja mdbook build docs --dest-dir book/ja

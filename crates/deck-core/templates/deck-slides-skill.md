@@ -9,6 +9,9 @@ This project is a **deck**: a slide deck where one slide is one complete HTML
 document. There is no slide DSL and no build step. Edit HTML, CSS and
 JavaScript directly.
 
+The full guide is at <https://azishio.github.io/deck/>; this skill is the
+short version, covering what you need while editing.
+
 ## Ground rules
 
 1. **One file, one slide, one complete HTML document** — `<!doctype html>`
@@ -141,6 +144,38 @@ Also available: `deck:init`, `deck:ready`, `deck:enter`, `deck:leave`,
 `deck:prepare-print`. `window.deck` exposes `mode`, `slideId`, `step`,
 `stepCount`, `position` and `registerTimeline()`.
 
+## Editing the generated deck
+
+`deck init` produces a working three-slide deck, not an empty shell. Rewrite it
+rather than starting over — each file demonstrates something worth keeping.
+
+| File | What it shows |
+|---|---|
+| `slides/00-title.html` | `layout="title"`, `deck-heading` with `eyebrow`/`sub` |
+| `slides/10-overview.html` | three `data-step` reveals with Tailwind utilities |
+| `slides/20-architecture.html` | `deck-grid` + `deck-card` + `deck-callout`, and slide-local JS reacting to `deck:stepchange` |
+| `design/tokens.css` | sizes and fonts |
+| `design/theme.css` | colours and component tweaks |
+| `components/example-badge.js` | a Light DOM component; delete once you have your own |
+
+Deck-wide metadata is `deck.toml`:
+
+```toml
+[deck]
+title = "Chelamon Architecture"
+lang  = "en"     # "ja" for a Japanese deck
+```
+
+Change a **token** before overriding a component — one value restyles the whole
+deck:
+
+```css
+/* design/theme.css */
+:root {
+  --deck-color-accent: #4338ca;
+}
+```
+
 ## Styling
 
 Three layers, in increasing priority:
@@ -157,6 +192,47 @@ Three layers, in increasing priority:
 
 Prefer editing a token over overriding a component, and prefer a utility class
 over a one-off `<style>`.
+
+## Adding a component
+
+```bash
+deck component new acme-metric     # writes components/acme-metric.js and registers it
+deck component list                # built-ins plus every tag under components/
+deck component eject deck-card     # copy a built-in's styles into design/ejected/
+```
+
+Rules that matter:
+
+- **Use a project prefix.** `deck-*` is reserved for the built-ins, and a
+  Custom Element name must contain a hyphen.
+- **Prefer Light DOM.** Render into the normal document so plain CSS selectors,
+  Tailwind utilities, Anime.js and the layout checks keep working. Reach for
+  Shadow DOM only to hide genuinely internal structure.
+- **Keep generated markup idempotent.** `connectedCallback` can run more than
+  once, so check before creating children.
+- **Style it from `design/`, not from JavaScript.** Light DOM means
+  `acme-metric { … }` works, and the styles live with the rest of the look.
+- **Never animate from `connectedCallback`** — see below.
+
+```js
+class AcmeMetric extends HTMLElement {
+  connectedCallback() {
+    let label = this.querySelector(":scope > .acme-metric__label");
+    if (!label) {
+      label = document.createElement("span");
+      label.className = "acme-metric__label";
+      this.prepend(label);
+    }
+    label.textContent = this.getAttribute("label") ?? "";
+  }
+}
+
+customElements.define("acme-metric", AcmeMetric);
+```
+
+A tag whose element never registers renders as an empty inline box, which is
+easy to miss on a slide — `deck check` reports it as `invalid_component_name`
+or `undefined_component`.
 
 ## Anime.js
 

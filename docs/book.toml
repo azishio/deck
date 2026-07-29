@@ -1,0 +1,28 @@
+[book]
+title = "deck"
+description = "One slide is one complete HTML document. A local slide runtime in Rust."
+authors = ["azishio"]
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+# English is the source of truth; translations live in po/<lang>.po and are
+# applied at build time by mdbook-i18n-helpers.
+[preprocessor.gettext]
+after = ["links"]
+
+[output.html]
+additional-js = ["theme/language-switcher.js"]
+additional-css = ["theme/language-switcher.css"]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/azishio/deck"
+edit-url-template = "https://github.com/azishio/deck/edit/main/docs/{path}"
+site-url = "/deck/"
+
+[output.html.fold]
+enable = true
+level = 1
