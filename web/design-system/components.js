@@ -286,58 +286,26 @@ const NUMBER_IN_TEXT = /^(\D*?)(-?[\d,]+(?:\.\d+)?)(.*)$/s;
 /**
  * `countup` animates the first child from zero.
  *
- * The animation follows the step model rather than firing once per document: it
- * runs when the stat becomes visible and re-arms when it goes away again, so
- * stepping backwards and forwards replays it exactly like the standard reveal.
- * `data-deck-countup` reflects the state (`idle`, `running`, `done`).
+ * The animation is driven by `deck.onReveal`, so it runs when the stat becomes
+ * visible and replays if you step away and back — exactly like the standard
+ * reveal. `data-deck-countup` reflects the state (`idle`, `running`, `done`).
  */
 class DeckStat extends HTMLElement {
   /** Parsed once, so an interrupted run cannot mistake a partial value for the target. */
   #target = null;
-  /** Invalidates the frames of a superseded animation. */
-  #run = 0;
-  #visible = false;
-
-  #sync = () => {
-    // `data-deck-step-state` is written by the runtime before it dispatches
-    // `deck:stepchange`. A stat without `data-step` is simply always visible.
-    if (this.dataset.deckStepState === "pending") {
-      this.#rearm();
-    } else {
-      this.#start();
-    }
-  };
-
-  #rearm = () => {
-    this.#visible = false;
-    this.#run += 1;
-    this.dataset.deckCountup = "idle";
-  };
+  #stopWatching = null;
 
   connectedCallback() {
     if (!this.hasAttribute("countup")) {
       return;
     }
     this.dataset.deckCountup = "idle";
-    for (const type of ["deck:ready", "deck:enter", "deck:stepchange"]) {
-      document.addEventListener(type, this.#sync);
-    }
-    document.addEventListener("deck:leave", this.#rearm);
+    this.#stopWatching = window.deck?.onReveal?.(this, (reveal) => this.#countUp(reveal));
   }
 
   disconnectedCallback() {
-    for (const type of ["deck:ready", "deck:enter", "deck:stepchange"]) {
-      document.removeEventListener(type, this.#sync);
-    }
-    document.removeEventListener("deck:leave", this.#rearm);
-  }
-
-  #start() {
-    if (this.#visible) {
-      return;
-    }
-    this.#visible = true;
-    void this.#countUp();
+    this.#stopWatching?.();
+    this.#stopWatching = null;
   }
 
   /** Number, formatting and target element, read from the authored markup. */
@@ -366,15 +334,17 @@ class DeckStat extends HTMLElement {
     return this.#target;
   }
 
-  async #countUp() {
+  async #countUp({ signal }) {
     const target = this.#resolveTarget();
     if (!target) {
       return;
     }
+    signal.addEventListener("abort", () => {
+      this.dataset.deckCountup = "idle";
+    });
 
-    const run = (this.#run += 1);
     const render = (current) => {
-      if (run !== this.#run) {
+      if (signal.aborted) {
         return;
       }
       const fixed = current.toFixed(target.decimals);
@@ -388,7 +358,7 @@ class DeckStat extends HTMLElement {
     };
 
     const animate = await (window.deck?.animator?.() ?? Promise.resolve(null));
-    if (run !== this.#run) {
+    if (signal.aborted) {
       return;
     }
     if (!animate) {
@@ -406,7 +376,7 @@ class DeckStat extends HTMLElement {
       onUpdate: () => render(state.current),
       onComplete: () => {
         render(target.value);
-        if (run === this.#run) {
+        if (!signal.aborted) {
           this.dataset.deckCountup = "done";
         }
       },

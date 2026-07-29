@@ -256,11 +256,26 @@ window.deck.registerTimeline(timeline); // printing seeks it to its final frame
 | `deck:prepare-print` | Finalise state before printing; `waitUntil()` is available |
 | `deck:dispose` | The iframe is about to go away |
 
+Prefer `deck.onReveal()` over `deck:enter` for animation: `deck:enter` fires once per
+visit, while `onReveal` also accounts for `data-step` and gives you an abort signal.
+
 Animation is skipped entirely in `print` and `check` mode so both are deterministic.
 
-`deck-stat countup` follows the step model rather than firing once per document: it
-animates when the stat becomes visible and re-arms when it is hidden again, so stepping
-backwards and forwards replays it like any other reveal. `data-deck-countup` reflects the
+**Animate on reveal, not on construction.** An element is constructed when its iframe
+is created, which the shell may do while the slide is still an off-screen preload. Tie
+animations to visibility instead:
+
+```js
+window.deck.onReveal(element, ({ signal }) => {
+  const animation = animate(element, { opacity: [0, 1] });
+  signal.addEventListener("abort", () => animation.revert());
+});
+```
+
+`onReveal` fires when the slide is entered *and* the element's `data-step` threshold is
+reached, and its `AbortSignal` aborts as soon as either stops being true — so an
+animation can neither run off-screen nor outlive its reveal, and stepping backwards and
+forwards replays it. `deck-stat countup` is built on it; `data-deck-countup` reflects the
 state (`idle`, `running`, `done`) if you want to hook CSS onto it.
 
 ## Commands

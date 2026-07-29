@@ -151,6 +151,103 @@ async fn a_slide_renders_and_reaches_ready() {
     browser.close().await;
 }
 
+/// Writes a slide whose only content is a slow `countup` stat.
+fn write_stat_slide(project: &Project, file_name: &str, step: Option<u32>) {
+    let step_attribute = step.map(|step| format!(" data-step=\"{step}\"")).unwrap_or_default();
+    std::fs::write(
+        project.slides_dir().join(file_name),
+        format!(
+            r#"<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Stat</title>
+<link rel="stylesheet" href="/@deck/design.css">
+<script type="module" src="/@deck/boot.js"></script></head>
+<body>
+  <deck-slide id="stat">
+    <deck-stat countup countup-duration="4000"{step_attribute}>
+      <span>1280</span>
+      <span>logical canvas width</span>
+    </deck-stat>
+  </deck-slide>
+</body>
+</html>
+"#
+        ),
+    )
+    .expect("write slide");
+}
+
+/// The state of the stat inside a named frame, whether or not it is current.
+fn stat_state(slide_id: &str) -> String {
+    format!(
+        "(window.deckShell.frames.get('{slide_id}')?.iframe.contentDocument\
+         ?.querySelector('deck-stat')?.dataset.deckCountup ?? null)"
+    )
+}
+
+/// A slide preloaded by the iframe ring must not start its reveal animations
+/// before it is actually shown, and must replay them on every re-entry.
+///
+/// Animating from `connectedCallback` looked fine on a first visit and then
+/// re-triggered seemingly at random, because whether a slide had already been
+/// constructed depended on how far away the previous slide was.
+#[tokio::test]
+async fn a_preloaded_slide_animates_only_once_it_is_entered() {
+    let temp = TempProject::new("preload");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("Chromium が無いため skip します");
+        return;
+    }
+
+    // 05- sorts right after the title slide, so the ring preloads it.
+    write_stat_slide(&project, "05-stat.html", None);
+
+    let canvas = project.config().canvas;
+    let browser_config = project.config().browser.clone();
+    let server = Server::bind(project).await.expect("bind");
+    let origin = server.origin();
+    let _task = server.spawn();
+
+    let browser = BrowserSession::launch(&browser_config, canvas).await.expect("launch");
+    let page = browser.open(&format!("{origin}/present#/title/0")).await.expect("open");
+
+    let state = stat_state("stat");
+    assert!(
+        page.wait_for(&format!("{state} !== null"), Duration::from_secs(15))
+            .await
+            .expect("evaluate"),
+        "the neighbouring slide was never preloaded"
+    );
+
+    // Preloaded but off-screen: nothing may have started yet.
+    let idle: String = page.evaluate(&state).await.expect("evaluate");
+    assert_eq!(idle, "idle", "a preloaded slide must not animate before it is shown");
+
+    for attempt in 1..=2 {
+        page.evaluate::<serde_json::Value>("window.deckShell.goToSlideId('stat'), null").await.ok();
+        assert!(
+            page.wait_for(&format!("{state} === 'running'"), Duration::from_secs(5))
+                .await
+                .expect("evaluate"),
+            "entering the slide did not start the animation on attempt {attempt}"
+        );
+
+        page.evaluate::<serde_json::Value>("window.deckShell.goToSlideId('title'), null")
+            .await
+            .ok();
+        assert!(
+            page.wait_for(&format!("{state} === 'idle'"), Duration::from_secs(5))
+                .await
+                .expect("evaluate"),
+            "leaving the slide did not re-arm the animation on attempt {attempt}"
+        );
+    }
+
+    page.close().await;
+    browser.close().await;
+}
+
 /// A `countup` stat follows the step model: stepping away and back replays it,
 /// exactly like the standard reveal animation.
 #[tokio::test]
@@ -163,25 +260,7 @@ async fn countup_replays_when_the_stat_becomes_visible_again() {
     }
 
     // A deliberately slow count-up, so "running" is observable.
-    std::fs::write(
-        project.slides_dir().join("30-stat.html"),
-        r#"<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><title>Stat</title>
-<link rel="stylesheet" href="/@deck/design.css">
-<script type="module" src="/@deck/boot.js"></script></head>
-<body>
-  <deck-slide id="stat">
-    <deck-stat countup countup-duration="4000" data-step="1">
-      <span>1280</span>
-      <span>logical canvas width</span>
-    </deck-stat>
-  </deck-slide>
-</body>
-</html>
-"#,
-    )
-    .expect("write slide");
+    write_stat_slide(&project, "30-stat.html", Some(1));
 
     let canvas = project.config().canvas;
     let browser_config = project.config().browser.clone();

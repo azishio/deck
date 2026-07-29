@@ -166,9 +166,21 @@ over a one-off `<style>`.
 Animation is skipped in print and check mode, so both stay deterministic. Never
 rely on an animation to make content legible.
 
-`deck-stat countup` is step-aware: it animates when the stat becomes visible
-and re-arms when it is hidden again, so stepping back and forth replays it.
-Combine it with `data-step` to control when it fires.
+**Never start an animation from `connectedCallback`.** An element is
+constructed when its iframe is created, and the shell preloads neighbouring
+slides — so the animation would run off-screen and then look like it fires at
+random. Tie it to visibility instead:
+
+```js
+window.deck.onReveal(element, ({ signal }) => {
+  const animation = animate(element, { opacity: [0, 1] });
+  signal.addEventListener("abort", () => animation.revert());
+});
+```
+
+`onReveal` fires when the slide is entered *and* the element's `data-step`
+threshold is reached, and the signal aborts when either stops being true, so
+stepping back and forth replays it. `deck-stat countup` works this way.
 
 ## Before finishing
 

@@ -24,7 +24,10 @@ const state = {
   stepCount: 0,
   reducedMotion: false,
   ready: false,
-  visible: true,
+  // A preloaded frame is off-screen until the shell sends `enter`, so anything
+  // keyed off visibility must stay dormant. Printing and checking want the
+  // final state immediately, and a slide opened on its own is always visible.
+  visible: !embedded || params.get("deck-mode") === "print" || params.get("deck-mode") === "check",
   position: { index: 0, number: 0, total: 0 },
 };
 
@@ -225,6 +228,8 @@ function applyStep(step, { instant = false, direction = "forward", silent = fals
     void animateAppearing(appearing);
   }
 
+  syncReveals();
+
   if (!silent) {
     dispatch("deck:stepchange", {
       slideId: state.slideId,
@@ -236,6 +241,53 @@ function applyStep(step, { instant = false, direction = "forward", silent = fals
     post("step-changed", { step: to, from, stepCount: state.stepCount });
   }
   return to;
+}
+
+/* -------------------------------------------------------------------------- */
+/* reveal notifications                                                        */
+/* -------------------------------------------------------------------------- */
+
+/** @type {Set<{element: Element, callback: Function, visible: boolean, controller: AbortController|null}>} */
+const revealWatchers = new Set();
+
+/**
+ * True when the element is actually on screen: the slide is the current one and
+ * the element's `data-step` threshold has been reached.
+ */
+function isRevealed(element) {
+  return state.visible && element.dataset.deckStepState !== "pending";
+}
+
+/**
+ * Fire the watchers whose visibility changed.
+ *
+ * Called after every step change and on enter/leave, so a callback runs exactly
+ * once per hidden -> visible transition and its signal aborts on the way back.
+ */
+function syncReveals() {
+  for (const watcher of revealWatchers) {
+    const visible = isRevealed(watcher.element);
+    if (visible === watcher.visible) {
+      continue;
+    }
+    watcher.visible = visible;
+
+    if (!visible) {
+      watcher.controller?.abort();
+      watcher.controller = null;
+      continue;
+    }
+    watcher.controller = new AbortController();
+    try {
+      watcher.callback({
+        signal: watcher.controller.signal,
+        step: state.step,
+        slideId: state.slideId,
+      });
+    } catch (error) {
+      addDiagnostic("javascript-exception", "error", `deck.onReveal のコールバックが失敗しました: ${error}`);
+    }
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -398,6 +450,7 @@ async function becomeReady() {
 
   const layout = quickLayoutCheck();
   state.ready = true;
+  syncReveals();
 
   dispatch("deck:ready", { slideId: state.slideId, step: state.step, stepCount: state.stepCount });
   post("ready", {
@@ -503,10 +556,12 @@ function handleMessage(message) {
       break;
     case "enter":
       state.visible = true;
+      syncReveals();
       dispatch("deck:enter", { slideId: state.slideId, step: state.step, ...payload });
       break;
     case "leave":
       state.visible = false;
+      syncReveals();
       dispatch("deck:leave", { slideId: state.slideId, step: state.step, ...payload });
       break;
     case "pause":
@@ -671,6 +726,29 @@ const deck = {
     declaredStepCount = Number(count) || 0;
     state.stepCount = computeStepCount();
     post("step-count", { stepCount: state.stepCount });
+  },
+
+  /**
+   * Run `callback` each time `element` becomes visible — that is, when the
+   * slide is entered and the element's `data-step` threshold is reached.
+   *
+   * The callback receives an `AbortSignal` that aborts as soon as the element
+   * is hidden again, so an animation can neither outlive its reveal nor be
+   * replayed twice. Returns a function that stops watching.
+   *
+   *     const stop = deck.onReveal(element, ({ signal }) => {
+   *       animate(element, { opacity: [0, 1] });
+   *       signal.addEventListener("abort", () => reset());
+   *     });
+   */
+  onReveal(element, callback) {
+    const watcher = { element, callback, visible: false, controller: null };
+    revealWatchers.add(watcher);
+    syncReveals();
+    return () => {
+      watcher.controller?.abort();
+      revealWatchers.delete(watcher);
+    };
   },
 
   /** Delay `deck:ready` until the given promise settles. */
