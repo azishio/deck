@@ -115,6 +115,7 @@ reduced_motion = "instant"
 [browser]
 command = "chromium"
 headless = true
+sandbox = true
 
 [check]
 on_save = "changed"

@@ -8,6 +8,9 @@ on:
 env:
   CARGO_TERM_COLOR: always
   DECK_BROWSER: chrome
+  # Ubuntu runners restrict unprivileged user namespaces, so Chromium's
+  # sandbox cannot start. Everything it opens here is localhost.
+  DECK_BROWSER_SANDBOX: "false"
 
 jobs:
   check:

@@ -243,6 +243,7 @@ reduced_motion = "instant"
 [browser]
 command = "chromium"
 headless = true
+sandbox = true      # set false in containers and CI, where namespaces are restricted
 
 [check]
 on_save = "changed"
@@ -260,8 +261,8 @@ base_url = "/"
 fingerprint_assets = true
 ```
 
-Environment overrides include `DECK_HOST`, `DECK_PORT`, `DECK_BROWSER`, `DECK_BASE_URL`,
-`DECK_HEADLESS` and `DECK_CHECK_TIMEOUT_MS`. Put machine-specific values such as a
+Environment overrides include `DECK_HOST`, `DECK_PORT`, `DECK_BROWSER`,
+`DECK_BROWSER_SANDBOX`, `DECK_BASE_URL`, `DECK_HEADLESS` and `DECK_CHECK_TIMEOUT_MS`. Put machine-specific values such as a
 Chromium path in `deck.local.toml`, which is not committed:
 
 ```toml

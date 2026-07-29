@@ -103,16 +103,22 @@ impl BrowserSession {
             )));
         }
         builder = if config.headless { builder.new_headless_mode() } else { builder.with_head() };
+        if !config.sandbox {
+            builder = builder.no_sandbox();
+        }
 
         let launch = builder
             .build()
             .map_err(|error| Error::browser(format!("Chromium の設定に失敗しました: {error}")))?;
 
         let (browser, mut events) = Browser::launch(launch).await.map_err(|error| {
-            Error::browser(format!(
-                "Chromium を起動できません ({}): {error}\n`deck doctor` で実行ファイルを確認してください",
-                config.command
-            ))
+            let message = error.to_string();
+            let hint = if config.sandbox && message.contains("sandbox") {
+                "\nこの環境ではChromiumのsandboxを利用できません。deck.local.toml に [browser] sandbox = false を設定してください"
+            } else {
+                "\n`deck doctor` で実行ファイルを確認してください"
+            };
+            Error::browser(format!("Chromium を起動できません ({}): {message}{hint}", config.command))
         })?;
 
         let handler = tokio::spawn(async move { while events.next().await.is_some() {} });

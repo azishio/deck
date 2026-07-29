@@ -302,11 +302,16 @@ pub struct BrowserConfig {
     pub command: String,
     #[serde(default = "default_true")]
     pub headless: bool,
+    /// Chromium's setuid/namespace sandbox. Container images and CI runners
+    /// often restrict unprivileged user namespaces, which makes Chromium abort
+    /// on start; turning this off is the documented workaround.
+    #[serde(default = "default_true")]
+    pub sandbox: bool,
 }
 
 impl Default for BrowserConfig {
     fn default() -> Self {
-        Self { command: default_browser_command(), headless: true }
+        Self { command: default_browser_command(), headless: true, sandbox: true }
     }
 }
 
@@ -694,6 +699,7 @@ fn apply_env(value: &mut toml::Value) {
         ("DECK_HEADLESS", &["browser", "headless"]),
         ("DECK_FINGERPRINT_ASSETS", &["build", "fingerprint_assets"]),
         ("DECK_TAILWIND_PREFLIGHT", &["tailwind", "preflight"]),
+        ("DECK_BROWSER_SANDBOX", &["browser", "sandbox"]),
     ];
 
     for (variable, path) in STRING_VARS {
