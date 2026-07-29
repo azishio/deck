@@ -132,7 +132,8 @@ rules, so an agent asked to "add a slide about X" produces something that passes
 | `deck-heading` | heading with optional `eyebrow` and `sub` attributes |
 | `deck-eyebrow` `deck-title` `deck-subtitle` | the same three parts as child elements, for when content belongs in the markup rather than in attributes |
 | `deck-grid` `deck-stack` | layout: columns and a spaced column/row |
-| `deck-card` `deck-callout` `deck-stat` `deck-figure` | content blocks |
+| `deck-card` `deck-callout` `deck-figure` | content blocks |
+| `deck-stat` | big number then caption; `countup` animates it from zero |
 | `deck-code` | syntax-highlighted code (the one Shadow DOM component) |
 | `deck-footer` | bottom band, pushed down with `margin-block-start: auto` so it never overlaps |
 | `deck-slide-number` | this slide's position, e.g. `4 / 18` |
@@ -256,6 +257,11 @@ window.deck.registerTimeline(timeline); // printing seeks it to its final frame
 | `deck:dispose` | The iframe is about to go away |
 
 Animation is skipped entirely in `print` and `check` mode so both are deterministic.
+
+`deck-stat countup` follows the step model rather than firing once per document: it
+animates when the stat becomes visible and re-arms when it is hidden again, so stepping
+backwards and forwards replays it like any other reveal. `data-deck-countup` reflects the
+state (`idle`, `running`, `done`) if you want to hook CSS onto it.
 
 ## Commands
 

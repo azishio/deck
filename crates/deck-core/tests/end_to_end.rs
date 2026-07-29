@@ -151,6 +151,89 @@ async fn a_slide_renders_and_reaches_ready() {
     browser.close().await;
 }
 
+/// A `countup` stat follows the step model: stepping away and back replays it,
+/// exactly like the standard reveal animation.
+#[tokio::test]
+async fn countup_replays_when_the_stat_becomes_visible_again() {
+    let temp = TempProject::new("countup");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("Chromium が無いため skip します");
+        return;
+    }
+
+    // A deliberately slow count-up, so "running" is observable.
+    std::fs::write(
+        project.slides_dir().join("30-stat.html"),
+        r#"<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Stat</title>
+<link rel="stylesheet" href="/@deck/design.css">
+<script type="module" src="/@deck/boot.js"></script></head>
+<body>
+  <deck-slide id="stat">
+    <deck-stat countup countup-duration="4000" data-step="1">
+      <span>1280</span>
+      <span>logical canvas width</span>
+    </deck-stat>
+  </deck-slide>
+</body>
+</html>
+"#,
+    )
+    .expect("write slide");
+
+    let canvas = project.config().canvas;
+    let browser_config = project.config().browser.clone();
+    let server = Server::bind(project).await.expect("bind");
+    let origin = server.origin();
+    let _task = server.spawn();
+
+    let browser = BrowserSession::launch(&browser_config, canvas).await.expect("launch");
+    let page = browser.open(&format!("{origin}/present#/stat/0")).await.expect("open");
+
+    assert!(
+        page.wait_for("window.deckShell?.slide?.id === 'stat'", Duration::from_secs(15))
+            .await
+            .expect("evaluate"),
+        "never reached the stat slide"
+    );
+
+    // Parenthesised: `??` binds looser than `===`, so the comparison has to be
+    // applied to the whole lookup.
+    const STATE: &str = "(window.deckShell.currentFrame()?.iframe.contentDocument\
+         ?.querySelector('deck-stat')?.dataset.deckCountup ?? null)";
+
+    // Hidden at step 0, so the animation has not started.
+    assert!(
+        page.wait_for(&format!("{STATE} === 'idle'"), Duration::from_secs(15))
+            .await
+            .expect("evaluate"),
+        "count-up must wait until the stat is revealed"
+    );
+
+    for attempt in 1..=2 {
+        page.evaluate::<serde_json::Value>("window.deckShell.setStep(1), null").await.ok();
+        assert!(
+            page.wait_for(&format!("{STATE} === 'running'"), Duration::from_secs(5))
+                .await
+                .expect("evaluate"),
+            "count-up did not start on attempt {attempt}"
+        );
+
+        page.evaluate::<serde_json::Value>("window.deckShell.setStep(0), null").await.ok();
+        assert!(
+            page.wait_for(&format!("{STATE} === 'idle'"), Duration::from_secs(5))
+                .await
+                .expect("evaluate"),
+            "count-up did not re-arm on attempt {attempt}"
+        );
+    }
+
+    page.close().await;
+    browser.close().await;
+}
+
 #[tokio::test]
 async fn presentation_navigates_steps_and_survives_hot_reload() {
     let temp = TempProject::new("hot");

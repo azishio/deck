@@ -99,7 +99,7 @@ the free space; `deck-footer` then sits at the bottom on its own.
 | `deck-stack` | vertical (or `direction="row"`) with `gap` |
 | `deck-card` | `variant="accent\|outline\|plain"` |
 | `deck-callout` | `tone="info\|warning\|success\|danger"`, `label="Note"` |
-| `deck-stat` | big number then caption; `countup` animates it |
+| `deck-stat` | big number then caption; `countup` animates it from zero |
 | `deck-figure` | image with `caption` |
 | `deck-code` | `language="rust\|js\|python\|go\|bash\|toml\|json"`, `highlight-lines="3-5"` |
 | `deck-footer` `deck-slide-number` `deck-progress` | running footer and position |
@@ -165,6 +165,10 @@ over a one-off `<style>`.
 
 Animation is skipped in print and check mode, so both stay deterministic. Never
 rely on an animation to make content legible.
+
+`deck-stat countup` is step-aware: it animates when the stat becomes visible
+and re-arms when it is hidden again, so stepping back and forth replays it.
+Combine it with `data-step` to control when it fires.
 
 ## Before finishing
 

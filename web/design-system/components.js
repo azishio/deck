@@ -283,66 +283,133 @@ define("deck-figure", DeckFigure);
 
 const NUMBER_IN_TEXT = /^(\D*?)(-?[\d,]+(?:\.\d+)?)(.*)$/s;
 
+/**
+ * `countup` animates the first child from zero.
+ *
+ * The animation follows the step model rather than firing once per document: it
+ * runs when the stat becomes visible and re-arms when it goes away again, so
+ * stepping backwards and forwards replays it exactly like the standard reveal.
+ * `data-deck-countup` reflects the state (`idle`, `running`, `done`).
+ */
 class DeckStat extends HTMLElement {
-  #countUpDone = false;
-  // A field, not a method: private methods cannot be re-bound, and the same
-  // reference has to be passed to removeEventListener.
-  #onEnter = () => this.#countUp();
+  /** Parsed once, so an interrupted run cannot mistake a partial value for the target. */
+  #target = null;
+  /** Invalidates the frames of a superseded animation. */
+  #run = 0;
+  #visible = false;
+
+  #sync = () => {
+    // `data-deck-step-state` is written by the runtime before it dispatches
+    // `deck:stepchange`. A stat without `data-step` is simply always visible.
+    if (this.dataset.deckStepState === "pending") {
+      this.#rearm();
+    } else {
+      this.#start();
+    }
+  };
+
+  #rearm = () => {
+    this.#visible = false;
+    this.#run += 1;
+    this.dataset.deckCountup = "idle";
+  };
 
   connectedCallback() {
     if (!this.hasAttribute("countup")) {
       return;
     }
-    document.addEventListener("deck:enter", this.#onEnter);
-    document.addEventListener("deck:ready", this.#onEnter);
+    this.dataset.deckCountup = "idle";
+    for (const type of ["deck:ready", "deck:enter", "deck:stepchange"]) {
+      document.addEventListener(type, this.#sync);
+    }
+    document.addEventListener("deck:leave", this.#rearm);
   }
 
   disconnectedCallback() {
-    document.removeEventListener("deck:enter", this.#onEnter);
-    document.removeEventListener("deck:ready", this.#onEnter);
+    for (const type of ["deck:ready", "deck:enter", "deck:stepchange"]) {
+      document.removeEventListener(type, this.#sync);
+    }
+    document.removeEventListener("deck:leave", this.#rearm);
   }
 
-  async #countUp() {
-    if (this.#countUpDone) {
+  #start() {
+    if (this.#visible) {
       return;
     }
-    this.#countUpDone = true;
+    this.#visible = true;
+    void this.#countUp();
+  }
 
-    const target = this.firstElementChild;
-    const parsed = target && NUMBER_IN_TEXT.exec(target.textContent ?? "");
+  /** Number, formatting and target element, read from the authored markup. */
+  #resolveTarget() {
+    if (this.#target) {
+      return this.#target;
+    }
+    const element = this.firstElementChild;
+    const parsed = element && NUMBER_IN_TEXT.exec(element.textContent ?? "");
     if (!parsed) {
-      return;
+      return null;
     }
-
     const [, prefix, rawNumber, suffix] = parsed;
     const value = Number.parseFloat(rawNumber.replace(/,/g, ""));
     if (!Number.isFinite(value)) {
+      return null;
+    }
+    this.#target = {
+      element,
+      prefix,
+      suffix,
+      value,
+      decimals: (rawNumber.split(".")[1] ?? "").length,
+      grouped: rawNumber.includes(","),
+    };
+    return this.#target;
+  }
+
+  async #countUp() {
+    const target = this.#resolveTarget();
+    if (!target) {
       return;
     }
 
-    const decimals = (rawNumber.split(".")[1] ?? "").length;
-    const grouped = rawNumber.includes(",");
+    const run = (this.#run += 1);
     const render = (current) => {
-      const fixed = current.toFixed(decimals);
-      target.textContent = `${prefix}${grouped ? Number(fixed).toLocaleString(undefined, {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }) : fixed}${suffix}`;
+      if (run !== this.#run) {
+        return;
+      }
+      const fixed = current.toFixed(target.decimals);
+      const formatted = target.grouped
+        ? Number(fixed).toLocaleString(undefined, {
+            minimumFractionDigits: target.decimals,
+            maximumFractionDigits: target.decimals,
+          })
+        : fixed;
+      target.element.textContent = `${target.prefix}${formatted}${target.suffix}`;
     };
 
     const animate = await (window.deck?.animator?.() ?? Promise.resolve(null));
+    if (run !== this.#run) {
+      return;
+    }
     if (!animate) {
-      render(value);
+      render(target.value);
+      this.dataset.deckCountup = "done";
       return;
     }
 
+    this.dataset.deckCountup = "running";
     const state = { current: 0 };
     animate(state, {
-      current: value,
+      current: target.value,
       duration: Number(this.getAttribute("countup-duration") ?? 900),
       ease: "outExpo",
       onUpdate: () => render(state.current),
-      onComplete: () => render(value),
+      onComplete: () => {
+        render(target.value);
+        if (run === this.#run) {
+          this.dataset.deckCountup = "done";
+        }
+      },
     });
   }
 }
