@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The file system is the outline</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="discovery">
+    <deck-heading eyebrow="Discovery">
+      The file system is the outline
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="grow items-start">
+      <deck-code language="bash" class="text-small">
+slides/
+├── 00-title.html
+├── 10-background.html
+├── 20-architecture/
+│   ├── 00-overview.html
+│   └── 10-ingestion.html
+└── 90-summary.html
+      </deck-code>
+
+      <deck-stack gap="20">
+        <p data-step="1">
+          <strong>Order</strong> comes from the path, sorted lexicographically —
+          no natural sort, no surprises.
+        </p>
+        <p data-step="2">
+          <strong>Identity</strong> comes from <code>deck-slide[id]</code>, so URLs and
+          presenter sync survive renumbering.
+        </p>
+        <p data-step="3">
+          <strong>Title</strong> comes from <code>&lt;title&gt;</code>.
+        </p>
+        <p data-step="4" class="text-muted text-small">
+          There is no slide list in deck.toml to keep in sync. Adding a file adds a slide.
+        </p>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      Numbering with gaps of ten leaves room to insert; `deck add slide --after`
+      picks the midpoint automatically.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

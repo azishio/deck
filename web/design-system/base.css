@@ -1,0 +1,99 @@
+@layer deck.base {
+  :root {
+    --deck-canvas-width: 1280px;
+    --deck-canvas-height: 720px;
+    --deck-safe-top: 56px;
+    --deck-safe-right: 64px;
+    --deck-safe-bottom: 56px;
+    --deck-safe-left: 64px;
+  }
+
+  html {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  html,
+  body {
+    width: var(--deck-canvas-width);
+    height: var(--deck-canvas-height);
+    overflow: hidden;
+    background: var(--deck-color-background);
+    color: var(--deck-color-text);
+    font-family: var(--deck-font-sans);
+    font-size: var(--deck-font-size-body);
+    line-height: var(--deck-line-height-body);
+  }
+
+  deck-slide {
+    display: flex;
+    flex-direction: column;
+    gap: var(--deck-space-4);
+    width: var(--deck-canvas-width);
+    height: var(--deck-canvas-height);
+    padding: var(--deck-slide-padding-y) var(--deck-slide-padding-x);
+    overflow: hidden;
+    position: relative;
+  }
+
+  deck-slide[layout="center"] {
+    justify-content: center;
+  }
+
+  deck-slide[layout="title"] {
+    justify-content: center;
+    gap: var(--deck-space-3);
+  }
+
+  deck-slide[layout="bleed"] {
+    padding: 0;
+  }
+
+  /* Step reveal ------------------------------------------------------- */
+
+  [data-step][data-deck-step-state="pending"] {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  [data-step][data-deck-step-state="active"] {
+    visibility: visible;
+  }
+
+  :root[data-deck-reduced-motion="true"] [data-step] {
+    transition: none !important;
+  }
+
+  /* Typography defaults ----------------------------------------------- */
+
+  strong {
+    font-weight: 700;
+  }
+
+  code,
+  kbd,
+  samp {
+    font-family: var(--deck-font-mono);
+    font-size: 0.92em;
+  }
+
+  :not(pre) > code {
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: var(--deck-color-surface-strong);
+  }
+
+  a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  ul,
+  ol {
+    padding-inline-start: 1.3em;
+  }
+
+  li + li {
+    margin-block-start: var(--deck-space-1);
+  }
+}

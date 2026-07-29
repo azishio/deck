@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Steps are absolute</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="steps">
+    <deck-heading eyebrow="Steps &amp; animation">
+      Screen state = f(slide, step)
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="grow items-center">
+      <deck-stack gap="20">
+        <p data-step="1">
+          Reveals are declarative: put <code>data-step="2"</code> on an element and the
+          runtime handles the rest.
+        </p>
+        <p data-step="2">
+          Navigation sends an <strong>absolute</strong> step, never a relative "next", so a
+          reload, a deep link or a hot swap all land in the same state.
+        </p>
+        <p data-step="3">
+          Anime.js ships with the runtime. Import it in a slide and drive whatever you
+          like; register a timeline and printing seeks it to its final frame.
+        </p>
+      </deck-stack>
+
+      <deck-stack gap="16" class="justify-center">
+        <deck-stat countup data-step="1">
+          <span>1280</span>
+          <span>logical canvas width, always</span>
+        </deck-stat>
+        <deck-stat countup data-step="2">
+          <span>720</span>
+          <span>logical canvas height, always</span>
+        </deck-stat>
+        <p data-step="3" class="text-muted text-small">
+          The shell scales the iframe. Slides never do viewport-dependent layout.
+        </p>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      The counters on the right are a project component using window.deck.animator(),
+      which resolves to Anime.js unless reduced motion is requested.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

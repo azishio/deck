@@ -1,0 +1,13 @@
+/* Tailwind entry. Compiled inside every slide by the vendored browser build.
+   deck prepends the reset (tailwindcss/preflight.css), then the theme and the
+   utilities, and maps the deck tokens onto the Tailwind theme. Only project
+   additions go here: extra @theme values, @utility definitions and @apply. */
+
+@theme {
+  /* --color-brand: oklch(0.6 0.18 25); */
+}
+
+/* @utility slide-lead {
+  font-size: var(--deck-font-size-body);
+  color: var(--deck-color-muted);
+} */

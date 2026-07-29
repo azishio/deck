@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presenter View</title>
+  <link rel="stylesheet" href="__DECK_BASE__@deck/shell.css">
+  <script type="module" src="__DECK_BASE__@deck/presenter.js"></script>
+</head>
+<body class="deck-presenter">
+  <div class="deck-frame-layer" data-deck-layer></div>
+
+  <header class="presenter-bar">
+    <div class="presenter-clock">
+      <span class="presenter-timer" data-deck-timer>00:00:00</span>
+      <button type="button" data-deck-timer-toggle>開始</button>
+      <button type="button" data-deck-timer-reset>リセット</button>
+    </div>
+
+    <div class="presenter-position">
+      <strong data-deck-position>–</strong>
+      <span data-deck-slide-title></span>
+    </div>
+
+    <div class="presenter-actions">
+      <span class="presenter-now" data-deck-now></span>
+      <span class="presenter-connection" data-deck-connection></span>
+      <button type="button" data-deck-blackout>Blackout</button>
+      <button type="button" data-deck-pause>Pause</button>
+      <a data-deck-print-link target="_blank" rel="noopener">印刷</a>
+      <a data-deck-present-link target="_blank" rel="noopener">Audience</a>
+    </div>
+  </header>
+
+  <main class="presenter-grid">
+    <section class="presenter-panel presenter-panel--current">
+      <h2 class="presenter-panel__label">現在</h2>
+      <div class="presenter-preview" data-deck-region="current"></div>
+    </section>
+
+    <section class="presenter-panel presenter-panel--next">
+      <h2 class="presenter-panel__label">次</h2>
+      <div class="presenter-preview presenter-preview--small" data-deck-region="next"></div>
+      <p class="presenter-next-title" data-deck-next-title></p>
+    </section>
+
+    <section class="presenter-panel presenter-panel--notes">
+      <h2 class="presenter-panel__label">Speaker notes</h2>
+      <div class="presenter-notes" data-deck-notes></div>
+    </section>
+
+    <section class="presenter-panel presenter-panel--diagnostics">
+      <h2 class="presenter-panel__label">診断</h2>
+      <ul class="presenter-diagnostics" data-deck-diagnostics></ul>
+    </section>
+  </main>
+
+  <footer class="presenter-help">
+    ← → step / ↑ ↓ slide / b blackout / f fullscreen / Home End
+  </footer>
+</body>
+</html>

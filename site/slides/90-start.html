@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get started</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="start" layout="center">
+    <deck-heading eyebrow="Get started" sub="Rust toolchain and a Chromium-based browser. That is the whole list.">
+      Three commands
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="items-center">
+      <deck-code language="bash">
+cargo install --path crates/deck-cli
+
+deck init my-deck
+cd my-deck
+deck dev
+      </deck-code>
+
+      <deck-stack gap="16">
+        <p data-step="1">
+          <code>deck dev</code> serves the deck, opens the presenter view and watches
+          your files.
+        </p>
+        <p data-step="2">
+          <code>deck check</code> before you present. <code>deck build</code> when you
+          want to hand it out.
+        </p>
+        <p data-step="3" class="font-mono text-small">
+          github.com/azishio/deck
+        </p>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      Thanks for reading. The source of this deck lives in site/ in the repository.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

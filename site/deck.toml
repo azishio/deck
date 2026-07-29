@@ -1,0 +1,70 @@
+schema = 1
+
+[deck]
+title = "deck"
+author = "azishio"
+lang = "en"
+
+[canvas]
+width = 1280
+height = 720
+safe_area = [56, 64, 56, 64]
+
+[theme]
+styles = [
+  "design/tokens.css",
+  "design/theme.css",
+  "design/overrides.css",
+]
+
+[components]
+entry = "components/index.js"
+
+[tailwind]
+entry = "design/tailwind.css"
+preflight = true
+
+[server]
+host = "127.0.0.1"
+port = 0
+open = "presenter"
+hot_reload = true
+preload = 1
+
+[animation]
+engine = "animejs"
+reduced_motion = "instant"
+
+[browser]
+command = "chromium"
+headless = true
+
+[check]
+on_save = "changed"
+timeout_ms = 10000
+min_font_px = 18
+overflow_tolerance_px = 1
+external_network = "deny"
+
+[check.rules]
+console_error = "error"
+unhandled_rejection = "error"
+missing_asset = "error"
+missing_font = "error"
+undefined_component = "error"
+slide_overflow = "error"
+clipped_text = "error"
+outside_canvas = "error"
+outside_safe_area = "warning"
+text_overlap = "warning"
+
+[print]
+route = "/print"
+steps = "final"
+preflight = true
+show_notes = false
+
+[build]
+output_dir = "dist"
+base_url = "/"
+fingerprint_assets = true

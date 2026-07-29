@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A design system you can override</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="design-system">
+    <deck-heading eyebrow="Design system" sub="Web Components in Light DOM, plus Tailwind CSS compiled inside every slide.">
+      Batteries included, none of them sealed
+    </deck-heading>
+
+    <deck-grid columns="3" gap="24" class="grow items-stretch content-center">
+      <deck-card data-step="1">
+        <h2 class="text-body font-bold">Light DOM</h2>
+        <p>
+          Components render into the normal document, so ordinary CSS selectors,
+          Anime.js and DevTools all keep working.
+        </p>
+      </deck-card>
+
+      <deck-card data-step="2">
+        <h2 class="text-body font-bold">Design tokens</h2>
+        <p>
+          CSS Custom Properties drive every built-in style, and they are bridged
+          into the Tailwind theme.
+        </p>
+      </deck-card>
+
+      <deck-card data-step="3" variant="accent">
+        <h2 class="text-body font-bold">Tailwind CSS</h2>
+        <p>
+          Utilities compile in the browser from a vendored build. No Node.js, no
+          bundler, no CDN.
+        </p>
+      </deck-card>
+    </deck-grid>
+
+    <deck-callout tone="info" label="Cascade" data-step="4" class="text-small">
+      base → theme → deck → project → slide → utilities. Your CSS outranks the design
+      system; Tailwind utilities outrank everything.
+    </deck-callout>
+
+    <deck-notes>
+      Shadow DOM is used only where hiding internals pays for itself — deck-code is
+      the one built-in that uses it.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

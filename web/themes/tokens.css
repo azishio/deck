@@ -1,0 +1,49 @@
+@layer deck.tokens {
+  :root {
+    --deck-color-background: #ffffff;
+    --deck-color-surface: #f6f8fb;
+    --deck-color-surface-strong: #eceff5;
+    --deck-color-border: #d8dee9;
+    --deck-color-text: #17202a;
+    --deck-color-muted: #667085;
+    --deck-color-accent: #c62828;
+    --deck-color-accent-soft: #fdecec;
+    --deck-color-info: #1565c0;
+    --deck-color-success: #2e7d32;
+    --deck-color-warning: #b45309;
+    --deck-color-danger: #c62828;
+    --deck-color-code-background: #1b2430;
+    --deck-color-code-text: #e6edf3;
+
+    --deck-font-sans: "Meiryo", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    --deck-font-mono: "JetBrains Mono", "Consolas", "Noto Sans Mono", monospace;
+
+    --deck-font-size-title: 56px;
+    --deck-font-size-heading: 34px;
+    --deck-font-size-body: 24px;
+    --deck-font-size-small: 18px;
+    --deck-font-size-eyebrow: 18px;
+    --deck-font-size-code: 20px;
+
+    --deck-line-height-tight: 1.25;
+    --deck-line-height-body: 1.6;
+
+    --deck-space-1: 8px;
+    --deck-space-2: 16px;
+    --deck-space-3: 24px;
+    --deck-space-4: 32px;
+    --deck-space-5: 48px;
+
+    --deck-radius-card: 16px;
+    --deck-radius-small: 8px;
+
+    --deck-slide-padding-x: 64px;
+    --deck-slide-padding-y: 56px;
+
+    --deck-shadow-card: 0 1px 2px rgb(23 32 42 / 6%), 0 8px 24px rgb(23 32 42 / 6%);
+
+    --deck-step-duration: 420ms;
+    --deck-step-distance: 12px;
+    --deck-step-easing: cubicBezier(0.22, 1, 0.36, 1);
+  }
+}

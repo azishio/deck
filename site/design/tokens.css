@@ -1,0 +1,16 @@
+/* Project tokens. The deck is published on the web, so it deliberately sticks
+   to system fonts instead of shipping a webfont. */
+:root {
+  --deck-font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --deck-font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", monospace;
+
+  --deck-color-accent: #4338ca;
+  --deck-color-accent-soft: #eef2ff;
+  --deck-color-surface: #f8fafc;
+  --deck-color-surface-strong: #eef2f7;
+  --deck-color-border: #dfe4ec;
+  --deck-color-text: #0f172a;
+  --deck-color-muted: #55617a;
+
+  --deck-color-code-background: #0f172a;
+}

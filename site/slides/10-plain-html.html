@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plain HTML in, slides out</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="plain-html">
+    <deck-heading eyebrow="The input format">
+      Plain HTML, CSS and JavaScript
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="grow items-center">
+      <deck-code language="js" class="text-small">
+&lt;deck-slide id="architecture"&gt;
+  &lt;deck-heading eyebrow="Architecture"&gt;
+    One pipeline, end to end
+  &lt;/deck-heading&gt;
+
+  &lt;deck-grid columns="2"&gt;
+    &lt;deck-card data-step="1"&gt;
+      &lt;h2&gt;Collection&lt;/h2&gt;
+    &lt;/deck-card&gt;
+  &lt;/deck-grid&gt;
+
+  &lt;deck-notes&gt;Speaker notes.&lt;/deck-notes&gt;
+&lt;/deck-slide&gt;
+      </deck-code>
+
+      <deck-stack gap="20">
+        <p data-step="1">
+          No slide DSL. No Markdown requirement. No slide bodies buried in TOML or JSON.
+        </p>
+        <p data-step="2">
+          Content lives in child elements, never crammed into attributes as JSON —
+          that would just be a DSL wearing an HTML costume.
+        </p>
+        <p data-step="3" class="text-muted text-small">
+          The upshot: an AI agent, or a person, edits a file they already understand.
+        </p>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      The whole premise: the authoring format is the platform. Anything you can do
+      in a browser, you can do in a slide.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

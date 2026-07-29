@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Present, print, publish</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="output">
+    <deck-heading eyebrow="Output">
+      Present, print, publish
+    </deck-heading>
+
+    <deck-grid columns="3" gap="24" class="grow items-stretch content-center">
+      <deck-card data-step="1">
+        <h2 class="text-body font-bold">Presenter View</h2>
+        <p>
+          Current and next slide, speaker notes, timer, clock, blackout and live
+          diagnostics — synchronised over a websocket.
+        </p>
+      </deck-card>
+
+      <deck-card data-step="2">
+        <h2 class="text-body font-bold">Printing</h2>
+        <p>
+          The print view loads every slide, drives it to the requested step, waits for
+          fonts and images, then enables the button. One slide, one page.
+        </p>
+      </deck-card>
+
+      <deck-card data-step="3">
+        <h2 class="text-body font-bold">Static build</h2>
+        <p>
+          <strong>deck build</strong> emits a folder any static host can serve. This deck
+          is that output, on GitHub Pages.
+        </p>
+      </deck-card>
+    </deck-grid>
+
+    <deck-callout tone="success" label="No PDF pipeline" data-step="4" class="text-small">
+      The CLI never generates a PDF. Printing is the browser's job, and the same
+      print page is what a headless run would open.
+    </deck-callout>
+
+    <deck-notes>
+      Printing waits on slide-registered promises too, so a chart that renders
+      asynchronously still makes it onto the page.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

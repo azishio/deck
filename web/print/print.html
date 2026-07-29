@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print</title>
+  <link rel="stylesheet" href="__DECK_BASE__@deck/print.css">
+  <script type="module" src="__DECK_BASE__@deck/print.js"></script>
+</head>
+<body class="print-deck">
+  <header class="print-toolbar">
+    <span class="print-status" data-deck-status>準備中…</span>
+
+    <label class="print-steps">
+      steps
+      <select data-deck-steps>
+        <option value="final">final</option>
+        <option value="initial">initial</option>
+        <option value="each">each</option>
+      </select>
+    </label>
+
+    <button type="button" disabled data-deck-print>印刷</button>
+  </header>
+
+  <section class="print-diagnostics" data-deck-diagnostics hidden>
+    <h2>Print preflight</h2>
+    <ul data-deck-diagnostics-list></ul>
+  </section>
+
+  <main data-deck-pages></main>
+</body>
+</html>

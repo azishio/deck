@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "deck dev",
+      "runtimeExecutable": "cargo",
+      "runtimeArgs": [
+        "run",
+        "--quiet",
+        "-p",
+        "deck-cli",
+        "--",
+        "--root",
+        "site",
+        "dev",
+        "--port",
+        "5173",
+        "--open",
+        "none"
+      ],
+      "port": 5173
+    }
+  ]
+}

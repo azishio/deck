@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>deck</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="title" layout="title" class="bg-linear-to-br from-surface to-background">
+    <deck-logo></deck-logo>
+
+    <deck-heading level="title" eyebrow="A local slide runtime" sub="One slide is one complete HTML document.">
+      deck
+    </deck-heading>
+
+    <p class="text-muted text-small font-mono">
+      Rust CLI · Web Components · Tailwind CSS · Anime.js · headless Chromium
+    </p>
+
+    <deck-notes>
+      deck is a local slide runtime. Press → to advance; every slide you see is a
+      standalone HTML file rendered in its own iframe.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

@@ -1,0 +1,28 @@
+/* Bridge deck design tokens into the Tailwind theme so utilities such as
+   `bg-surface`, `text-accent`, `font-sans` and `rounded-card` follow the deck
+   theme instead of duplicating it. */
+@theme {
+  --color-background: var(--deck-color-background);
+  --color-surface: var(--deck-color-surface);
+  --color-surface-strong: var(--deck-color-surface-strong);
+  --color-border: var(--deck-color-border);
+  --color-text: var(--deck-color-text);
+  --color-muted: var(--deck-color-muted);
+  --color-accent: var(--deck-color-accent);
+  --color-accent-soft: var(--deck-color-accent-soft);
+  --color-info: var(--deck-color-info);
+  --color-success: var(--deck-color-success);
+  --color-warning: var(--deck-color-warning);
+  --color-danger: var(--deck-color-danger);
+
+  --font-sans: var(--deck-font-sans);
+  --font-mono: var(--deck-font-mono);
+
+  --text-title: var(--deck-font-size-title);
+  --text-heading: var(--deck-font-size-heading);
+  --text-body: var(--deck-font-size-body);
+  --text-small: var(--deck-font-size-small);
+
+  --radius-card: var(--deck-radius-card);
+  --shadow-card: var(--deck-shadow-card);
+}

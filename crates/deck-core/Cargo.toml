@@ -1,0 +1,34 @@
+[package]
+name = "deck-core"
+description = "Core library for the deck HTML slide runtime"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+axum.workspace = true
+camino.workspace = true
+chromiumoxide.workspace = true
+futures.workspace = true
+hex.workspace = true
+mime_guess.workspace = true
+notify.workspace = true
+notify-debouncer-full.workspace = true
+open.workspace = true
+percent-encoding.workspace = true
+scraper.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+toml.workspace = true
+tower-http.workspace = true
+tracing.workspace = true
+walkdir.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["full", "test-util"] }
+serde_json.workspace = true

@@ -1,0 +1,164 @@
+:root {
+  --deck-canvas-width: 1280px;
+  --deck-canvas-height: 720px;
+  --print-bg: #0d1117;
+  --print-panel: #161b22;
+  --print-border: #262d36;
+  --print-text: #e6edf3;
+  --print-muted: #8b949e;
+  --print-danger: #f85149;
+  --print-warning: #d29922;
+  --print-success: #3fb950;
+  --print-font: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--print-bg);
+  color: var(--print-text);
+  font-family: var(--print-font);
+}
+
+.print-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--print-border);
+  background: var(--print-panel);
+}
+
+.print-status {
+  font-variant-numeric: tabular-nums;
+}
+
+.print-steps {
+  color: var(--print-muted);
+  font-size: 14px;
+}
+
+.print-toolbar button,
+.print-toolbar select {
+  padding: 6px 14px;
+  border: 1px solid var(--print-border);
+  border-radius: 6px;
+  background: var(--print-bg);
+  color: var(--print-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.print-toolbar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.print-diagnostics {
+  margin: 0;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--print-border);
+  background: var(--print-panel);
+}
+
+.print-diagnostics h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--print-muted);
+}
+
+.print-diagnostics ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.print-diagnostics .is-ok {
+  color: var(--print-success);
+}
+
+.print-diagnostics .is-pending {
+  color: var(--print-muted);
+}
+
+.print-diagnostics .is-warning {
+  color: var(--print-warning);
+}
+
+.print-diagnostics .is-error {
+  color: var(--print-danger);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.print-page {
+  position: relative;
+  width: var(--deck-canvas-width);
+  height: var(--deck-canvas-height);
+  overflow: hidden;
+  background: #fff;
+  break-after: page;
+  break-inside: avoid;
+}
+
+.print-page:last-child {
+  break-after: auto;
+}
+
+.print-page iframe {
+  display: block;
+  width: var(--deck-canvas-width);
+  height: var(--deck-canvas-height);
+  border: 0;
+}
+
+.print-notes {
+  padding: 12px 16px;
+  background: #fff;
+  color: #17202a;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  main {
+    display: block;
+    padding: 0;
+    gap: 0;
+  }
+
+  .print-toolbar,
+  .print-diagnostics {
+    display: none !important;
+  }
+
+  .print-page {
+    margin: 0;
+  }
+}

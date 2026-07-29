@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slides you can lint</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="checks">
+    <deck-heading eyebrow="Checks" sub="headless Chromium with a pinned viewport, locale, timezone and device scale.">
+      Slides you can lint
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="grow items-start">
+      <deck-code language="bash" class="text-small">
+$ deck check --report human
+
+security  30-security.html
+  error   [clipped_text]
+          text is cut off vertically: +12px
+          #security &gt; deck-card:nth-of-type(2)
+  warning [low_contrast]
+          contrast 4.36 &lt; 4.5
+
+6 slides checked: 1 errors, 1 warnings
+      </deck-code>
+
+      <deck-stack gap="14">
+        <p data-step="1">
+          <strong>Static:</strong> duplicate ids, missing files, external URLs, unknown
+          component names — no browser needed.
+        </p>
+        <p data-step="2">
+          <strong>Runtime:</strong> console errors, exceptions, failed requests, undefined
+          Custom Elements, readiness timeouts.
+        </p>
+        <p data-step="3">
+          <strong>Layout:</strong> overflow past the canvas, clipped text, safe-area
+          violations, tiny fonts, low contrast, overlapping text.
+        </p>
+        <p data-step="4" class="text-muted text-small">
+          Reports render as human text, JSON or SARIF, and exit code 1 means violations.
+        </p>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      Every rule has a configurable severity and can be suppressed per element with
+      data-deck-check-ignore or per selector in deck.toml.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

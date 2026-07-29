@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hot reload that keeps your place</title>
+
+  <link rel="stylesheet" href="/@deck/design.css">
+  <script type="module" src="/@deck/boot.js"></script>
+</head>
+<body>
+  <deck-slide id="hot-reload">
+    <deck-heading eyebrow="Hot reload">
+      Edit on slide 14, stay on slide 14
+    </deck-heading>
+
+    <deck-grid columns="2" gap="40" class="grow items-start">
+      <deck-stack gap="18">
+        <p data-step="1">
+          A replacement iframe loads in the background. The old one stays on screen
+          until the new one reports <code>deck:ready</code>, then they crossfade.
+        </p>
+        <p data-step="2">
+          The current slide id, step, presenter timer and blackout survive. Arbitrary
+          JavaScript state does not — that is a deliberate limit, not an oversight.
+        </p>
+        <p data-step="3">
+          Stylesheet edits swap the <code>&lt;link&gt;</code> instead of reloading anything.
+        </p>
+      </deck-stack>
+
+      <deck-stack gap="12" data-step="1">
+        <deck-card variant="outline">
+          <h2 class="text-body font-bold">What triggers what</h2>
+          <ul class="text-small text-muted">
+            <li>slide HTML → that iframe only</li>
+            <li>tokens / theme CSS → stylesheet swap, no reload</li>
+            <li>component JS → only frames using those tags</li>
+            <li>add / delete / rename → manifest update, no restart</li>
+          </ul>
+        </deck-card>
+
+        <deck-callout tone="warning" label="Watch out" data-step="3" class="text-small">
+          A dev server that reads your project also touches access times. deck gates
+          reloads on content hashes so it never notifies itself in a loop.
+        </deck-callout>
+      </deck-stack>
+    </deck-grid>
+
+    <deck-notes>
+      The content-hash gate also means saving an unchanged file does nothing, which
+      matters for editors that write on every keystroke.
+    </deck-notes>
+  </deck-slide>
+</body>
+</html>

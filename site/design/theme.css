@@ -1,0 +1,33 @@
+/* Project theme. Loaded into @layer project. */
+deck-heading > .deck-heading__eyebrow {
+  letter-spacing: 0.14em;
+}
+
+deck-card {
+  box-shadow: none;
+}
+
+/* deck-logo (site/components/deck-logo.js) */
+deck-logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 76px;
+}
+
+deck-logo > .deck-logo__card {
+  display: block;
+  width: 52px;
+  height: 72px;
+  border-radius: 8px;
+  background: var(--deck-color-accent);
+  opacity: 0.28;
+}
+
+deck-logo > .deck-logo__card[data-index="1"] {
+  opacity: 1;
+}
+
+deck-logo > .deck-logo__card[data-index="2"] {
+  opacity: 0.55;
+}
