@@ -61,8 +61,30 @@ pub fn ensure_runtime_tags(html: &str, tags: &RuntimeTags<'_>) -> String {
     }
 }
 
+/// Places where a root-absolute URL may legitimately appear. Rewriting anything
+/// that merely *looks* like one would corrupt unrelated text — a CSS comment
+/// inside an inline script starts with `"/` too.
+const URL_OPENERS: &[&str] = &[
+    "src=\"/",
+    "src='/",
+    "href=\"/",
+    "href='/",
+    "poster=\"/",
+    "poster='/",
+    "data-src=\"/",
+    "data-src='/",
+    "srcset=\"/",
+    "srcset='/",
+    "url(/",
+    "url(\"/",
+    "url('/",
+];
+
 /// Rewrite root-absolute URLs (`/assets/...`) onto `base_url`, and apply the
 /// fingerprint map produced by `deck build`.
+///
+/// Fingerprint entries are root-absolute on both sides, so rebasing still
+/// happens exactly once.
 pub fn rewrite_urls(html: &str, base_url: &str, fingerprints: &[(String, String)]) -> String {
     let mut out = html.to_owned();
     for (from, to) in fingerprints {
@@ -71,12 +93,32 @@ pub fn rewrite_urls(html: &str, base_url: &str, fingerprints: &[(String, String)
     if base_url == "/" {
         return out;
     }
-    for prefix in ["\"/", "'/", "(/"] {
-        let quote = &prefix[..1];
-        out = out.replace(prefix, &format!("{quote}{base_url}"));
+    for opener in URL_OPENERS {
+        out = rebase(&out, opener, base_url);
     }
-    // The replacement above also rewrote protocol-relative URLs; restore them.
-    out.replace(&format!("{base_url}/"), "//")
+    out
+}
+
+/// Replace the trailing `/` of every `opener` occurrence with `base_url`.
+fn rebase(html: &str, opener: &str, base_url: &str) -> String {
+    let head = &opener[..opener.len() - 1];
+    let mut out = String::with_capacity(html.len());
+    let mut rest = html;
+
+    while let Some(index) = rest.find(opener) {
+        let after = &rest[index + opener.len()..];
+        out.push_str(&rest[..index]);
+        // `//host/path` is protocol-relative, not root-absolute.
+        if after.starts_with('/') {
+            out.push_str(opener);
+        } else {
+            out.push_str(head);
+            out.push_str(base_url);
+        }
+        rest = after;
+    }
+    out.push_str(rest);
+    out
 }
 
 /// JSON string literal that is also safe inside a `<script>` element.
@@ -138,11 +180,43 @@ mod tests {
     }
 
     #[test]
+    fn injected_tags_are_rewritten_exactly_once() {
+        // The static build injects with "/" and rewrites afterwards; injecting
+        // with the base URL as well would produce /deck/deck/@deck/...
+        let injected = ensure_runtime_tags("<head></head>", &tags("/", ""));
+        let out = rewrite_urls(&injected, "/deck/", &[]);
+        assert!(out.contains("\"/deck/@deck/boot.js\""));
+        assert!(out.contains("\"/deck/@deck/vendor/tailwind.js\""));
+        assert!(!out.contains("/deck/deck/"));
+    }
+
+    #[test]
     fn rewrites_absolute_urls_for_a_base_url() {
-        let html = "<img src=\"/assets/a.png\"><a href=\"https://example.com\">x</a>";
+        let html = "<img src=\"/assets/a.png\"><a href=\"https://example.com\">x</a>\
+                    <div style=\"background: url(/assets/b.svg)\"></div>\
+                    <script src=\"//cdn.example.com/x.js\"></script>";
         let out = rewrite_urls(html, "/deck/", &[]);
-        assert!(out.contains("\"/deck/assets/a.png\""));
+        assert!(out.contains("src=\"/deck/assets/a.png\""));
+        assert!(out.contains("url(/deck/assets/b.svg)"));
         assert!(out.contains("https://example.com"));
+        // Protocol-relative URLs are left alone.
+        assert!(out.contains("src=\"//cdn.example.com/x.js\""));
+    }
+
+    #[test]
+    fn text_that_merely_looks_like_a_url_is_left_alone() {
+        // The injected Tailwind entry is a JS string literal that starts with a
+        // CSS comment; rebasing it would break the stylesheet.
+        let html = "<script>const css = \"/* generated */\\n@layer base;\";</script>";
+        assert_eq!(rewrite_urls(html, "/deck/", &[]), html);
+    }
+
+    #[test]
+    fn fingerprinted_assets_are_rebased_once() {
+        let map = vec![("/assets/a.png".to_owned(), "/assets/a.abc123.png".to_owned())];
+        let out = rewrite_urls("<img src=\"/assets/a.png\">", "/deck/", &map);
+        assert!(out.contains("src=\"/deck/assets/a.abc123.png\""));
+        assert!(!out.contains("/deck/deck/"));
     }
 
     #[test]

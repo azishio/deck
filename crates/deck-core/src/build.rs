@@ -36,19 +36,11 @@ pub fn run(project: &Project) -> Result<BuildSummary> {
         &project.assets_dir(),
         &out.join("assets"),
         "assets",
-        &base,
         config.build.fingerprint_assets,
         &mut fingerprints,
     )?;
-    copy_tree(
-        &project.components_dir(),
-        &out.join("components"),
-        "components",
-        &base,
-        false,
-        &mut Vec::new(),
-    )?;
-    copy_tree(&project.design_dir(), &out.join("design"), "design", &base, false, &mut Vec::new())?;
+    copy_tree(&project.components_dir(), &out.join("components"), "components", false, &mut Vec::new())?;
+    copy_tree(&project.design_dir(), &out.join("design"), "design", false, &mut Vec::new())?;
 
     // 2. embedded runtime assets
     for (route, bytes) in assets::EMBEDDED {
@@ -76,8 +68,11 @@ pub fn run(project: &Project) -> Result<BuildSummary> {
     write_file(&out.join("print/index.html"), Page::Print.render(&base))?;
 
     // 5. slides, one directory per stable id
+    //
+    // Runtime tags are injected root-absolute and rewritten onto the base URL
+    // together with the author's own links, so a tag is never prefixed twice.
     let tailwind = assets::tailwind_input(project)?;
-    let tags = RuntimeTags { base_url: &base, tailwind_css: &tailwind };
+    let tags = RuntimeTags { base_url: "/", tailwind_css: &tailwind };
     let slides_dir = project.slides_dir();
     for slide in &manifest.slides {
         let source = std::fs::read_to_string(slides_dir.join(&slide.path))
@@ -106,7 +101,6 @@ fn copy_tree(
     source_dir: &Utf8Path,
     target_dir: &Utf8Path,
     url_prefix: &str,
-    base_url: &str,
     fingerprint: bool,
     fingerprints: &mut Vec<(String, String)>,
 ) -> Result<usize> {
@@ -125,10 +119,9 @@ fn copy_tree(
 
         let relative = if fingerprint {
             let hashed = fingerprint_name(relative, &bytes);
-            fingerprints.push((
-                format!("/{url_prefix}/{relative}"),
-                format!("{base_url}{url_prefix}/{hashed}"),
-            ));
+            // Root-absolute on both sides: rebasing onto base_url happens later,
+            // once, in render::rewrite_urls.
+            fingerprints.push((format!("/{url_prefix}/{relative}"), format!("/{url_prefix}/{hashed}")));
             hashed
         } else {
             relative.to_path_buf()
