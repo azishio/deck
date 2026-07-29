@@ -31,6 +31,23 @@ pub struct BrowserSession {
     user_data_dir: camino::Utf8PathBuf,
 }
 
+/// Resolve a browser command to an executable: an absolute path is used as
+/// given, a bare name is looked up in `PATH`.
+pub fn locate_browser(command: &str) -> Option<camino::Utf8PathBuf> {
+    if command.is_empty() {
+        return None;
+    }
+    let candidate = camino::Utf8Path::new(command);
+    if candidate.is_absolute() {
+        return candidate.is_file().then(|| candidate.to_path_buf());
+    }
+    let path = std::env::var_os("PATH")?;
+    std::env::split_paths(&path)
+        .map(|directory| directory.join(command))
+        .find(|candidate| candidate.is_file())
+        .and_then(|found| camino::Utf8PathBuf::from_path_buf(found).ok())
+}
+
 /// Chromium refuses to share a profile directory between processes, so each
 /// session gets its own and removes it on close.
 fn unique_user_data_dir() -> camino::Utf8PathBuf {
@@ -74,8 +91,16 @@ impl BrowserSession {
                 "--no-default-browser-check",
             ]);
 
-        if !config.command.is_empty() && config.command != "chromium" {
-            builder = builder.chrome_executable(&config.command);
+        // chromiumoxide needs a path, not a command name, so `command` is
+        // resolved through PATH first. Falling through leaves its own detection
+        // in charge, which is what the default "chromium" relies on.
+        if let Some(executable) = locate_browser(&config.command) {
+            builder = builder.chrome_executable(executable.as_std_path());
+        } else if config.command != "chromium" {
+            return Err(Error::browser(format!(
+                "{} が見つかりません。deck.local.toml の [browser] command で実行ファイルを指定してください",
+                config.command
+            )));
         }
         builder = if config.headless { builder.new_headless_mode() } else { builder.with_head() };
 

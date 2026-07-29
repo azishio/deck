@@ -7,8 +7,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  # ubuntu-latest ships Google Chrome; deck only needs a Chromium-based browser.
-  DECK_BROWSER: google-chrome
+  DECK_BROWSER: chrome
 
 jobs:
   check:
@@ -21,6 +20,12 @@ jobs:
           components: rustfmt, clippy
 
       - uses: Swatinem/rust-cache@v2
+
+      # deck only supports Chromium-based browsers; the checks and the
+      # end-to-end tests drive one over CDP.
+      - uses: browser-actions/setup-chrome@v2
+        with:
+          install-dependencies: true
 
       - name: Format
         run: cargo fmt --all -- --check

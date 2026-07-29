@@ -63,7 +63,7 @@ pub async fn run(project: &Project) -> Result<DoctorReport> {
     let mut checks = Vec::new();
 
     // Chromium executable ------------------------------------------------
-    match locate_executable(&config.browser.command) {
+    match crate::browser::locate_browser(&config.browser.command) {
         Some(path) => checks.push(Check::new("chromium executable", Status::Ok, path)),
         None => checks.push(Check::new(
             "chromium executable",
@@ -198,17 +198,4 @@ fn writable(directory: &Utf8Path) -> std::io::Result<()> {
     let probe = directory.join(".deck-write-probe");
     std::fs::write(&probe, b"")?;
     std::fs::remove_file(&probe)
-}
-
-/// Resolve a command through `PATH`, or accept an absolute path.
-fn locate_executable(command: &str) -> Option<String> {
-    let candidate = Utf8Path::new(command);
-    if candidate.is_absolute() {
-        return candidate.is_file().then(|| command.to_owned());
-    }
-    let path = std::env::var_os("PATH")?;
-    std::env::split_paths(&path)
-        .map(|directory| directory.join(command))
-        .find(|candidate| candidate.is_file())
-        .map(|found| found.display().to_string())
 }

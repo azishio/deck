@@ -5,7 +5,7 @@
 
 use std::time::Duration;
 
-use camino::{Utf8Path, Utf8PathBuf};
+use camino::Utf8PathBuf;
 use deck_core::browser::BrowserSession;
 use deck_core::config::Overrides;
 use deck_core::project::Project;
@@ -38,13 +38,7 @@ impl Drop for TempProject {
 }
 
 fn chromium_available(project: &Project) -> bool {
-    let command = &project.config().browser.command;
-    if Utf8Path::new(command).is_absolute() {
-        return Utf8Path::new(command).is_file();
-    }
-    std::env::var_os("PATH").is_some_and(|path| {
-        std::env::split_paths(&path).any(|directory| directory.join(command).is_file())
-    })
+    deck_core::browser::locate_browser(&project.config().browser.command).is_some()
 }
 
 /// Poll `expression` until it stops returning `null`/`undefined`.

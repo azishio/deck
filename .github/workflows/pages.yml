@@ -30,6 +30,8 @@ jobs:
 
       - uses: actions/configure-pages@v6
         id: pages
+        with:
+          enablement: true
 
       - name: Build the introduction deck
         # The site lives at /<repo>/, so the deck is built for that base URL.
