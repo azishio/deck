@@ -60,6 +60,8 @@ platform you already know:
 
 ```text
 my-deck/
+├── .agents/skills/    # agent instructions for authoring this deck
+├── .claude/skills     # symlink to .agents/skills
 ├── deck.toml          # deck-wide configuration
 ├── deck.local.toml    # machine-specific overrides (not committed)
 ├── deck.lock          # versions of the bundled runtime
@@ -74,6 +76,12 @@ my-deck/
 The names `slides/`, `components/`, `design/` and `assets/` are fixed by convention and
 cannot be reconfigured. Keeping the layout predictable keeps the CLI, the watcher, the
 static build and any agent editing the deck simple.
+
+`deck init` also writes a `deck-slides` skill to `.agents/skills/`, with
+`.claude/skills` symlinked to it so Claude Code finds it without a second copy to keep
+in sync. It documents the conventions, the components, the step model and the check
+rules, so an agent asked to "add a slide about X" produces something that passes
+`deck check` instead of guessing.
 
 ## Writing a slide
 

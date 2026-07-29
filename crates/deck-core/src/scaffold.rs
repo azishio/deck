@@ -66,6 +66,7 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
     }
     write_file(&root.join("assets/README.md"), ASSETS_README)?;
     write_file(&root.join(".gitignore"), GITIGNORE_TEMPLATE)?;
+    install_skill(root)?;
 
     write_file(&root.join("slides/00-title.html"), title_slide(title))?;
     write_file(&root.join("slides/10-overview.html"), OVERVIEW_SLIDE)?;
@@ -73,6 +74,50 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
 
     Lock::default().save(root)?;
     Ok(())
+}
+
+/// Agent instructions for authoring slides in the generated deck.
+///
+/// The canonical copy lives in `.agents/skills/`, with `.claude/skills` linked
+/// to it so Claude Code picks it up without a second copy to keep in sync.
+const SKILL: &str = include_str!("../templates/deck-slides-skill.md");
+const SKILL_DIR: &str = ".agents/skills";
+const SKILL_NAME: &str = "deck-slides";
+
+fn install_skill(root: &Utf8Path) -> Result<()> {
+    write_file(&root.join(SKILL_DIR).join(SKILL_NAME).join("SKILL.md"), SKILL)?;
+
+    let link = root.join(".claude").join("skills");
+    if link.exists() || link.symlink_metadata().is_ok() {
+        return Ok(());
+    }
+    std::fs::create_dir_all(link.parent().expect("has a parent"))
+        .map_err(|error| Error::io(&link, error))?;
+
+    match symlink_dir(Utf8Path::new("..").join(SKILL_DIR).as_std_path(), link.as_std_path()) {
+        Ok(()) => Ok(()),
+        Err(error) => {
+            // Windows needs developer mode or elevation for symlinks; a copy
+            // keeps the skill discoverable, at the cost of a second file.
+            tracing::warn!("{link} をシンボリックリンクにできません ({error})。コピーします");
+            write_file(&link.join(SKILL_NAME).join("SKILL.md"), SKILL)
+        }
+    }
+}
+
+#[cfg(unix)]
+fn symlink_dir(target: &std::path::Path, link: &std::path::Path) -> std::io::Result<()> {
+    std::os::unix::fs::symlink(target, link)
+}
+
+#[cfg(windows)]
+fn symlink_dir(target: &std::path::Path, link: &std::path::Path) -> std::io::Result<()> {
+    std::os::windows::fs::symlink_dir(target, link)
+}
+
+#[cfg(not(any(unix, windows)))]
+fn symlink_dir(_target: &std::path::Path, _link: &std::path::Path) -> std::io::Result<()> {
+    Err(std::io::Error::other("symlinks are unsupported on this platform"))
 }
 
 fn deck_toml(title: &str) -> String {
@@ -719,6 +764,34 @@ mod tests {
     fn falls_back_to_a_letter_suffix_when_full() {
         let siblings = ["20-a.html".to_owned(), "21-b.html".to_owned()];
         assert_eq!(next_prefix_after(&siblings, "20-a.html").unwrap(), "20a");
+    }
+
+    #[test]
+    fn the_skill_has_usable_frontmatter() {
+        let mut lines = SKILL.lines();
+        assert_eq!(lines.next(), Some("---"), "SKILL.md must open with frontmatter");
+        let frontmatter: Vec<&str> = lines.take_while(|line| *line != "---").collect();
+        assert!(frontmatter.iter().any(|line| line.starts_with("name: ")));
+        assert!(frontmatter.iter().any(|line| line.starts_with("description: ")));
+    }
+
+    #[test]
+    fn init_links_claude_skills_at_the_canonical_copy() {
+        let root = Utf8PathBuf::from_path_buf(std::env::temp_dir())
+            .expect("temp dir is UTF-8")
+            .join(format!("deck-skill-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        init(&root, "T", Theme::Default).expect("init");
+
+        let canonical = root.join(".agents/skills/deck-slides/SKILL.md");
+        let linked = root.join(".claude/skills/deck-slides/SKILL.md");
+        assert!(canonical.is_file());
+        assert_eq!(
+            std::fs::read_to_string(&linked).expect("readable through the link"),
+            std::fs::read_to_string(&canonical).expect("readable"),
+        );
+
+        let _ = std::fs::remove_dir_all(&root);
     }
 
     #[test]
