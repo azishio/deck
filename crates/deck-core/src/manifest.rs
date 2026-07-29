@@ -49,9 +49,7 @@ impl Manifest {
                 // Duplicate ids are reported by `deck check`; the manifest must
                 // still expose addressable slides.
                 let fallback = discovery::id_from_path(&relative);
-                tracing::warn!(
-                    "slide id が重複しています: {id} ({relative}) -> {fallback} を使用します"
-                );
+                tracing::warn!("duplicate slide id {id} ({relative}); using {fallback} instead");
                 id = fallback;
                 let mut suffix = 2;
                 while !seen_ids.insert(id.clone()) {
@@ -211,8 +209,8 @@ mod tests {
     #[test]
     fn title_falls_back_to_the_first_heading() {
         let document =
-            parse("<deck-slide id=\"x\"><deck-heading>見出し</deck-heading></deck-slide>");
-        assert_eq!(document.title, "見出し");
+            parse("<deck-slide id=\"x\"><deck-heading>A heading</deck-heading></deck-slide>");
+        assert_eq!(document.title, "A heading");
         assert!(!document.has_title_element);
     }
 }

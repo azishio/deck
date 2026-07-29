@@ -98,7 +98,7 @@ impl BrowserSession {
             builder = builder.chrome_executable(executable.as_std_path());
         } else if config.command != "chromium" {
             return Err(Error::browser(format!(
-                "{} が見つかりません。deck.local.toml の [browser] command で実行ファイルを指定してください",
+                "{} was not found. Set [browser] command in deck.local.toml to the executable",
                 config.command
             )));
         }
@@ -109,16 +109,16 @@ impl BrowserSession {
 
         let launch = builder
             .build()
-            .map_err(|error| Error::browser(format!("Chromium の設定に失敗しました: {error}")))?;
+            .map_err(|error| Error::browser(format!("could not configure Chromium: {error}")))?;
 
         let (browser, mut events) = Browser::launch(launch).await.map_err(|error| {
             let message = error.to_string();
             let hint = if config.sandbox && message.contains("sandbox") {
-                "\nこの環境ではChromiumのsandboxを利用できません。deck.local.toml に [browser] sandbox = false を設定してください"
+                "\nChromium's sandbox is unavailable here. Set [browser] sandbox = false in deck.local.toml"
             } else {
-                "\n`deck doctor` で実行ファイルを確認してください"
+                "\nRun `deck doctor` to check the executable"
             };
-            Error::browser(format!("Chromium を起動できません ({}): {message}{hint}", config.command))
+            Error::browser(format!("could not launch Chromium ({}): {message}{hint}", config.command))
         })?;
 
         let handler = tokio::spawn(async move { while events.next().await.is_some() {} });
@@ -131,7 +131,7 @@ impl BrowserSession {
             .browser
             .version()
             .await
-            .map_err(|error| Error::browser(format!("バージョンを取得できません: {error}")))?;
+            .map_err(|error| Error::browser(format!("could not read the version: {error}")))?;
         Ok(version.product)
     }
 
@@ -141,20 +141,20 @@ impl BrowserSession {
             .browser
             .new_page("about:blank")
             .await
-            .map_err(|error| Error::browser(format!("ページを作成できません: {error}")))?;
+            .map_err(|error| Error::browser(format!("could not create a page: {error}")))?;
 
         page.emulate_timezone(SetTimezoneOverrideParams::new(TIMEZONE)).await.ok();
         page.emulate_locale(SetLocaleOverrideParams::builder().locale(LOCALE).build()).await.ok();
-        page.enable_runtime()
-            .await
-            .map_err(|error| Error::browser(format!("Runtime を有効化できません: {error}")))?;
+        page.enable_runtime().await.map_err(|error| {
+            Error::browser(format!("could not enable the Runtime domain: {error}"))
+        })?;
 
         let events = Arc::new(Mutex::new(PageEvents::default()));
         let listeners = spawn_listeners(&page, Arc::clone(&events)).await?;
 
         page.goto(url)
             .await
-            .map_err(|error| Error::browser(format!("{url} を開けません: {error}")))?;
+            .map_err(|error| Error::browser(format!("could not open {url}: {error}")))?;
 
         Ok(PageSession { page, events, listeners })
     }
@@ -200,14 +200,13 @@ impl PageSession {
 
     /// Evaluate an expression and deserialize its result.
     pub async fn evaluate<T: serde::de::DeserializeOwned>(&self, expression: &str) -> Result<T> {
-        let result = self
-            .page
-            .evaluate_expression(expression)
-            .await
-            .map_err(|error| Error::browser(format!("スクリプトを評価できません: {error}")))?;
-        result
-            .into_value()
-            .map_err(|error| Error::browser(format!("評価結果を解釈できません: {error}")))
+        let result =
+            self.page.evaluate_expression(expression).await.map_err(|error| {
+                Error::browser(format!("could not evaluate the script: {error}"))
+            })?;
+        result.into_value().map_err(|error| {
+            Error::browser(format!("could not read the evaluation result: {error}"))
+        })
     }
 
     /// Poll `expression` until it evaluates to `true` or the timeout elapses.
@@ -224,14 +223,24 @@ impl PageSession {
         }
     }
 
+    /// Click at a viewport coordinate with a real input event.
+    pub async fn click_at(&self, x: f64, y: f64) -> Result<()> {
+        self.page
+            .click(chromiumoxide::layout::Point::new(x, y))
+            .await
+            .map_err(|error| Error::browser(format!("could not click at ({x}, {y}): {error}")))?;
+        Ok(())
+    }
+
     pub async fn screenshot(&self, path: &camino::Utf8Path) -> Result<()> {
         if let Some(parent) = path.parent() {
             std::fs::create_dir_all(parent).map_err(|error| Error::io(parent, error))?;
         }
         let params = ScreenshotParams::builder().format(CaptureScreenshotFormat::Png).build();
-        self.page.save_screenshot(params, path.as_std_path()).await.map_err(|error| {
-            Error::browser(format!("スクリーンショットを保存できません: {error}"))
-        })?;
+        self.page
+            .save_screenshot(params, path.as_std_path())
+            .await
+            .map_err(|error| Error::browser(format!("could not save the screenshot: {error}")))?;
         Ok(())
     }
 
@@ -249,10 +258,9 @@ async fn spawn_listeners(
 ) -> Result<Vec<JoinHandle<()>>> {
     let mut handles = Vec::new();
 
-    let mut exceptions = page
-        .event_listener::<EventExceptionThrown>()
-        .await
-        .map_err(|error| Error::browser(format!("例外イベントを購読できません: {error}")))?;
+    let mut exceptions = page.event_listener::<EventExceptionThrown>().await.map_err(|error| {
+        Error::browser(format!("could not subscribe to exception events: {error}"))
+    })?;
     let sink = Arc::clone(&events);
     handles.push(tokio::spawn(async move {
         while let Some(event) = exceptions.next().await {
@@ -268,10 +276,9 @@ async fn spawn_listeners(
 
     let index = Arc::new(Mutex::new(RequestIndex::default()));
 
-    let mut requests = page
-        .event_listener::<EventRequestWillBeSent>()
-        .await
-        .map_err(|error| Error::browser(format!("リクエストイベントを購読できません: {error}")))?;
+    let mut requests = page.event_listener::<EventRequestWillBeSent>().await.map_err(|error| {
+        Error::browser(format!("could not subscribe to request events: {error}"))
+    })?;
     let sink = Arc::clone(&events);
     let request_index = Arc::clone(&index);
     handles.push(tokio::spawn(async move {
@@ -287,7 +294,7 @@ async fn spawn_listeners(
     }));
 
     let mut failures = page.event_listener::<EventLoadingFailed>().await.map_err(|error| {
-        Error::browser(format!("ネットワークイベントを購読できません: {error}"))
+        Error::browser(format!("could not subscribe to network events: {error}"))
     })?;
     let sink = Arc::clone(&events);
     let request_index = Arc::clone(&index);

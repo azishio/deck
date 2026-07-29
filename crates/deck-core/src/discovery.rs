@@ -20,7 +20,7 @@ pub fn slide_files(slides_dir: &Utf8Path) -> Result<Vec<String>> {
         let entry = match entry {
             Ok(entry) => entry,
             Err(error) => {
-                tracing::warn!("slides の探索中にエラー: {error}");
+                tracing::warn!("error while walking slides/: {error}");
                 continue;
             }
         };
@@ -28,7 +28,7 @@ pub fn slide_files(slides_dir: &Utf8Path) -> Result<Vec<String>> {
             continue;
         }
         let Ok(path) = Utf8Path::from_path(entry.path()).ok_or(()) else {
-            tracing::warn!("UTF-8でないパスを無視します: {}", entry.path().display());
+            tracing::warn!("ignoring a non-UTF-8 path: {}", entry.path().display());
             continue;
         };
         if path.extension() != Some("html") {

@@ -97,7 +97,7 @@ fn default_title() -> String {
 }
 
 fn default_lang() -> String {
-    "ja".into()
+    "en".into()
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
@@ -482,7 +482,7 @@ impl<'de> Deserialize<'de> for CheckRules {
         for (rule, severity) in overrides {
             let key = Self::normalize(&rule);
             if !rules.0.contains_key(&key) {
-                return Err(D::Error::custom(format!("未知のcheck rule: {rule}")));
+                return Err(D::Error::custom(format!("unknown check rule: {rule}")));
             }
             rules.0.insert(key, severity);
         }
@@ -607,7 +607,7 @@ impl Config {
 
         if config.schema != 1 {
             return Err(Error::config(format!(
-                "未対応の schema = {} です (このバイナリは schema = 1 のみ対応)",
+                "unsupported schema = {} (this build only understands schema = 1)",
                 config.schema
             )));
         }
@@ -646,11 +646,11 @@ impl Config {
 
     fn validate(&self) -> Result<()> {
         if self.canvas.width == 0 || self.canvas.height == 0 {
-            return Err(Error::config("[canvas] width と height は 1 以上にしてください"));
+            return Err(Error::config("[canvas] width and height must be at least 1"));
         }
         if !self.build.base_url.starts_with('/') || !self.build.base_url.ends_with('/') {
             return Err(Error::config(format!(
-                "[build] base_url は '/' で始まり '/' で終わる必要があります: {}",
+                "[build] base_url must start and end with '/': {}",
                 self.build.base_url
             )));
         }
@@ -764,7 +764,7 @@ mod tests {
     #[test]
     fn unknown_rule_is_rejected() {
         let error = toml::from_str::<CheckConfig>("[rules]\nnope = \"error\"\n").unwrap_err();
-        assert!(error.to_string().contains("未知のcheck rule"));
+        assert!(error.to_string().contains("unknown check rule"));
     }
 
     #[test]

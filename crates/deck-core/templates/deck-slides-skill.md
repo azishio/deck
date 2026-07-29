@@ -120,8 +120,14 @@ step is directly addressable and a reload lands in the same place.
 <p data-step="2">Shown at step 2 and after.</p>
 ```
 
-Elements keep their space while hidden, so nothing jumps. For anything richer,
-listen for the event:
+Elements keep their space while hidden, so nothing jumps.
+
+Any page navigates the same way — arrow keys, or a click on the left or right
+half — including a single slide opened on its own, which carries on to the
+adjacent slide once its steps run out. Put `data-deck-no-nav` on anything
+clickable that must not advance the deck.
+
+For anything richer, listen for the event:
 
 ```html
 <script type="module">

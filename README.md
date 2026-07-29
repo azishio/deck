@@ -12,13 +12,19 @@ ignore.
 by `deck build` from [`site/`](site) and published to GitHub Pages.
 
 ```bash
-git clone https://github.com/azishio/deck
-cd deck
-cargo install --path crates/deck-cli
+cargo install --git https://github.com/azishio/deck --locked deck-cli
 
 deck init my-deck
 cd my-deck
 deck dev
+```
+
+Or from a clone, which is also what you want for hacking on deck itself:
+
+```bash
+git clone https://github.com/azishio/deck
+cd deck
+cargo install --path crates/deck-cli --locked
 ```
 
 Requirements: a Rust toolchain to build the CLI, and a Chromium-based browser. **Node.js
@@ -120,6 +126,9 @@ rules, so an agent asked to "add a slide about X" produces something that passes
 ```
 
 - `data-step="N"` reveals an element at step *N*. Steps are absolute, never relative.
+- Every page navigates the same way: arrow keys, or a click on the left or right half.
+  A single slide opened on its own (`/slides/architecture`) carries on to the adjacent
+  slide once its steps run out.
 - The `<link>` and `<script>` tags are injected automatically if you leave them out.
 - Content goes in child elements. Large JSON blobs in attributes are a DSL in disguise —
   don't.

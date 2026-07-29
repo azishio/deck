@@ -166,18 +166,18 @@ impl Watcher {
                     }
                 }
             })
-            .map_err(|error| Error::config(format!("file watcher を起動できません: {error}")))?;
+            .map_err(|error| Error::config(format!("could not start the file watcher: {error}")))?;
 
         for dir in project.watched_dirs() {
             if dir.is_dir() {
                 debouncer
                     .watch(dir.as_std_path(), RecursiveMode::Recursive)
-                    .map_err(|error| Error::config(format!("{dir} を監視できません: {error}")))?;
+                    .map_err(|error| Error::config(format!("could not watch {dir}: {error}")))?;
             }
         }
         // Non-recursive so dist/ and .deck/ churn does not wake the watcher.
         debouncer.watch(project.root().as_std_path(), RecursiveMode::NonRecursive).map_err(
-            |error| Error::config(format!("{} を監視できません: {}", project.root(), error)),
+            |error| Error::config(format!("could not watch {}: {}", project.root(), error)),
         )?;
 
         Ok(Self { _debouncer: debouncer, changes: rx })

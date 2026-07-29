@@ -109,7 +109,7 @@ fn normalize(path: &Utf8Path) -> Utf8PathBuf {
 fn current_dir() -> Result<Utf8PathBuf> {
     let cwd = std::env::current_dir().map_err(|error| Error::io("current directory", error))?;
     Utf8PathBuf::from_path_buf(cwd)
-        .map_err(|path| Error::config(format!("UTF-8でないパスです: {}", path.display())))
+        .map_err(|path| Error::config(format!("path is not UTF-8: {}", path.display())))
 }
 
 fn discover_root(config_path: Option<&Utf8Path>) -> Result<Utf8PathBuf> {
@@ -118,7 +118,7 @@ fn discover_root(config_path: Option<&Utf8Path>) -> Result<Utf8PathBuf> {
         return path
             .parent()
             .map(Utf8Path::to_path_buf)
-            .ok_or_else(|| Error::config(format!("--config のパスが不正です: {path}")));
+            .ok_or_else(|| Error::config(format!("--config path is invalid: {path}")));
     }
 
     let start = current_dir()?;
@@ -128,6 +128,6 @@ fn discover_root(config_path: Option<&Utf8Path>) -> Result<Utf8PathBuf> {
         }
     }
     Err(Error::config(format!(
-        "{CONFIG_FILE} が見つかりません ({start} とその親ディレクトリを探索しました)。`deck init` で作成できます"
+        "no {CONFIG_FILE} found in {start} or any parent directory. `deck init` creates one"
     )))
 }

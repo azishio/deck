@@ -163,7 +163,7 @@
     report(
       "slide_overflow",
       root,
-      "スライドがcanvas(" + canvas.width + "x" + canvas.height + ")を超えています: +" +
+      "slide overflows the " + canvas.width + "x" + canvas.height + " canvas by +" +
         Math.max(overflowX, 0) + "px / +" + Math.max(overflowY, 0) + "px",
     );
   }
@@ -191,7 +191,7 @@
     const outBottom = rect.bottom - canvas.height;
     const worstOutside = Math.max(outLeft, outTop, outRight, outBottom);
     if (worstOutside > tolerance) {
-      report("outside_canvas", element, "要素がcanvasの外にはみ出しています: " + Math.round(worstOutside) + "px");
+      report("outside_canvas", element, "element extends past the canvas by " + Math.round(worstOutside) + "px");
     } else {
       const safe = config.safeArea;
       const safeOut = Math.max(
@@ -201,7 +201,7 @@
         rect.bottom - (canvas.height - safe.bottom),
       );
       if (safeOut > tolerance) {
-        report("outside_safe_area", element, "要素がsafe areaの外にあります: " + Math.round(safeOut) + "px");
+        report("outside_safe_area", element, "element sits outside the safe area by " + Math.round(safeOut) + "px");
       }
     }
 
@@ -221,16 +221,16 @@
       const clippedX = element.scrollWidth - element.clientWidth;
       const clippedY = element.scrollHeight - element.clientHeight;
       if (clipsAxis(style.overflowX) && element.clientWidth > 0 && clippedX > tolerance) {
-        report("clipped_text", element, "テキストが横方向に切れています: +" + clippedX + "px");
+        report("clipped_text", element, "text is cut off horizontally: +" + clippedX + "px");
       } else if (clipsAxis(style.overflowY) && element.clientHeight > 0 && clippedY > tolerance) {
-        report("clipped_text", element, "テキストが縦方向に切れています: +" + clippedY + "px");
+        report("clipped_text", element, "text is cut off vertically: +" + clippedY + "px");
       }
     }
 
     // min-font-size ---------------------------------------------------
     const fontSize = Number.parseFloat(style.fontSize);
     if (Number.isFinite(fontSize) && fontSize < config.minFontPx) {
-      report("min_font_size", element, "フォントサイズが小さすぎます: " + fontSize + "px < " + config.minFontPx + "px");
+      report("min_font_size", element, "font size is too small: " + fontSize + "px < " + config.minFontPx + "px");
     }
 
     // missing-font ----------------------------------------------------
@@ -244,7 +244,7 @@
       }
       seenFamilies.set(family, available);
       if (!available) {
-        report("missing_font", element, "フォントが利用できません: " + family, { font: family });
+        report("missing_font", element, "font is not available: " + family, { font: family });
       }
     }
 
@@ -258,7 +258,7 @@
         report(
           "low_contrast",
           element,
-          "コントラスト比が不足しています: " + ratio.toFixed(2) + " < " + required,
+          "contrast ratio is too low: " + ratio.toFixed(2) + " < " + required,
           { contrast: Math.round(ratio * 100) / 100 },
         );
       }
@@ -281,7 +281,7 @@
       const overlapArea = overlapWidth * overlapHeight;
       const smaller = Math.min(a.rect.width * a.rect.height, b.rect.width * b.rect.height);
       if (smaller > 0 && overlapArea / smaller > 0.25) {
-        report("text_overlap", a.element, "テキストが重なっています: " + cssPath(b.element), {
+        report("text_overlap", a.element, "text overlaps " + cssPath(b.element), {
           other: cssPath(b.element),
         });
       }
@@ -290,7 +290,7 @@
 
   // text-density -------------------------------------------------------
   if (totalCharacters > config.maxCharacters) {
-    report("text_density", root, "文字数が多すぎます: " + totalCharacters + " > " + config.maxCharacters);
+    report("text_density", root, "too much text on one slide: " + totalCharacters + " > " + config.maxCharacters);
   }
 
   const deck = window.deck || {};

@@ -89,7 +89,7 @@ function resetTimer() {
 function renderTimer() {
   ui.timer.textContent = formatDuration(elapsedMs());
   ui.timer.classList.toggle("is-running", timer.running);
-  ui.timerToggle.textContent = timer.running ? "一時停止" : "開始";
+  ui.timerToggle.textContent = timer.running ? "Pause" : "Start";
 }
 
 /* -- shell ------------------------------------------------------------- */
@@ -108,7 +108,7 @@ shell.extraSyncState = () => ({ timer: { ...timer } });
 
 shell.on("change", (snapshot) => {
   if (!snapshot.slide) {
-    ui.position.textContent = "スライドがありません";
+    ui.position.textContent = "No slides";
     return;
   }
   const steps = snapshot.stepCount > 0 ? `  step ${snapshot.step}/${snapshot.stepCount}` : "";
@@ -116,10 +116,10 @@ shell.on("change", (snapshot) => {
   ui.slideTitle.textContent = snapshot.slide.title ?? snapshot.slide.id;
 
   const nextSlide = shell.slides[snapshot.index + 1];
-  ui.nextTitle.textContent = nextSlide ? (nextSlide.title ?? nextSlide.id) : "— 最後のスライド —";
+  ui.nextTitle.textContent = nextSlide ? (nextSlide.title ?? nextSlide.id) : "— end of deck —";
 
   const notes = snapshot.frame?.meta?.notes || snapshot.slide.notes || "";
-  ui.notes.innerHTML = notes || '<p class="presenter-notes__empty">notesはありません</p>';
+  ui.notes.innerHTML = notes || '<p class="presenter-notes__empty">No speaker notes</p>';
 
   ui.blackout.classList.toggle("is-active", snapshot.blackout);
   renderDiagnostics(snapshot.frame);
@@ -129,7 +129,7 @@ function renderDiagnostics(frame) {
   const items = frame?.diagnostics ?? [];
   ui.diagnostics.innerHTML = "";
   if (items.length === 0) {
-    ui.diagnostics.innerHTML = '<li class="is-ok">問題は検出されていません</li>';
+    ui.diagnostics.innerHTML = '<li class="is-ok">No problems detected</li>';
     return;
   }
   for (const item of items) {
@@ -141,7 +141,7 @@ function renderDiagnostics(frame) {
 }
 
 shell.on("connection", ({ connected }) => {
-  ui.connection.textContent = connected ? "接続中" : "オフライン";
+  ui.connection.textContent = connected ? "connected" : "offline";
   ui.connection.classList.toggle("is-offline", !connected);
 });
 

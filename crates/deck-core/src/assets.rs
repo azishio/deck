@@ -419,7 +419,7 @@ mod tests {
     #[test]
     fn every_embedded_asset_is_non_empty() {
         for (route, bytes) in EMBEDDED {
-            assert!(!bytes.is_empty(), "{route} が空です");
+            assert!(!bytes.is_empty(), "{route} is empty");
         }
     }
 

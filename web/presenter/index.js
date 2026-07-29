@@ -20,7 +20,7 @@ const manifest = await response.json();
 
 meta.textContent = [
   env.deck.author && `${env.deck.author}`,
-  `${manifest.slides.length} スライド`,
+  `${manifest.slides.length} slide${manifest.slides.length === 1 ? "" : "s"}`,
   `canvas ${env.canvas.width}×${env.canvas.height}`,
 ]
   .filter(Boolean)

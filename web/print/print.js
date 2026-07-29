@@ -75,7 +75,7 @@ function slideUrl(slide, step) {
 function renderStatus() {
   ui.status.textContent = `${readyCount} / ${pages.length} slides ready`;
   if (readyCount === pages.length) {
-    ui.status.textContent += diagnostics.length > 0 ? ` · ${diagnostics.length} 件の指摘` : " · OK";
+    ui.status.textContent += diagnostics.length > 0 ? ` · ${diagnostics.length} finding${diagnostics.length === 1 ? "" : "s"}` : " · OK";
     ui.printButton.disabled = false;
     document.documentElement.dataset.deckPrintReady = "true";
   }
@@ -174,7 +174,7 @@ function createPage(page, index) {
           slideId: page.slide.id,
           rule: "ready-timeout",
           severity: "error",
-          message: `${env.readyTimeoutMs}ms 以内に print-ready になりませんでした`,
+          message: `did not report print-ready within ${env.readyTimeoutMs}ms`,
         });
         readyCount += 1;
         renderStatus();

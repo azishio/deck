@@ -13,8 +13,8 @@
   <header class="presenter-bar">
     <div class="presenter-clock">
       <span class="presenter-timer" data-deck-timer>00:00:00</span>
-      <button type="button" data-deck-timer-toggle>開始</button>
-      <button type="button" data-deck-timer-reset>リセット</button>
+      <button type="button" data-deck-timer-toggle>Start</button>
+      <button type="button" data-deck-timer-reset>Reset</button>
     </div>
 
     <div class="presenter-position">
@@ -27,19 +27,19 @@
       <span class="presenter-connection" data-deck-connection></span>
       <button type="button" data-deck-blackout>Blackout</button>
       <button type="button" data-deck-pause>Pause</button>
-      <a data-deck-print-link target="_blank" rel="noopener">印刷</a>
+      <a data-deck-print-link target="_blank" rel="noopener">Print</a>
       <a data-deck-present-link target="_blank" rel="noopener">Audience</a>
     </div>
   </header>
 
   <main class="presenter-grid">
     <section class="presenter-panel presenter-panel--current">
-      <h2 class="presenter-panel__label">現在</h2>
+      <h2 class="presenter-panel__label">Current</h2>
       <div class="presenter-preview" data-deck-region="current"></div>
     </section>
 
     <section class="presenter-panel presenter-panel--next">
-      <h2 class="presenter-panel__label">次</h2>
+      <h2 class="presenter-panel__label">Next</h2>
       <div class="presenter-preview presenter-preview--small" data-deck-region="next"></div>
       <p class="presenter-next-title" data-deck-next-title></p>
     </section>
@@ -50,13 +50,13 @@
     </section>
 
     <section class="presenter-panel presenter-panel--diagnostics">
-      <h2 class="presenter-panel__label">診断</h2>
+      <h2 class="presenter-panel__label">Diagnostics</h2>
       <ul class="presenter-diagnostics" data-deck-diagnostics></ul>
     </section>
   </main>
 
   <footer class="presenter-help">
-    ← → step / ↑ ↓ slide / b blackout / f fullscreen / Home End
+    ← → step · ↑ ↓ slide · click the left or right half · b blackout · f fullscreen · Home End
   </footer>
 </body>
 </html>

@@ -108,7 +108,7 @@ async fn a_slide_renders_and_reaches_ready() {
     let temp = TempProject::new("ready");
     let project = temp.open();
     if !chromium_available(&project) {
-        eprintln!("Chromium が無いため skip します");
+        eprintln!("skipping: no Chromium available");
         return;
     }
 
@@ -185,6 +185,96 @@ fn stat_state(slide_id: &str) -> String {
     )
 }
 
+/// A slide opened on its own is navigable: the right half of the page and the
+/// arrow keys advance a step, and carry on to the adjacent slide once the steps
+/// of the current one run out.
+#[tokio::test]
+async fn a_single_slide_page_navigates_by_click() {
+    let temp = TempProject::new("standalone");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("skipping: no Chromium available");
+        return;
+    }
+
+    let canvas = project.config().canvas;
+    let browser_config = project.config().browser.clone();
+    let server = Server::bind(project).await.expect("bind");
+    let origin = server.origin();
+    let _task = server.spawn();
+
+    let browser = BrowserSession::launch(&browser_config, canvas).await.expect("launch");
+    let page = browser.open(&format!("{origin}/slides/overview")).await.expect("open");
+    assert!(
+        page.wait_for(
+            "document.documentElement.dataset.deckReady === 'true'",
+            Duration::from_secs(15)
+        )
+        .await
+        .expect("evaluate"),
+        "slide never became ready"
+    );
+
+    // Right half: one step forward.
+    page.click_at(1000.0, 400.0).await.expect("click");
+    assert!(
+        page.wait_for("window.deck.step === 1", Duration::from_secs(5)).await.expect("evaluate"),
+        "clicking the right half did not advance a step"
+    );
+
+    // Left half: back again.
+    page.click_at(200.0, 400.0).await.expect("click");
+    assert!(
+        page.wait_for("window.deck.step === 0", Duration::from_secs(5)).await.expect("evaluate"),
+        "clicking the left half did not go back a step"
+    );
+
+    // Past the last step, the click moves to the next slide.
+    page.evaluate::<serde_json::Value>("window.deck.goToStep(window.deck.stepCount), null")
+        .await
+        .ok();
+    page.click_at(1000.0, 400.0).await.expect("click");
+    assert!(
+        page.wait_for(
+            "location.pathname.endsWith('/slides/architecture')",
+            Duration::from_secs(10)
+        )
+        .await
+        .expect("evaluate"),
+        "the last step did not carry on to the next slide"
+    );
+
+    // And back the other way, landing on the previous slide's final step.
+    assert!(
+        page.wait_for(
+            "document.documentElement.dataset.deckReady === 'true'",
+            Duration::from_secs(15)
+        )
+        .await
+        .expect("evaluate"),
+        "the next slide never became ready"
+    );
+    page.click_at(200.0, 400.0).await.expect("click");
+    assert!(
+        page.wait_for("location.pathname.endsWith('/slides/overview')", Duration::from_secs(10))
+            .await
+            .expect("evaluate"),
+        "the first step did not carry back to the previous slide"
+    );
+    assert!(
+        page.wait_for(
+            "window.deck.step === window.deck.stepCount && window.deck.stepCount > 0",
+            Duration::from_secs(15)
+        )
+        .await
+        .expect("evaluate"),
+        "going back should land on the previous slide's final step"
+    );
+
+    page.close().await;
+    browser.close().await;
+}
+
 /// A slide preloaded by the iframe ring must not start its reveal animations
 /// before it is actually shown, and must replay them on every re-entry.
 ///
@@ -196,7 +286,7 @@ async fn a_preloaded_slide_animates_only_once_it_is_entered() {
     let temp = TempProject::new("preload");
     let project = temp.open();
     if !chromium_available(&project) {
-        eprintln!("Chromium が無いため skip します");
+        eprintln!("skipping: no Chromium available");
         return;
     }
 
@@ -255,7 +345,7 @@ async fn countup_replays_when_the_stat_becomes_visible_again() {
     let temp = TempProject::new("countup");
     let project = temp.open();
     if !chromium_available(&project) {
-        eprintln!("Chromium が無いため skip します");
+        eprintln!("skipping: no Chromium available");
         return;
     }
 
@@ -318,7 +408,7 @@ async fn presentation_navigates_steps_and_survives_hot_reload() {
     let temp = TempProject::new("hot");
     let project = temp.open();
     if !chromium_available(&project) {
-        eprintln!("Chromium が無いため skip します");
+        eprintln!("skipping: no Chromium available");
         return;
     }
 
@@ -357,12 +447,12 @@ async fn presentation_navigates_steps_and_survives_hot_reload() {
 
     // Edit the slide on disk; the shell must swap the iframe and keep the step.
     let source = std::fs::read_to_string(&slide_path).expect("read slide");
-    std::fs::write(&slide_path, source.replace("素のHTML", "編集済みHTML")).expect("write slide");
+    std::fs::write(&slide_path, source.replace("plain HTML", "edited HTML")).expect("write slide");
 
     let reloaded = page
         .wait_for(
             "window.deckShell.currentFrame()?.iframe.contentDocument\
-             ?.body?.textContent?.includes('編集済みHTML') === true",
+             ?.body?.textContent?.includes('edited HTML') === true",
             Duration::from_secs(20),
         )
         .await

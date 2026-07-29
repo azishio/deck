@@ -107,10 +107,10 @@ impl Server {
 
         let listener = TcpListener::bind((host.as_str(), port))
             .await
-            .map_err(|error| Error::config(format!("{host}:{port} にbindできません: {error}")))?;
+            .map_err(|error| Error::config(format!("could not bind {host}:{port}: {error}")))?;
         let addr = listener
             .local_addr()
-            .map_err(|error| Error::config(format!("ローカルアドレスを取得できません: {error}")))?;
+            .map_err(|error| Error::config(format!("could not read the local address: {error}")))?;
 
         Ok(Self { listener, state, addr })
     }
@@ -146,7 +146,7 @@ impl Server {
         axum::serve(self.listener, app)
             .with_graceful_shutdown(shutdown_signal())
             .await
-            .map_err(|error| Error::render(format!("サーバーが停止しました: {error}")))
+            .map_err(|error| Error::render(format!("the server stopped: {error}")))
     }
 
     /// Run the server on a background task (used by `deck check`).
@@ -157,7 +157,7 @@ impl Server {
 
 async fn shutdown_signal() {
     let _ = tokio::signal::ctrl_c().await;
-    tracing::info!("停止します");
+    tracing::info!("shutting down");
 }
 
 async fn watch_loop(state: Arc<AppState>, mut watcher: Watcher) {
@@ -171,7 +171,7 @@ async fn watch_loop(state: Arc<AppState>, mut watcher: Watcher) {
                     let manifest = match state.rebuild_manifest() {
                         Ok(manifest) => manifest,
                         Err(error) => {
-                            tracing::error!("manifest を更新できません: {error}");
+                            tracing::error!("could not rebuild the manifest: {error}");
                             continue;
                         }
                     };
@@ -192,7 +192,7 @@ async fn watch_loop(state: Arc<AppState>, mut watcher: Watcher) {
                         "revision": manifest.revision,
                         "slides": manifest.slides,
                     })),
-                    Err(error) => tracing::error!("manifest を更新できません: {error}"),
+                    Err(error) => tracing::error!("could not rebuild the manifest: {error}"),
                 },
                 Change::TailwindEntry { path } => state.broadcast(serde_json::json!({
                     "type": "tailwind-changed",
@@ -217,7 +217,7 @@ async fn watch_loop(state: Arc<AppState>, mut watcher: Watcher) {
                 })),
                 Change::Config { .. } => {
                     if let Err(error) = state.reload_config() {
-                        tracing::error!("deck.toml を再読込できません: {error}");
+                        tracing::error!("could not reload deck.toml: {error}");
                         state.broadcast(serde_json::json!({
                             "type": "error",
                             "message": error.to_string(),
@@ -225,7 +225,7 @@ async fn watch_loop(state: Arc<AppState>, mut watcher: Watcher) {
                         continue;
                     }
                     if let Err(error) = state.rebuild_manifest() {
-                        tracing::error!("manifest を更新できません: {error}");
+                        tracing::error!("could not rebuild the manifest: {error}");
                     }
                     state.broadcast(serde_json::json!({
                         "type": "config-changed",
@@ -344,7 +344,7 @@ async fn env_handler(State(state): State<Arc<AppState>>) -> Response {
 async fn deck_asset_handler(Path(path): Path<String>) -> Response {
     match assets::embedded(&path) {
         Some(bytes) => body_response(assets::mime_for(&path), Body::from(bytes)),
-        None => (StatusCode::NOT_FOUND, format!("/@deck/{path} は存在しません")).into_response(),
+        None => (StatusCode::NOT_FOUND, format!("/@deck/{path} does not exist")).into_response(),
     }
 }
 
@@ -364,7 +364,7 @@ async fn slide_handler(
     let rest = decode_path(&rest);
 
     if !is_safe_relative(&rest) {
-        return (StatusCode::BAD_REQUEST, "不正なパスです").into_response();
+        return (StatusCode::BAD_REQUEST, "invalid path").into_response();
     }
 
     let tailwind = match assets::tailwind_input(&project) {
@@ -392,7 +392,7 @@ async fn slide_handler(
         return serve_slide(&with_extension, &tags);
     }
 
-    (StatusCode::NOT_FOUND, format!("slide が見つかりません: {rest}")).into_response()
+    (StatusCode::NOT_FOUND, format!("no such slide: {rest}")).into_response()
 }
 
 fn serve_slide(path: &Utf8Path, tags: &RuntimeTags<'_>) -> Response {
@@ -412,7 +412,7 @@ fn serve_file(path: &Utf8Path) -> Response {
             let mime = mime_guess::from_path(path.as_std_path()).first_or_octet_stream();
             body_response(mime.as_ref(), Body::from(bytes))
         }
-        Err(_) => (StatusCode::NOT_FOUND, format!("{path} は存在しません")).into_response(),
+        Err(_) => (StatusCode::NOT_FOUND, format!("{path} does not exist")).into_response(),
     }
 }
 
@@ -437,7 +437,7 @@ async fn design_dir_handler(
 fn serve_from_dir(dir: &Utf8Path, path: &str) -> Response {
     let path = decode_path(path);
     if !is_safe_relative(&path) {
-        return (StatusCode::BAD_REQUEST, "不正なパスです").into_response();
+        return (StatusCode::BAD_REQUEST, "invalid path").into_response();
     }
     let target = dir.join(&path);
     if target.is_file() {

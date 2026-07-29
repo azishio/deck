@@ -198,7 +198,7 @@ fn static_checks(
                 Diagnostic::new(
                     "duplicate_slide_id",
                     rules.severity("duplicate_slide_id"),
-                    format!("slide id '{}' が {previous} と重複しています", document.id),
+                    format!("slide id '{}' is already used by {previous}", document.id),
                 )
                 .at(&document.id, &document.relative),
             );
@@ -214,12 +214,8 @@ fn static_checks(
 
         if !document.has_title_element {
             diagnostics.push(
-                Diagnostic::new(
-                    "missing_title",
-                    rules.severity("missing_title"),
-                    "<title> がありません",
-                )
-                .at(slide_id, source_path),
+                Diagnostic::new("missing_title", rules.severity("missing_title"), "no <title>")
+                    .at(slide_id, source_path),
             );
         }
         if !document.has_deck_slide {
@@ -227,7 +223,7 @@ fn static_checks(
                 Diagnostic::new(
                     "missing_deck_slide",
                     rules.severity("missing_deck_slide"),
-                    "<deck-slide> がありません",
+                    "no <deck-slide>",
                 )
                 .at(slide_id, source_path),
             );
@@ -245,7 +241,7 @@ fn static_checks(
                     Diagnostic::new(
                         "duplicate_html_id",
                         rules.severity("duplicate_html_id"),
-                        format!("id='{id}' が重複しています"),
+                        format!("duplicate id='{id}'"),
                     )
                     .at(slide_id, source_path),
                 );
@@ -258,7 +254,7 @@ fn static_checks(
                         Diagnostic::new(
                             "invalid_component_name",
                             rules.severity("invalid_component_name"),
-                            format!("Custom Element 名として不正です: <{tag}>"),
+                            format!("not a valid Custom Element name: <{tag}>"),
                         )
                         .at(slide_id, source_path),
                     );
@@ -267,7 +263,7 @@ fn static_checks(
                         Diagnostic::new(
                             "invalid_component_name",
                             rules.severity("invalid_component_name"),
-                            format!("定義が見つからないコンポーネントです: <{tag}>"),
+                            format!("no definition found for <{tag}>"),
                         )
                         .at(slide_id, source_path),
                     );
@@ -376,7 +372,7 @@ fn check_url(
                 Diagnostic::new(
                     "external_url",
                     rules.severity("external_url"),
-                    format!("外部URLを参照しています: {url}"),
+                    format!("references an external URL: {url}"),
                 )
                 .at(slide_id, source_path),
             );
@@ -394,7 +390,7 @@ fn check_url(
                 Diagnostic::new(
                     "invalid_local_url",
                     rules.severity("invalid_local_url"),
-                    format!("予約URLが存在しません: {url}"),
+                    format!("no such reserved URL: {url}"),
                 )
                 .at(slide_id, source_path),
             );
@@ -418,7 +414,7 @@ fn check_url(
             Diagnostic::new(
                 "invalid_local_url",
                 rules.severity("invalid_local_url"),
-                format!("配信されないパスを参照しています: {url}"),
+                format!("references a path that is not served: {url}"),
             )
             .at(slide_id, source_path),
         );
@@ -433,7 +429,7 @@ fn check_url(
             Diagnostic::new(
                 "missing_file",
                 rules.severity("missing_file"),
-                format!("ファイルが存在しません: {url}"),
+                format!("file does not exist: {url}"),
             )
             .at(slide_id, source_path),
         );
@@ -516,7 +512,7 @@ async fn runtime_checks(
                 Diagnostic::new(
                     "ready_timeout",
                     rules.severity("ready_timeout"),
-                    format!("{}ms 以内に deck:ready になりませんでした", config.check.timeout_ms),
+                    format!("did not reach deck:ready within {}ms", config.check.timeout_ms),
                 )
                 .at(slide_id, source_path),
             );
@@ -563,7 +559,7 @@ async fn runtime_checks(
                             "step_count_mismatch",
                             rules.severity("step_count_mismatch"),
                             format!(
-                                "step数が静的解析と一致しません: HTML={} 実行時={actual}",
+                                "step count disagrees with the markup: HTML={} runtime={actual}",
                                 slide.step_count
                             ),
                         )
@@ -601,7 +597,7 @@ async fn runtime_checks(
                 Diagnostic::new(
                     "missing_asset",
                     rules.severity("missing_asset"),
-                    format!("リソースの読み込みに失敗しました: {url} ({error_text})"),
+                    format!("failed to load a resource: {url} ({error_text})"),
                 )
                 .at(slide_id, source_path),
             );
@@ -617,7 +613,7 @@ async fn runtime_checks(
                         Diagnostic::new(
                             "external_network",
                             rules.severity("external_network"),
-                            format!("外部ネットワークへアクセスしました: {request}"),
+                            format!("reached the external network: {request}"),
                         )
                         .at(slide_id, source_path),
                     );

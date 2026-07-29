@@ -40,7 +40,7 @@ function showToast(message) {
 
 shell.on("change", (snapshot) => {
   if (!snapshot.slide) {
-    position.textContent = "スライドがありません";
+    position.textContent = "No slides";
     return;
   }
   const steps = snapshot.stepCount > 0 ? ` · ${snapshot.step}/${snapshot.stepCount}` : "";
@@ -52,17 +52,17 @@ shell.on("change", (snapshot) => {
 });
 
 shell.on("connection", ({ connected }) => {
-  connection.textContent = connected ? "" : "オフライン";
+  connection.textContent = connected ? "" : "offline";
   connection.classList.toggle("is-offline", !connected);
 });
 
 shell.on("hot", (message) => {
   if (message.type === "slide-changed") {
-    showToast("スライドを再読込しました");
+    showToast("Slide reloaded");
   } else if (message.type === "style-changed") {
-    showToast("スタイルを更新しました");
+    showToast("Styles updated");
   } else if (message.type === "manifest-changed") {
-    showToast("スライド一覧を更新しました");
+    showToast("Slide list updated");
   }
 });
 
@@ -71,11 +71,17 @@ installKeyboard(shell, {
   s: () => window.open(`${base}presenter${location.hash}`, "deck-presenter"),
 });
 
+// Clicks on the slide itself are forwarded by its runtime; this covers the
+// letterbox around it, with the same left/right split.
 document.addEventListener("click", (event) => {
   if (event.target.closest(".deck-hud")) {
     return;
   }
-  shell.next();
+  if (event.clientX >= innerWidth / 2) {
+    shell.next();
+  } else {
+    shell.previous();
+  }
 });
 
 document.addEventListener("contextmenu", (event) => {

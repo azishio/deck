@@ -51,7 +51,7 @@ impl Theme {
 /// Create a new deck project. Fails if the directory already contains one.
 pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
     if root.join(CONFIG_FILE).exists() {
-        return Err(Error::config(format!("{} は既に deck プロジェクトです", root)));
+        return Err(Error::config(format!("{} is already a deck project", root)));
     }
 
     write_file(&root.join(CONFIG_FILE), deck_toml(title))?;
@@ -99,7 +99,7 @@ fn install_skill(root: &Utf8Path) -> Result<()> {
         Err(error) => {
             // Windows needs developer mode or elevation for symlinks; a copy
             // keeps the skill discoverable, at the cost of a second file.
-            tracing::warn!("{link} をシンボリックリンクにできません ({error})。コピーします");
+            tracing::warn!("could not symlink {link} ({error}); copying instead");
             write_file(&link.join(SKILL_NAME).join("SKILL.md"), SKILL)
         }
     }
@@ -128,7 +128,7 @@ fn deck_toml(title: &str) -> String {
 [deck]
 title = "{title}"
 author = ""
-lang = "ja"
+lang = "en"
 
 [canvas]
 width = {width}
@@ -288,7 +288,7 @@ browsers ignore images larger than 128x128.
 fn title_slide(title: &str) -> String {
     format!(
         r#"<!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -299,14 +299,14 @@ fn title_slide(title: &str) -> String {
 </head>
 <body>
   <deck-slide id="title" layout="title" class="bg-linear-to-br from-surface to-background">
-    <deck-heading level="title" eyebrow="Deck" sub="1スライド = 1つのHTML文書">
+    <deck-heading level="title" eyebrow="Deck" sub="One slide is one complete HTML document.">
       {title}
     </deck-heading>
 
-    <p class="text-muted text-small">Tailwind CSS のユーティリティがそのまま使えます。</p>
+    <p class="text-muted text-small">Tailwind CSS utilities work out of the box.</p>
 
     <deck-notes>
-      最初のスライド。→ キーで次のstepへ進む。
+      The opening slide. Press the right arrow, or click the right half, to advance.
     </deck-notes>
   </deck-slide>
 </body>
@@ -316,7 +316,7 @@ fn title_slide(title: &str) -> String {
 }
 
 const OVERVIEW_SLIDE: &str = r#"<!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -328,26 +328,26 @@ const OVERVIEW_SLIDE: &str = r#"<!doctype html>
 <body>
   <deck-slide id="overview">
     <deck-heading eyebrow="Overview">
-      素のHTML・CSS・JavaScriptで書く
+      Written in plain HTML, CSS and JavaScript
     </deck-heading>
 
     <deck-stack gap="24">
       <p data-step="1" class="flex items-center gap-3">
         <span class="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-accent text-white text-small font-bold">1</span>
-        スライドは完全なHTML文書として管理する。
+        Every slide is a complete HTML document of its own.
       </p>
       <p data-step="2" class="flex items-center gap-3">
         <span class="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-accent text-white text-small font-bold">2</span>
-        デザインシステムはWeb Components・CSS Custom Properties・Tailwind CSSで提供する。
+        The design system is Web Components, CSS Custom Properties and Tailwind CSS.
       </p>
       <p data-step="3" class="flex items-center gap-3">
         <span class="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-accent text-white text-small font-bold">3</span>
-        アニメーションはAnime.jsをそのままimportして書ける。
+        Anime.js ships with the runtime; import it and animate.
       </p>
     </deck-stack>
 
     <deck-notes>
-      data-step で段階表示になる。stepは絶対値で管理される。
+      data-step reveals content in stages. Steps are absolute, never relative.
     </deck-notes>
   </deck-slide>
 </body>
@@ -355,7 +355,7 @@ const OVERVIEW_SLIDE: &str = r#"<!doctype html>
 "#;
 
 const ARCHITECTURE_SLIDE: &str = r#"<!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -368,29 +368,29 @@ const ARCHITECTURE_SLIDE: &str = r#"<!doctype html>
 <body>
   <deck-slide id="architecture">
     <deck-heading eyebrow="Architecture">
-      収集から可視化までを一貫して管理する
+      One pipeline, end to end
     </deck-heading>
 
     <deck-grid columns="2" class="grow">
       <deck-card data-step="1" class="justify-between">
         <h2 class="text-body font-bold">Collection</h2>
-        <p>Probeからデータを収集する。</p>
+        <p>Probes push measurements into the ingest tier.</p>
         <span class="text-small text-muted font-mono">probe -&gt; ingest</span>
       </deck-card>
 
       <deck-card data-step="2" variant="accent" class="justify-between">
         <h2 class="text-body font-bold">Visualization</h2>
-        <p>可視化基盤へ渡す。</p>
+        <p>Queries fan out to the visualisation layer.</p>
         <span class="text-small text-accent font-mono">query -&gt; render</span>
       </deck-card>
     </deck-grid>
 
     <deck-callout tone="info" label="Note" data-step="3">
-      高度なアニメーションはスライド内のJavaScriptで直接書ける。
+      Richer animation is just JavaScript inside the slide.
     </deck-callout>
 
     <deck-notes>
-      収集経路とクエリ経路を分けて説明する。
+      Explain the ingest path and the query path separately.
     </deck-notes>
   </deck-slide>
 
@@ -443,7 +443,7 @@ pub fn add_slide(project: &Project, name: &str, after: Option<&str>) -> Result<U
     };
     let path = slides_dir.join(&relative);
     if path.exists() {
-        return Err(Error::config(format!("{path} は既に存在します")));
+        return Err(Error::config(format!("{path} already exists")));
     }
 
     write_file(&path, new_slide(name))?;
@@ -462,7 +462,7 @@ fn resolve_slide_path(project: &Project, existing: &[String], anchor: &str) -> R
             return Ok(candidate.clone());
         }
     }
-    Err(Error::config(format!("--after で指定したスライドが見つかりません: {anchor}")))
+    Err(Error::config(format!("--after refers to a slide that does not exist: {anchor}")))
 }
 
 fn siblings(existing: &[String], directory: &Utf8Path) -> Vec<String> {
@@ -497,7 +497,7 @@ fn next_prefix_after(siblings: &[String], anchor: &str) -> Result<String> {
     numbered.sort();
 
     let anchor_number = numeric_prefix(anchor)
-        .ok_or_else(|| Error::config(format!("番号付きのファイル名ではありません: {anchor}")))?;
+        .ok_or_else(|| Error::config(format!("file name is not numbered: {anchor}")))?;
     let next_number =
         numbered.iter().map(|(number, _)| *number).find(|number| *number > anchor_number);
 
@@ -513,7 +513,7 @@ fn next_prefix_after(siblings: &[String], anchor: &str) -> Result<String> {
                     return Ok(candidate);
                 }
             }
-            Err(Error::config("空き番号がありません。既存スライドをリネームしてください"))
+            Err(Error::config("no free number left; rename the surrounding slides"))
         }
         None => Ok(format!("{:02}", anchor_number.saturating_add(10).min(99))),
     }
@@ -522,7 +522,7 @@ fn next_prefix_after(siblings: &[String], anchor: &str) -> Result<String> {
 fn new_slide(name: &str) -> String {
     format!(
         r#"<!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -534,15 +534,15 @@ fn new_slide(name: &str) -> String {
 <body>
   <deck-slide id="{name}">
     <deck-heading eyebrow="{name}">
-      見出しを書く
+      Write a heading
     </deck-heading>
 
     <deck-stack gap="16">
-      <p data-step="1" class="text-muted">本文を書く。Tailwind のユーティリティも使えます。</p>
+      <p data-step="1" class="text-muted">Write the body. Tailwind utilities are available too.</p>
     </deck-stack>
 
     <deck-notes>
-      話す内容のメモ。
+      Notes for what you plan to say.
     </deck-notes>
   </deck-slide>
 </body>
@@ -655,18 +655,18 @@ fn matching_brace(source: &str) -> Option<usize> {
 /// Copy a built-in component's styles into the project so they can be edited.
 pub fn eject_component(project: &Project, tag: &str) -> Result<Utf8PathBuf> {
     if !assets::BUILT_IN_COMPONENT_NAMES.contains(&tag) {
-        return Err(Error::config(format!("組み込みコンポーネントではありません: {tag}")));
+        return Err(Error::config(format!("not a built-in component: {tag}")));
     }
     let css = component_css(tag);
     if css.is_empty() {
-        return Err(Error::config(format!("{tag} のスタイル定義が見つかりません")));
+        return Err(Error::config(format!("no style definition found for {tag}")));
     }
 
     let path = project.design_dir().join("ejected").join(format!("{tag}.css"));
     write_file(
         &path,
         format!(
-            "/* Ejected from deck's built-in design system.\n   deck.toml の [theme].styles に追加すると有効になります。 */\n@layer project {{\n{css}}}\n"
+            "/* Ejected from deck's built-in design system.\n   Add it to [theme].styles in deck.toml to take effect. */\n@layer project {{\n{css}}}\n"
         ),
     )?;
     Ok(path)
@@ -675,15 +675,15 @@ pub fn eject_component(project: &Project, tag: &str) -> Result<Utf8PathBuf> {
 /// Scaffold a new project component and register it in the entry point.
 pub fn new_component(project: &Project, tag: &str) -> Result<Utf8PathBuf> {
     if !tag.contains('-') {
-        return Err(Error::config(format!("Custom Element 名にはハイフンが必要です: {tag}")));
+        return Err(Error::config(format!("a Custom Element name needs a hyphen: {tag}")));
     }
     if tag.starts_with("deck-") {
-        return Err(Error::config("deck-* は組み込みコンポーネント用に予約されています"));
+        return Err(Error::config("deck-* is reserved for the built-in components"));
     }
 
     let path = project.components_dir().join(format!("{tag}.js"));
     if path.exists() {
-        return Err(Error::config(format!("{path} は既に存在します")));
+        return Err(Error::config(format!("{path} already exists")));
     }
     write_file(&path, component_template(tag))?;
 

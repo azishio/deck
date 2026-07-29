@@ -69,7 +69,7 @@ pub async fn run(project: &Project) -> Result<DoctorReport> {
             "chromium executable",
             Status::Fail,
             format!(
-                "{} が見つかりません。deck.local.toml の [browser] command で指定してください",
+                "{} was not found. Set [browser] command in deck.local.toml",
                 config.browser.command
             ),
         )),
@@ -86,7 +86,7 @@ pub async fn run(project: &Project) -> Result<DoctorReport> {
             }
             match session.open("about:blank").await {
                 Ok(page) => {
-                    checks.push(Check::new("cdp connection", Status::Ok, "接続できました"));
+                    checks.push(Check::new("cdp connection", Status::Ok, "connected"));
                     checks.push(font_check(&page, project).await);
                     page.close().await;
                 }
@@ -126,11 +126,11 @@ pub async fn run(project: &Project) -> Result<DoctorReport> {
 
     // deck.lock ----------------------------------------------------------
     checks.push(match Lock::load(project.root())? {
-        None => Check::new("deck.lock", Status::Warn, "存在しません (`deck build` で生成されます)"),
+        None => Check::new("deck.lock", Status::Warn, "missing (`deck build` writes it)"),
         Some(lock) => {
             let drift = lock.drift();
             if drift.is_empty() {
-                Check::new("deck.lock", Status::Ok, "一致しています")
+                Check::new("deck.lock", Status::Ok, "up to date")
             } else {
                 Check::new("deck.lock", Status::Warn, drift.join(" / "))
             }
@@ -143,7 +143,7 @@ pub async fn run(project: &Project) -> Result<DoctorReport> {
 async fn font_check(page: &crate::browser::PageSession, project: &Project) -> Check {
     let families = font_families(project);
     if families.is_empty() {
-        return Check::new("fonts", Status::Ok, "確認するフォント指定がありません");
+        return Check::new("fonts", Status::Ok, "no font families to check");
     }
 
     let script = format!(
@@ -155,10 +155,10 @@ async fn font_check(page: &crate::browser::PageSession, project: &Project) -> Ch
             Ok(missing) if missing.is_empty() => Check::new(
                 "fonts",
                 Status::Ok,
-                format!("{} 件のフォントを確認しました", families.len()),
+                format!("{} font families available", families.len()),
             ),
             Ok(missing) => {
-                Check::new("fonts", Status::Warn, format!("未インストール: {}", missing.join(", ")))
+                Check::new("fonts", Status::Warn, format!("not installed: {}", missing.join(", ")))
             }
             Err(error) => Check::new("fonts", Status::Warn, error.to_string()),
         },

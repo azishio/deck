@@ -20,7 +20,7 @@ pub enum Error {
     Render(String),
 
     /// Checks reported violations. Exit code 1.
-    #[error("検査で {errors} 件のエラー、{warnings} 件の警告を検出しました")]
+    #[error("checks reported {errors} error(s) and {warnings} warning(s)")]
     CheckViolations { errors: usize, warnings: usize },
 
     #[error("{path}: {source}")]

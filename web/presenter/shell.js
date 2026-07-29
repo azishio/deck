@@ -118,7 +118,7 @@ export class DeckShell {
   async loadManifest() {
     const response = await fetch(`${this.base}@deck/manifest.json`, { cache: "no-store" });
     if (!response.ok) {
-      throw new Error(`manifest を取得できません: ${response.status}`);
+      throw new Error(`could not load the manifest: ${response.status}`);
     }
     this.manifest = await response.json();
     this.emit("manifest", this.manifest);
@@ -378,6 +378,26 @@ export class DeckShell {
         break;
       case "request-slide":
         this.goToSlideId(payload.target, payload.step ?? 0);
+        break;
+      // A click or key press inside the slide document: the frame cannot know
+      // the deck's shape, so it asks the shell to move.
+      case "request-nav":
+        if (frame === this.currentFrame()) {
+          switch (payload.direction) {
+            case "backward":
+              this.previous();
+              break;
+            case "first":
+              this.first();
+              break;
+            case "last":
+              this.last();
+              break;
+            default:
+              this.next();
+              break;
+          }
+        }
         break;
       case "diagnostic":
         frame.diagnostics.push(payload);

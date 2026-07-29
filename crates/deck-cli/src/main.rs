@@ -15,24 +15,24 @@ use deck_core::{build, check, doctor, lock, manifest, report};
 #[command(name = "deck")]
 #[command(version)]
 #[command(propagate_version = true)]
-#[command(about = "1スライド = 1つのHTML文書のローカルスライド実行環境")]
+#[command(about = "A local slide runtime where one slide is one complete HTML document")]
 struct Cli {
-    /// deck.toml のパス
+    /// Path to deck.toml
     #[arg(long, global = true)]
     config: Option<Utf8PathBuf>,
 
-    /// プロジェクトルート
+    /// Project root
     #[arg(long, global = true)]
     root: Option<Utf8PathBuf>,
 
-    /// 結果をJSONで出力する
+    /// Print the result as JSON
     #[arg(long, global = true)]
     json: bool,
 
     #[arg(short, long, action = clap::ArgAction::Count, global = true)]
     verbose: u8,
 
-    /// 色付き出力を無効にする
+    /// Disable coloured output
     #[arg(long, global = true)]
     no_color: bool,
 
@@ -42,50 +42,50 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Command {
-    /// 新しいデッキを作成する
+    /// Create a new deck
     Init(InitArgs),
-    /// スライドなどを追加する
+    /// Add a slide
     #[command(subcommand)]
     Add(AddCommand),
-    /// 開発サーバーを起動する
+    /// Start the development server
     Dev(DevArgs),
-    /// プレゼンテーションを開始する
+    /// Start presenting
     Present(PresentArgs),
-    /// スライドを検査する
+    /// Check the slides
     Check(CheckArgs),
-    /// 静的配布物を生成する
+    /// Produce a static build
     Build(BuildArgs),
-    /// ページをブラウザで開く
+    /// Open a page in the browser
     #[command(subcommand)]
     Open(OpenCommand),
-    /// コンポーネントを操作する
+    /// Work with components
     #[command(subcommand)]
     Component(ComponentCommand),
-    /// 実行環境を診断する
+    /// Diagnose the environment
     Doctor(DoctorArgs),
 }
 
 #[derive(Debug, Args)]
 struct InitArgs {
-    /// 作成先ディレクトリ (省略時はカレントディレクトリ)
+    /// Target directory (defaults to the current one)
     name: Option<Utf8PathBuf>,
 
-    /// デッキタイトル
+    /// Deck title
     #[arg(long)]
     title: Option<String>,
 
-    /// テーマ
+    /// Theme
     #[arg(long, default_value = "default", value_parser = Theme::ALL)]
     theme: String,
 }
 
 #[derive(Debug, Subcommand)]
 enum AddCommand {
-    /// スライドを追加する
+    /// Add a slide
     Slide {
-        /// スライド名 (ファイル名とidに使う)
+        /// Slide name, used for the file name and the id
         name: String,
-        /// このスライドの直後に挿入する
+        /// Insert directly after this slide
         #[arg(long)]
         after: Option<String>,
     },
@@ -104,15 +104,15 @@ struct DevArgs {
     #[command(flatten)]
     server: ServerArgs,
 
-    /// 起動時に開くページ
+    /// Page to open on startup
     #[arg(long, value_parser = ["none", "index", "present", "presenter", "print"])]
     open: Option<String>,
 
-    /// 指定したスライドから開始する
+    /// Start from this slide
     #[arg(long)]
     slide: Option<String>,
 
-    /// Hot Reload を無効にする
+    /// Disable hot reload
     #[arg(long)]
     no_hot_reload: bool,
 }
@@ -122,78 +122,78 @@ struct PresentArgs {
     #[command(flatten)]
     server: ServerArgs,
 
-    /// 全画面で開く
+    /// Open in fullscreen
     #[arg(long)]
     fullscreen: bool,
 
-    /// 指定したスライドから開始する
+    /// Start from this slide
     #[arg(long)]
     slide: Option<String>,
 }
 
 #[derive(Debug, Args)]
 struct CheckArgs {
-    /// 検査するスライドid (複数指定可)
+    /// Slide id to check; repeatable
     #[arg(long = "slide")]
     slides: Vec<String>,
 
-    /// 前回から変更のあったスライドだけを検査する
+    /// Only check slides that changed since the last run
     #[arg(long)]
     changed: bool,
 
-    /// Chromium を起動せず静的検査だけ行う
+    /// Only run the static checks, without launching Chromium
     #[arg(long = "static")]
     static_only: bool,
 
-    /// スライドごとにスクリーンショットを保存する
+    /// Save a screenshot per slide
     #[arg(long)]
     screenshots: bool,
 
-    /// レポート形式
+    /// Report format
     #[arg(long, default_value = "human", value_parser = ["human", "json", "sarif"])]
     report: String,
 
-    /// レポートの出力先ファイル
+    /// Write the report to this file
     #[arg(long)]
     out: Option<Utf8PathBuf>,
 }
 
 #[derive(Debug, Args)]
 struct BuildArgs {
-    /// 出力先ディレクトリ
+    /// Output directory
     #[arg(long)]
     out: Option<Utf8PathBuf>,
 
-    /// 配信ベースURL ('/' で始まり '/' で終わる)
+    /// Base URL to serve from; must start and end with '/'
     #[arg(long)]
     base_url: Option<String>,
 }
 
 #[derive(Debug, Subcommand)]
 enum OpenCommand {
-    /// 印刷ページを開く (印刷そのものは実行しない)
+    /// Open the print page; printing itself stays with the browser
     Print,
-    /// プレゼン画面を開く
+    /// Open the audience view
     Present,
-    /// Presenter View を開く
+    /// Open the presenter view
     Presenter,
 }
 
 #[derive(Debug, Subcommand)]
 enum ComponentCommand {
-    /// 利用可能なコンポーネントを一覧する
+    /// List the available components
     List,
-    /// コンポーネントのスタイル定義を表示する
+    /// Print a component's style definition
     Show { name: String },
-    /// 組み込みコンポーネントのスタイルをプロジェクトへ取り出す
+    /// Copy a built-in component's styles into the project
     Eject { name: String },
-    /// 新しいコンポーネントを作成する
+    /// Scaffold a new component
     New { name: String },
 }
 
 #[derive(Debug, Args)]
 struct DoctorArgs {
-    /// 結果をJSONで出力する
+    /// Print the result as JSON
     #[arg(long)]
     json: bool,
 }
@@ -205,7 +205,7 @@ fn main() -> std::process::ExitCode {
     let runtime = match tokio::runtime::Runtime::new() {
         Ok(runtime) => runtime,
         Err(error) => {
-            eprintln!("error: tokio runtime を作成できません: {error}");
+            eprintln!("error: could not create the tokio runtime: {error}");
             return std::process::ExitCode::from(2);
         }
     };
@@ -264,7 +264,7 @@ fn run_init(cli: &Cli, args: &InitArgs) -> deck_core::Result<()> {
     let cwd = std::env::current_dir()
         .ok()
         .and_then(|path| Utf8PathBuf::from_path_buf(path).ok())
-        .ok_or_else(|| Error::config("カレントディレクトリを取得できません"))?;
+        .ok_or_else(|| Error::config("could not read the current directory"))?;
 
     let root = match (&cli.root, &args.name) {
         (Some(root), _) => root.clone(),
@@ -280,7 +280,7 @@ fn run_init(cli: &Cli, args: &InitArgs) -> deck_core::Result<()> {
 
     scaffold::init(&root, &title, theme)?;
 
-    println!("{root} に deck プロジェクトを作成しました");
+    println!("Created a deck project in {root}");
     println!("\n  cd {root}\n  deck dev\n");
     Ok(())
 }
@@ -288,7 +288,7 @@ fn run_init(cli: &Cli, args: &InitArgs) -> deck_core::Result<()> {
 fn run_add_slide(cli: &Cli, name: &str, after: Option<&str>) -> deck_core::Result<()> {
     let project = open_project(cli, Overrides::default())?;
     let path = scaffold::add_slide(&project, name, after)?;
-    println!("{path} を作成しました");
+    println!("Created {path}");
     Ok(())
 }
 
@@ -328,11 +328,11 @@ async fn serve(project: Project, slide: Option<&str>, fullscreen: bool) -> deck_
     println!("  presenter {origin}/presenter");
     println!("  print     {origin}/print");
     if host == "0.0.0.0" {
-        println!("\n警告: 0.0.0.0 へbindしています。同一ネットワークの誰でも閲覧できます。");
+        println!("\nWarning: bound to 0.0.0.0 — anyone on this network can view the deck.");
     }
     if hot_reload {
         server.spawn_watcher()?;
-        println!("\nHot Reload: 有効");
+        println!("\nHot reload: on");
     }
 
     if let Some(path) = open_target.path() {
@@ -344,11 +344,11 @@ async fn serve(project: Project, slide: Option<&str>, fullscreen: bool) -> deck_
             url.push_str(&format!("#/{slide}/0"));
         }
         if let Err(error) = open::that_detached(&url) {
-            tracing::warn!("ブラウザを開けません: {error}");
+            tracing::warn!("could not open a browser: {error}");
         }
     }
 
-    println!("\nCtrl-C で終了します");
+    println!("\nPress Ctrl-C to stop");
     server.serve().await
 }
 
@@ -387,7 +387,7 @@ async fn run_check(cli: &Cli, args: &CheckArgs) -> deck_core::Result<()> {
                 std::fs::create_dir_all(parent).map_err(|error| Error::io(parent, error))?;
             }
             std::fs::write(&path, &rendered).map_err(|error| Error::io(&path, error))?;
-            println!("{path} にレポートを書き出しました");
+            println!("Wrote the report to {path}");
         }
         None => print!("{rendered}"),
     }
@@ -420,8 +420,8 @@ fn run_build(cli: &Cli, args: &BuildArgs) -> deck_core::Result<()> {
         println!("{}", serde_json::to_string_pretty(&summary).unwrap_or_default());
     } else {
         println!(
-            "{} に {} スライド / {} アセットを出力しました (base_url = {})",
-            summary.output_dir, summary.slides, summary.assets, summary.base_url
+            "Wrote {} slides and {} assets to {} (base_url = {})",
+            summary.slides, summary.assets, summary.output_dir, summary.base_url
         );
     }
     Ok(())
@@ -440,11 +440,11 @@ async fn run_open(cli: &Cli, command: &OpenCommand) -> deck_core::Result<()> {
     let url = format!("{}{path}", server.origin());
     server.spawn_watcher().ok();
 
-    println!("{url} を開きます");
+    println!("Opening {url}");
     if let Err(error) = open::that_detached(&url) {
-        tracing::warn!("ブラウザを開けません: {error}");
+        tracing::warn!("could not open a browser: {error}");
     }
-    println!("Ctrl-C で終了します");
+    println!("Press Ctrl-C to stop");
     server.serve().await
 }
 
@@ -476,18 +476,18 @@ fn run_component(cli: &Cli, command: &ComponentCommand) -> deck_core::Result<()>
         ComponentCommand::Show { name } => {
             let css = scaffold::component_css(name);
             if css.is_empty() {
-                return Err(Error::config(format!("スタイル定義が見つかりません: {name}")));
+                return Err(Error::config(format!("no style definition found for {name}")));
             }
             print!("{css}");
         }
         ComponentCommand::Eject { name } => {
             let path = scaffold::eject_component(&project, name)?;
-            println!("{path} を作成しました");
-            println!("deck.toml の [theme].styles へ追加してください");
+            println!("Created {path}");
+            println!("Add it to [theme].styles in deck.toml to take effect");
         }
         ComponentCommand::New { name } => {
             let path = scaffold::new_component(&project, name)?;
-            println!("{path} を作成しました");
+            println!("Created {path}");
         }
     }
     Ok(())
@@ -502,11 +502,11 @@ async fn run_doctor(cli: &Cli, args: &DoctorArgs) -> deck_core::Result<()> {
     } else {
         println!("{}", report.to_text());
         let manifest = manifest::Manifest::build(&project.slides_dir(), 1)?;
-        println!("\n{} スライドを検出しました", manifest.slides.len());
+        println!("\n{} slides discovered", manifest.slides.len());
     }
 
     if report.failed() {
-        return Err(Error::browser("環境に問題があります"));
+        return Err(Error::browser("the environment has problems"));
     }
     Ok(())
 }

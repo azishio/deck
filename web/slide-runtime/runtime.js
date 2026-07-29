@@ -118,7 +118,7 @@ function loadAnime() {
     return Promise.resolve(null);
   }
   animePromise ??= import(`${DECK_BASE}@deck/vendor/animejs.js`).catch((error) => {
-    addDiagnostic("animation-engine", "warning", `anime.js を読み込めませんでした: ${error}`);
+    addDiagnostic("animation-engine", "warning", `could not load anime.js: ${error}`);
     return null;
   });
   return animePromise;
@@ -139,9 +139,11 @@ function loadPosition() {
         index: Math.max(index, 0),
         number: Math.max(index, 0) + 1,
         total: manifest.slides.length,
+        previous: manifest.slides[index - 1]?.id ?? null,
+        next: manifest.slides[index + 1]?.id ?? null,
       };
     })
-    .catch(() => ({ index: 0, number: 0, total: 0 }));
+    .catch(() => ({ index: 0, number: 0, total: 0, previous: null, next: null }));
   return positionPromise;
 }
 
@@ -285,7 +287,7 @@ function syncReveals() {
         slideId: state.slideId,
       });
     } catch (error) {
-      addDiagnostic("javascript-exception", "error", `deck.onReveal のコールバックが失敗しました: ${error}`);
+      addDiagnostic("javascript-exception", "error", `a deck.onReveal callback threw: ${error}`);
     }
   }
 }
@@ -317,7 +319,7 @@ async function waitForCustomElements(tags) {
         addDiagnostic(
           "undefined-component",
           "error",
-          `Custom Element <${tag}> が定義されませんでした`,
+          `the Custom Element <${tag}> was never defined`,
           { selector: tag },
         );
       }
@@ -340,7 +342,7 @@ async function waitForTailwind() {
       addDiagnostic(
         "tailwind-timeout",
         "warning",
-        `Tailwind CSS が ${env.tailwindTimeoutMs}ms 以内にコンパイルされませんでした`,
+        `Tailwind CSS did not compile within ${env.tailwindTimeoutMs}ms`,
       );
       return;
     }
@@ -355,7 +357,7 @@ async function decodeImages() {
       try {
         await image.decode();
       } catch {
-        addDiagnostic("missing-asset", "error", `画像を読み込めませんでした: ${image.currentSrc || image.src}`, {
+        addDiagnostic("missing-asset", "error", `could not load the image: ${image.currentSrc || image.src}`, {
           selector: cssPath(image),
           url: image.currentSrc || image.src,
         });
@@ -389,7 +391,7 @@ function quickLayoutCheck() {
     addDiagnostic(
       "slide-overflow",
       "error",
-      `スライドがcanvasを超えています (+${Math.max(overflowX, 0)}px, +${Math.max(overflowY, 0)}px)`,
+      `slide overflows the canvas (+${Math.max(overflowX, 0)}px, +${Math.max(overflowY, 0)}px)`,
       { selector: cssPath(root) },
     );
   }
@@ -611,7 +613,7 @@ function installErrorReporting() {
     if (event.target instanceof HTMLElement && event.target !== window) {
       const url = event.target.src || event.target.href;
       if (url) {
-        addDiagnostic("missing-asset", "error", `リソースを読み込めませんでした: ${url}`, {
+        addDiagnostic("missing-asset", "error", `could not load the resource: ${url}`, {
           selector: cssPath(event.target),
           url,
         });
@@ -639,8 +641,100 @@ function installErrorReporting() {
   };
 }
 
-/** Keyboard navigation when a slide is opened directly, outside the shell. */
-function installStandaloneControls() {
+/* -------------------------------------------------------------------------- */
+/* navigation                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/** Follow a link to another slide, keeping the current mode. */
+function openSlide(slideId, step) {
+  if (!slideId) {
+    return;
+  }
+  const url = new URL(`${DECK_BASE}slides/${slideId}`, location.href);
+  if (params.get("deck-mode")) {
+    url.searchParams.set("deck-mode", params.get("deck-mode"));
+  }
+  if (step !== undefined) {
+    url.searchParams.set("step", String(step));
+  }
+  location.href = url.toString();
+}
+
+/**
+ * Advance one step, or move to the next slide once the steps run out.
+ *
+ * Inside the shell the parent owns navigation, so the request is forwarded;
+ * a slide opened on its own navigates itself.
+ */
+async function advance(direction) {
+  if (embedded) {
+    post("request-nav", { direction });
+    return;
+  }
+  if (direction === "forward") {
+    if (state.step < state.stepCount) {
+      applyStep(state.step + 1);
+      return;
+    }
+    openSlide((await loadPosition()).next, 0);
+    return;
+  }
+  if (state.step > 0) {
+    applyStep(state.step - 1, { direction: "backward" });
+    return;
+  }
+  openSlide((await loadPosition()).previous, "final");
+}
+
+/** Clicks that are the author's, not navigation. */
+function isInteractive(event) {
+  if (event.defaultPrevented || event.button !== 0) {
+    return true;
+  }
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+    return true;
+  }
+  if (!getSelection()?.isCollapsed) {
+    return true;
+  }
+  return Boolean(
+    event.target?.closest?.(
+      "a, button, input, select, textarea, label, summary, video, audio, [data-deck-no-nav]",
+    ),
+  );
+}
+
+/**
+ * Clicking the right half of a slide advances, the left half goes back.
+ *
+ * Installed inside the slide document rather than the shell because a click on
+ * an iframe never reaches the parent.
+ */
+function installPointerNavigation() {
+  document.addEventListener("click", (event) => {
+    if (isInteractive(event)) {
+      return;
+    }
+    const middle = (document.documentElement.clientWidth || env.canvas.width) / 2;
+    void advance(event.clientX >= middle ? "forward" : "backward");
+  });
+
+  document.addEventListener("contextmenu", (event) => {
+    if (isInteractive({ ...event, button: 0 })) {
+      return;
+    }
+    event.preventDefault();
+    void advance("backward");
+  });
+}
+
+/**
+ * Keyboard navigation from inside the slide document.
+ *
+ * The shell has its own handler, but once a click moves focus into the iframe
+ * only this one sees the key, so both are needed.
+ */
+function installKeyboardNavigation() {
   window.addEventListener("keydown", (event) => {
     if (event.metaKey || event.ctrlKey || event.altKey) {
       return;
@@ -649,19 +743,31 @@ function installStandaloneControls() {
       case "ArrowRight":
       case "PageDown":
       case " ":
+      case "Enter":
         event.preventDefault();
-        applyStep(Math.min(state.step + 1, state.stepCount));
+        void advance("forward");
         break;
       case "ArrowLeft":
       case "PageUp":
+      case "Backspace":
         event.preventDefault();
-        applyStep(Math.max(state.step - 1, 0), { direction: "backward" });
+        void advance("backward");
         break;
       case "Home":
-        applyStep(0, { direction: "backward", instant: true });
+        event.preventDefault();
+        if (embedded) {
+          post("request-nav", { direction: "first" });
+        } else {
+          applyStep(0, { direction: "backward", instant: true });
+        }
         break;
       case "End":
-        applyStep(state.stepCount, { instant: true });
+        event.preventDefault();
+        if (embedded) {
+          post("request-nav", { direction: "last" });
+        } else {
+          applyStep(state.stepCount, { instant: true });
+        }
         break;
       default:
         break;
@@ -701,6 +807,8 @@ const deck = {
   },
   /** Resolves once the slide's position in the deck is known. */
   whenPositioned: () => loadPosition(),
+  /** Move one step, or to the adjacent slide when the steps run out. */
+  advance: (direction = "forward") => advance(direction),
 
   /** Request an absolute step. The shell stays the source of truth. */
   goToStep(step) {
@@ -792,9 +900,8 @@ export function boot() {
 
   installErrorReporting();
   installMessageListener();
-  if (!embedded) {
-    installStandaloneControls();
-  }
+  installPointerNavigation();
+  installKeyboardNavigation();
 
   void becomeReady();
   return deck;

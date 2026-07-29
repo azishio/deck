@@ -83,7 +83,7 @@ fn human(report: &Report, color: bool) -> String {
     let errors = report.errors();
     let warnings = report.warnings();
     let summary = format!(
-        "\n{} スライドを検査しました: {} errors, {} warnings",
+        "\n{} slides checked: {} errors, {} warnings",
         report.slides_checked, errors, warnings
     );
     out.push_str(&paint(color, if errors > 0 { "31" } else { "32" }, &summary));
