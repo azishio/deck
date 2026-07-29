@@ -28,7 +28,7 @@ security  30-security.html
 6 slides checked: 1 errors, 1 warnings
       </deck-code>
 
-      <deck-stack gap="14">
+      <deck-stack gap="10">
         <p data-step="1">
           <strong>Static:</strong> duplicate ids, missing files, external URLs, unknown
           component names — no browser needed.
@@ -42,10 +42,15 @@ security  30-security.html
           violations, tiny fonts, low contrast, overlapping text.
         </p>
         <p data-step="4" class="text-muted text-small">
-          Reports render as human text, JSON or SARIF, and exit code 1 means violations.
+          Human, JSON or SARIF output; exit code 1 means violations.
         </p>
       </deck-stack>
     </deck-grid>
+
+    <deck-footer divider>
+      <span>deck — one slide is one complete HTML document</span>
+      <deck-slide-number></deck-slide-number>
+    </deck-footer>
 
     <deck-notes>
       Every rule has a configurable severity and can be suppressed per element with

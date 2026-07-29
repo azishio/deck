@@ -66,7 +66,7 @@ my-deck/
 ├── slides/            # one file per slide
 ├── components/        # your own Custom Elements
 ├── design/            # tokens.css / theme.css / overrides.css / tailwind.css
-├── assets/            # images, fonts, data
+├── assets/            # images/ icons/ fonts/ data/ (+ cursor.svg)
 ├── dist/              # output of `deck build`
 └── .deck/             # cache, reports, screenshots
 ```
@@ -118,8 +118,35 @@ static build and any agent editing the deck simple.
 
 ### Built-in components
 
-`deck-slide` · `deck-heading` · `deck-grid` · `deck-stack` · `deck-card` ·
-`deck-callout` · `deck-stat` · `deck-figure` · `deck-code` · `deck-notes`
+| Component | For |
+|---|---|
+| `deck-slide` | the slide root; one per document |
+| `deck-heading` | heading with optional `eyebrow` and `sub` attributes |
+| `deck-eyebrow` `deck-title` `deck-subtitle` | the same three parts as child elements, for when content belongs in the markup rather than in attributes |
+| `deck-grid` `deck-stack` | layout: columns and a spaced column/row |
+| `deck-card` `deck-callout` `deck-stat` `deck-figure` | content blocks |
+| `deck-code` | syntax-highlighted code (the one Shadow DOM component) |
+| `deck-footer` | bottom band, pushed down with `margin-block-start: auto` so it never overlaps |
+| `deck-slide-number` | this slide's position, e.g. `4 / 18` |
+| `deck-progress` | a bar showing how far through the deck the slide is |
+| `deck-notes` | speaker notes; hidden on the slide, shown in the presenter view |
+
+```html
+<deck-slide id="summary">
+  <deck-eyebrow>Summary</deck-eyebrow>
+  <deck-title>What we shipped</deck-title>
+  <deck-subtitle>Three quarters, one pipeline</deck-subtitle>
+
+  <deck-footer divider>
+    <span>ACME · 2026</span>
+    <deck-slide-number format="{number} / {total}"></deck-slide-number>
+  </deck-footer>
+</deck-slide>
+```
+
+`deck-slide-number` accepts a `format` template with `{number}`, `{total}` and
+`{percent}`. Both it and `deck-progress` read the deck manifest, so the numbering
+survives inserting and reordering slides.
 
 Everything except `deck-code` renders in **Light DOM**, so ordinary CSS selectors,
 Tailwind utilities, Anime.js and DevTools all keep working. `deck-*` is reserved; give
@@ -157,6 +184,46 @@ project CSS, per-slide CSS, then Tailwind's utilities — which win over everyth
 > `deck.base` means "the `base` sub-layer of `deck`", which is *not* Tailwind's
 > top-level `base`. Listing them in one statement would sink the entire design system
 > below preflight. Hence the two statements.
+
+### Assets, fonts and the cursor
+
+Everything in `assets/` is served from `/assets/…`. Reference it with a
+root-absolute path — the static build relocates slides, so relative paths break.
+
+```text
+assets/
+├── images/     photographs, diagrams, screenshots
+├── icons/      small SVGs
+├── fonts/      webfonts, registered automatically
+├── data/       JSON, CSV, anything a slide fetches
+└── cursor.svg  optional custom mouse cursor
+```
+
+**Fonts.** Drop files in `assets/fonts/` and deck writes the `@font-face` rules
+for you. The file name carries the metadata:
+
+```text
+Inter.woff2                  -> Inter, weight 400, normal
+Inter-700.woff2              -> Inter, weight 700
+Inter-SemiBold.woff2         -> Inter, weight 600
+NotoSansJP-Bold-Italic.woff2 -> NotoSansJP, weight 700, italic
+```
+
+`.woff2`, `.woff`, `.ttf` and `.otf` are recognised, and they load with
+`font-display: block` because a slide should never flash the fallback. Point a
+token at the family and every slide follows:
+
+```css
+/* design/tokens.css */
+:root {
+  --deck-font-sans: "Inter", sans-serif;
+}
+```
+
+**Cursor.** Put `cursor.svg` (or `.png`, `.webp`, `.gif`, `.jpg`) directly in
+`assets/` and it replaces the mouse cursor on every slide and across the
+presentation view. Give an SVG explicit `width`/`height` attributes; browsers
+ignore cursor images larger than 128×128.
 
 ### Animation
 

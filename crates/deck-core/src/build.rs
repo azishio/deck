@@ -54,10 +54,10 @@ pub fn run(project: &Project) -> Result<BuildSummary> {
     }
 
     // 3. generated assets
-    write_file(&out.join("@deck/env.js"), assets::env_module(config))?;
+    write_file(&out.join("@deck/env.js"), assets::env_module(project))?;
     write_file(
         &out.join("@deck/design.css"),
-        rewrite_css(&assets::design_css(project)?, &base, &fingerprints),
+        rewrite_css(&assets::design_css(project, "/")?, &base, &fingerprints),
     )?;
     write_file(&out.join("@deck/components.js"), assets::components_js(project, &base))?;
     write_file(&out.join("@deck/tailwind.css"), assets::tailwind_input(project)?)?;

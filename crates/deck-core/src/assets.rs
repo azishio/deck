@@ -5,7 +5,7 @@
 
 use camino::Utf8Path;
 
-use crate::config::{AnimationEngine, Config};
+use crate::config::AnimationEngine;
 use crate::error::{Result, read_to_string};
 use crate::project::Project;
 
@@ -77,6 +77,12 @@ const PAGE_PRINT: &str = include_str!("../../../web/print/print.html");
 pub const BUILT_IN_COMPONENT_NAMES: &[&str] = &[
     "deck-slide",
     "deck-heading",
+    "deck-eyebrow",
+    "deck-title",
+    "deck-subtitle",
+    "deck-footer",
+    "deck-slide-number",
+    "deck-progress",
     "deck-grid",
     "deck-stack",
     "deck-card",
@@ -133,7 +139,8 @@ impl Page {
 /* -------------------------------------------------------------------------- */
 
 /// `/@deck/env.js` — the slice of configuration the browser needs.
-pub fn env_module(config: &Config) -> String {
+pub fn env_module(project: &Project) -> String {
+    let config = project.config();
     let value = serde_json::json!({
         "deck": {
             "title": config.deck.title,
@@ -166,6 +173,7 @@ pub fn env_module(config: &Config) -> String {
             "preflight": config.tailwind.preflight,
         },
         "tailwindTimeoutMs": TAILWIND_COMPILE_TIMEOUT_MS,
+        "cursor": cursor_asset(project),
         "print": {
             "steps": config.print.steps.as_str(),
             "preflight": config.print.preflight,
@@ -211,8 +219,123 @@ pub fn tailwind_input(project: &Project) -> Result<String> {
     Ok(css)
 }
 
+/// Conventional sub-directories of `assets/`.
+pub const ASSET_SUBDIRS: &[&str] = &["images", "icons", "fonts", "data"];
+
+/// Image file placed at `assets/cursor.*` to replace the mouse cursor, in
+/// preference order.
+const CURSOR_EXTENSIONS: &[&str] = &["svg", "png", "webp", "gif", "jpg", "jpeg"];
+
+/// Project-relative path of the custom cursor image, if the deck ships one.
+pub fn cursor_asset(project: &Project) -> Option<String> {
+    CURSOR_EXTENSIONS.iter().find_map(|extension| {
+        let name = format!("cursor.{extension}");
+        project.assets_dir().join(&name).is_file().then(|| format!("assets/{name}"))
+    })
+}
+
+/// `@font-face` rules generated from the files in `assets/fonts/`.
+///
+/// The file name carries the metadata: `Family[-weight][-italic].woff2`, so
+/// `Inter-600-Italic.woff2` becomes Inter at weight 600 in italic. Dropping a
+/// file in is all it takes to reference the family from a token.
+fn font_faces(project: &Project, base_url: &str) -> String {
+    let fonts_dir = project.assets_dir().join("fonts");
+    if !fonts_dir.is_dir() {
+        return String::new();
+    }
+
+    let mut faces = Vec::new();
+    for entry in walkdir::WalkDir::new(&fonts_dir).sort_by_file_name().into_iter().flatten() {
+        if !entry.file_type().is_file() {
+            continue;
+        }
+        let Some(path) = Utf8Path::from_path(entry.path()) else { continue };
+        let Some(format) = path.extension().and_then(font_format) else { continue };
+        let Ok(relative) = path.strip_prefix(project.root()) else { continue };
+        let Some(stem) = path.file_stem() else { continue };
+
+        let face = FontFace::parse(stem);
+        faces.push(format!(
+            "  @font-face {{\n    font-family: \"{family}\";\n    src: url(\"{base_url}{relative}\") format(\"{format}\");\n    font-weight: {weight};\n    font-style: {style};\n    font-display: block;\n  }}\n",
+            family = face.family,
+            weight = face.weight,
+            style = face.style,
+        ));
+    }
+
+    if faces.is_empty() {
+        return String::new();
+    }
+    format!("@layer deck.tokens {{\n{}}}\n\n", faces.join(""))
+}
+
+fn font_format(extension: &str) -> Option<&'static str> {
+    match extension.to_ascii_lowercase().as_str() {
+        "woff2" => Some("woff2"),
+        "woff" => Some("woff"),
+        "ttf" => Some("truetype"),
+        "otf" => Some("opentype"),
+        _ => None,
+    }
+}
+
+#[derive(Debug, PartialEq)]
+struct FontFace {
+    family: String,
+    weight: u16,
+    style: &'static str,
+}
+
+impl FontFace {
+    fn parse(stem: &str) -> Self {
+        const WEIGHTS: &[(&str, u16)] = &[
+            ("thin", 100),
+            ("extralight", 200),
+            ("ultralight", 200),
+            ("light", 300),
+            ("regular", 400),
+            ("normal", 400),
+            ("book", 400),
+            ("medium", 500),
+            ("semibold", 600),
+            ("demibold", 600),
+            ("extrabold", 800),
+            ("ultrabold", 800),
+            ("bold", 700),
+            ("black", 900),
+            ("heavy", 900),
+        ];
+
+        let mut family = Vec::new();
+        let mut weight = 400;
+        let mut style = "normal";
+
+        for part in stem.split(['-', '_']) {
+            let lower = part.to_ascii_lowercase();
+            if lower == "italic" || lower == "oblique" {
+                style = "italic";
+            } else if let Ok(numeric) = lower.parse::<u16>()
+                && (100..=1000).contains(&numeric)
+            {
+                weight = numeric;
+            } else if let Some((_, value)) = WEIGHTS.iter().find(|(name, _)| *name == lower) {
+                weight = *value;
+            } else if !part.is_empty() {
+                family.push(part);
+            }
+        }
+
+        Self {
+            family: if family.is_empty() { stem.to_owned() } else { family.join(" ") },
+            weight,
+            style,
+        }
+    }
+}
+
 /// `/@deck/design.css` — built-in layers followed by the project stylesheets.
-pub fn design_css(project: &Project) -> Result<String> {
+pub fn design_css(project: &Project, base_url: &str) -> Result<String> {
     let config = project.config();
     let mut css = String::with_capacity(32 * 1024);
 
@@ -239,6 +362,14 @@ pub fn design_css(project: &Project) -> Result<String> {
     css.push('\n');
     css.push_str(CSS_COMPONENTS);
     css.push('\n');
+
+    css.push_str(&font_faces(project, base_url));
+
+    if let Some(cursor) = cursor_asset(project) {
+        css.push_str(&format!(
+            "@layer deck.base {{\n  html {{\n    cursor: url(\"{base_url}{cursor}\") 0 0, auto;\n  }}\n}}\n\n"
+        ));
+    }
 
     for style in &config.theme.styles {
         let path = project.root().join(style);
@@ -300,9 +431,22 @@ mod tests {
     }
 
     #[test]
-    fn env_module_is_a_module() {
-        let module = env_module(&Config::default());
-        assert!(module.contains("export const env"));
-        assert!(module.contains("\"width\": 1280"));
+    fn font_file_names_carry_weight_and_style() {
+        assert_eq!(
+            FontFace::parse("Inter"),
+            FontFace { family: "Inter".into(), weight: 400, style: "normal" }
+        );
+        assert_eq!(
+            FontFace::parse("Inter-700"),
+            FontFace { family: "Inter".into(), weight: 700, style: "normal" }
+        );
+        assert_eq!(
+            FontFace::parse("NotoSansJP-Bold-Italic"),
+            FontFace { family: "NotoSansJP".into(), weight: 700, style: "italic" }
+        );
+        assert_eq!(
+            FontFace::parse("Source-Serif-SemiBold"),
+            FontFace { family: "Source Serif".into(), weight: 600, style: "normal" }
+        );
     }
 }

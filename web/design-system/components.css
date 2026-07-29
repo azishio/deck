@@ -32,6 +32,81 @@
     line-height: var(--deck-line-height-body);
   }
 
+  /* deck-eyebrow / deck-title / deck-subtitle -------------------------- */
+
+  deck-eyebrow {
+    display: block;
+    color: var(--deck-color-accent);
+    font-size: var(--deck-font-size-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  deck-title {
+    display: block;
+    font-size: var(--deck-font-size-title);
+    font-weight: 700;
+    line-height: var(--deck-line-height-tight);
+    letter-spacing: 0.01em;
+  }
+
+  deck-title[size="heading"] {
+    font-size: var(--deck-font-size-heading);
+  }
+
+  deck-subtitle {
+    display: block;
+    color: var(--deck-color-muted);
+    font-size: var(--deck-font-size-body);
+    line-height: var(--deck-line-height-body);
+  }
+
+  deck-heading > deck-title {
+    font-size: inherit;
+  }
+
+  /* deck-footer / deck-slide-number / deck-progress -------------------- */
+
+  deck-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--deck-space-3);
+    /* Pushed to the bottom of the slide's flex column rather than positioned
+       absolutely, so it can never overlap the content above it. */
+    margin-block-start: auto;
+    padding-block-start: var(--deck-space-2);
+    color: var(--deck-color-muted);
+    font-size: var(--deck-font-size-small);
+  }
+
+  deck-footer[divider] {
+    border-block-start: 1px solid var(--deck-color-border);
+  }
+
+  deck-slide-number {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  deck-progress {
+    display: block;
+    inline-size: 100%;
+    block-size: 4px;
+    border-radius: 999px;
+    background: var(--deck-color-surface-strong);
+    overflow: hidden;
+  }
+
+  deck-progress > .deck-progress__value {
+    display: block;
+    block-size: 100%;
+    inline-size: 0;
+    border-radius: inherit;
+    background: var(--deck-color-accent);
+  }
+
   /* deck-grid --------------------------------------------------------- */
 
   deck-grid {

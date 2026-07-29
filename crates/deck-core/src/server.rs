@@ -319,7 +319,7 @@ async fn manifest_handler(State(state): State<Arc<AppState>>) -> Response {
 async fn design_handler(
     State(state): State<Arc<AppState>>,
 ) -> std::result::Result<Response, AppError> {
-    let css = assets::design_css(&state.project())?;
+    let css = assets::design_css(&state.project(), &state.base_url)?;
     Ok(body_response("text/css; charset=utf-8", css))
 }
 
@@ -337,7 +337,7 @@ async fn tailwind_handler(
 }
 
 async fn env_handler(State(state): State<Arc<AppState>>) -> Response {
-    let js = assets::env_module(state.project().config());
+    let js = assets::env_module(&state.project());
     body_response("text/javascript; charset=utf-8", js)
 }
 

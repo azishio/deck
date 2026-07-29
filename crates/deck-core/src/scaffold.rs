@@ -61,7 +61,10 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
     write_file(&root.join("design/tailwind.css"), TAILWIND_TEMPLATE)?;
     write_file(&root.join("components/index.js"), COMPONENTS_INDEX_TEMPLATE)?;
     write_file(&root.join("components/example-badge.js"), EXAMPLE_COMPONENT_TEMPLATE)?;
-    write_file(&root.join("assets/.gitkeep"), "")?;
+    for subdir in assets::ASSET_SUBDIRS {
+        write_file(&root.join("assets").join(subdir).join(".gitkeep"), "")?;
+    }
+    write_file(&root.join("assets/README.md"), ASSETS_README)?;
     write_file(&root.join(".gitignore"), GITIGNORE_TEMPLATE)?;
 
     write_file(&root.join("slides/00-title.html"), title_slide(title))?;
@@ -190,6 +193,52 @@ customElements.define("example-badge", ExampleBadge);
 "#;
 
 const GITIGNORE_TEMPLATE: &str = "/dist/\n/.deck/\n/deck.local.toml\n";
+
+const ASSETS_README: &str = r#"# assets/
+
+Everything here is served from `/assets/…`, so reference it with a
+root-absolute path: `<img src="/assets/images/diagram.svg">`. Relative paths
+break in `deck build`, which relocates each slide to `slides/<id>/index.html`.
+
+| Directory | For |
+|---|---|
+| `images/` | photographs, diagrams, screenshots |
+| `icons/`  | small SVGs used inline or as backgrounds |
+| `fonts/`  | webfonts — see below |
+| `data/`   | JSON, CSV and anything a slide fetches at runtime |
+
+## fonts/
+
+Font files are registered automatically; no `@font-face` to write. The file
+name carries the metadata:
+
+```text
+Inter.woff2                  -> Inter, weight 400, normal
+Inter-700.woff2              -> Inter, weight 700
+Inter-SemiBold.woff2         -> Inter, weight 600
+NotoSansJP-Bold-Italic.woff2 -> NotoSansJP, weight 700, italic
+```
+
+`.woff2`, `.woff`, `.ttf` and `.otf` are recognised. Point a token at the
+family and every slide picks it up:
+
+```css
+/* design/tokens.css */
+:root {
+  --deck-font-sans: "Inter", sans-serif;
+}
+```
+
+`deck check` reports a `missing_font` error if a family is referenced but never
+loads.
+
+## Custom cursor
+
+Drop `cursor.svg`, `cursor.png`, `cursor.webp`, `cursor.gif` or `cursor.jpg`
+directly in `assets/` and it replaces the mouse cursor on every slide and in
+the presentation view. SVG cursors need an explicit `width` and `height`, and
+browsers ignore images larger than 128x128.
+"#;
 
 fn title_slide(title: &str) -> String {
     format!(

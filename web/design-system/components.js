@@ -77,6 +77,108 @@ class DeckHeading extends HTMLElement {
 define("deck-heading", DeckHeading);
 
 /* -------------------------------------------------------------------------- */
+/* deck-eyebrow / deck-title / deck-subtitle                                   */
+/* -------------------------------------------------------------------------- */
+
+// Styling-only elements. They exist so a slide can spell its structure out as
+// children instead of packing it into deck-heading attributes, which is the
+// house style for anything that is content rather than configuration.
+class DeckEyebrow extends HTMLElement {}
+define("deck-eyebrow", DeckEyebrow);
+
+class DeckTitle extends HTMLElement {
+  connectedCallback() {
+    if (!this.hasAttribute("role")) {
+      this.setAttribute("role", "heading");
+    }
+    if (!this.hasAttribute("aria-level")) {
+      this.setAttribute("aria-level", "1");
+    }
+  }
+}
+define("deck-title", DeckTitle);
+
+class DeckSubtitle extends HTMLElement {}
+define("deck-subtitle", DeckSubtitle);
+
+/* -------------------------------------------------------------------------- */
+/* deck-footer / deck-slide-number / deck-progress                             */
+/* -------------------------------------------------------------------------- */
+
+class DeckFooter extends HTMLElement {}
+define("deck-footer", DeckFooter);
+
+/**
+ * Renders this slide's position in the deck.
+ *
+ * `format` accepts a template with `{number}`, `{total}` and `{percent}`, so
+ * `format="{number} / {total}"` (the default) or `format="{number}"` both work.
+ */
+class DeckSlideNumber extends HTMLElement {
+  static observedAttributes = ["format"];
+
+  #onReady = () => void this.#render();
+
+  connectedCallback() {
+    void this.#render();
+    // Belt and braces: a component defined after boot still gets its number.
+    document.addEventListener("deck:ready", this.#onReady, { once: true });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener("deck:ready", this.#onReady);
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      void this.#render();
+    }
+  }
+
+  async #render() {
+    const position = (await window.deck?.whenPositioned?.()) ?? { number: 0, total: 0 };
+    if (position.total === 0) {
+      this.textContent = "";
+      return;
+    }
+    const percent = Math.round((position.number / position.total) * 100);
+    this.textContent = (this.getAttribute("format") ?? "{number} / {total}")
+      .replace("{number}", String(position.number))
+      .replace("{total}", String(position.total))
+      .replace("{percent}", `${percent}%`);
+  }
+}
+define("deck-slide-number", DeckSlideNumber);
+
+/** A thin bar showing how far through the deck this slide is. */
+class DeckProgress extends HTMLElement {
+  #onReady = () => void this.#render();
+
+  connectedCallback() {
+    void this.#render();
+    document.addEventListener("deck:ready", this.#onReady, { once: true });
+  }
+
+  disconnectedCallback() {
+    document.removeEventListener("deck:ready", this.#onReady);
+  }
+
+  async #render() {
+    let bar = this.querySelector(":scope > .deck-progress__value");
+    if (!bar) {
+      bar = document.createElement("span");
+      bar.className = "deck-progress__value";
+      bar.dataset.deckGenerated = "";
+      this.append(bar);
+    }
+    const position = (await window.deck?.whenPositioned?.()) ?? { number: 0, total: 0 };
+    const ratio = position.total > 0 ? position.number / position.total : 0;
+    bar.style.inlineSize = `${(ratio * 100).toFixed(2)}%`;
+  }
+}
+define("deck-progress", DeckProgress);
+
+/* -------------------------------------------------------------------------- */
 /* deck-grid / deck-stack                                                      */
 /* -------------------------------------------------------------------------- */
 

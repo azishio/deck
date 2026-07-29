@@ -172,7 +172,7 @@ fn font_families(project: &Project) -> Vec<String> {
         ["serif", "sans-serif", "monospace", "cursive", "fantasy", "system-ui"];
 
     let mut families = Vec::new();
-    let sources = crate::assets::design_css(project).unwrap_or_default();
+    let sources = crate::assets::design_css(project, "/").unwrap_or_default();
     for line in sources.lines() {
         let Some((name, value)) = line.split_once(':') else { continue };
         if !name.trim().starts_with("--deck-font-") || name.contains("size") {

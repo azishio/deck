@@ -23,6 +23,11 @@ const shell = new DeckShell({
   regionRect: (name) => (name === "current" ? stage.getBoundingClientRect() : null),
 });
 
+// Match the deck's custom cursor over the shell chrome and the letterbox.
+if (env.cursor) {
+  document.documentElement.style.cursor = `url("${base}${env.cursor}") 0 0, auto`;
+}
+
 let toastTimer = 0;
 function showToast(message) {
   toast.textContent = message;

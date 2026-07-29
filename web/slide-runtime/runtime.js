@@ -25,6 +25,7 @@ const state = {
   reducedMotion: false,
   ready: false,
   visible: true,
+  position: { index: 0, number: 0, total: 0 },
 };
 
 const readyPromises = [];
@@ -32,6 +33,7 @@ const timelines = [];
 const diagnostics = [];
 let usedTags = [];
 let animePromise = null;
+let positionPromise = null;
 
 /* -------------------------------------------------------------------------- */
 /* utilities                                                                   */
@@ -117,6 +119,27 @@ function loadAnime() {
     return null;
   });
   return animePromise;
+}
+
+/**
+ * Where this slide sits in the deck.
+ *
+ * A slide document has no idea of its own order — that lives in the manifest —
+ * so components such as `deck-slide-number` resolve it here once per document.
+ */
+function loadPosition() {
+  positionPromise ??= fetch(`${DECK_BASE}@deck/manifest.json`, { cache: "no-store" })
+    .then((response) => response.json())
+    .then((manifest) => {
+      const index = manifest.slides.findIndex((slide) => slide.id === state.slideId);
+      return {
+        index: Math.max(index, 0),
+        number: Math.max(index, 0) + 1,
+        total: manifest.slides.length,
+      };
+    })
+    .catch(() => ({ index: 0, number: 0, total: 0 }));
+  return positionPromise;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -359,6 +382,7 @@ async function becomeReady() {
   });
 
   usedTags = collectCustomElementTags();
+  state.position = await loadPosition();
   await waitForCustomElements(usedTags);
 
   // Custom Elements may add [data-step] children of their own.
@@ -379,6 +403,7 @@ async function becomeReady() {
   post("ready", {
     slideId: state.slideId,
     title: document.title,
+    position: state.position,
     step: state.step,
     stepCount: state.stepCount,
     notes: notesHtml(),
@@ -615,6 +640,12 @@ const deck = {
   get canvas() {
     return { ...env.canvas };
   },
+  /** `{ index, number, total }` for this slide within the deck. */
+  get position() {
+    return { ...state.position };
+  },
+  /** Resolves once the slide's position in the deck is known. */
+  whenPositioned: () => loadPosition(),
 
   /** Request an absolute step. The shell stays the source of truth. */
   goToStep(step) {
