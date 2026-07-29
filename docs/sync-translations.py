@@ -53,6 +53,11 @@ def split_blocks(text: str) -> tuple[str, list[str]]:
     return header, blocks
 
 
+def unquote(raw: str) -> str:
+    """Concatenate the quoted chunks of a PO value."""
+    return "".join(re.findall(r'"((?:[^"\\]|\\.)*)"', raw))
+
+
 def field(block: str, name: str) -> str:
     match = re.search(rf'^{name} ((?:"(?:[^"\\]|\\.)*"\n?)+)', block, re.M)
     return match.group(1).strip() if match else '""'
@@ -73,7 +78,7 @@ def merge(language: str) -> tuple[int, int]:
     merged, translated = [header], 0
     for block in pot_blocks:
         existing = known.get(field(block, "msgid"), '""')
-        if existing != '""':
+        if unquote(existing).strip():
             block = re.sub(
                 r'^msgstr ((?:"(?:[^"\\]|\\.)*"\n?)+)',
                 "msgstr " + existing.replace("\\", "\\\\"),

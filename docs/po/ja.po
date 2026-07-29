@@ -14,95 +14,95 @@ msgstr ""
 
 #: src/SUMMARY.md:1
 msgid "Summary"
-msgstr ""
+msgstr "目次"
 
 #: src/SUMMARY.md:3
 msgid "Introduction"
-msgstr ""
+msgstr "はじめに"
 
 #: src/SUMMARY.md:5
 msgid "Getting started"
-msgstr ""
+msgstr "導入"
 
 #: src/SUMMARY.md:7 src/getting-started.md:1
 msgid "Install and create a deck"
-msgstr ""
+msgstr "インストールとデッキの作成"
 
 #: src/SUMMARY.md:8 src/layout.md:1
 msgid "The project layout"
-msgstr ""
+msgstr "プロジェクト構成"
 
 #: src/SUMMARY.md:10
 msgid "Authoring"
-msgstr ""
+msgstr "スライドを書く"
 
 #: src/SUMMARY.md:12 src/writing-slides.md:1
 msgid "Writing a slide"
-msgstr ""
+msgstr "スライドの書き方"
 
 #: src/SUMMARY.md:13 src/components.md:1
 msgid "Built-in components"
-msgstr ""
+msgstr "組み込みコンポーネント"
 
 #: src/SUMMARY.md:14 src/editing-the-template.md:1
 msgid "Editing the template"
-msgstr ""
+msgstr "テンプレートを編集する"
 
 #: src/SUMMARY.md:15 src/styling.md:1
 msgid "Styling and theming"
-msgstr ""
+msgstr "スタイルとテーマ"
 
 #: src/SUMMARY.md:16 src/own-components.md:1
 msgid "Adding your own components"
-msgstr ""
+msgstr "コンポーネントを追加する"
 
 #: src/SUMMARY.md:17 src/assets.md:1
 msgid "Assets, fonts and the cursor"
-msgstr ""
+msgstr "アセット・フォント・カーソル"
 
 #: src/SUMMARY.md:18 src/animation.md:1
 msgid "Animation"
-msgstr ""
+msgstr "アニメーション"
 
 #: src/SUMMARY.md:20
 msgid "Delivering"
-msgstr ""
+msgstr "届ける"
 
 #: src/SUMMARY.md:22 src/presenting.md:1
 msgid "Presenting and printing"
-msgstr ""
+msgstr "発表と印刷"
 
 #: src/SUMMARY.md:23 src/own-components.md:84 src/checking.md:1
 msgid "Checking"
-msgstr ""
+msgstr "検査"
 
 #: src/SUMMARY.md:24 src/deploying.md:1
 msgid "Static build and deployment"
-msgstr ""
+msgstr "静的ビルドとデプロイ"
 
 #: src/SUMMARY.md:26
 msgid "Reference"
-msgstr ""
+msgstr "リファレンス"
 
 #: src/SUMMARY.md:28 src/configuration.md:1
 msgid "Configuration"
-msgstr ""
+msgstr "設定"
 
 #: src/SUMMARY.md:29 src/cli.md:1
 msgid "CLI"
-msgstr ""
+msgstr "CLI"
 
 #: src/SUMMARY.md:30 src/agents.md:1
 msgid "Working with agents"
-msgstr ""
+msgstr "エージェントと使う"
 
 #: src/introduction.md:1
 msgid "deck"
-msgstr ""
+msgstr "deck"
 
 #: src/introduction.md:3
 msgid "**One slide is one complete HTML document.**"
-msgstr ""
+msgstr "**1スライドは1つの完全なHTML文書です。**"
 
 #: src/introduction.md:5
 msgid ""
@@ -110,18 +110,18 @@ msgid ""
 "A slide is a file you can read, diff and review — plain HTML, CSS and "
 "JavaScript. There is no slide DSL, no required Markdown, and no slide body "
 "hidden inside TOML or JSON."
-msgstr ""
+msgstr "`deck` は Rust で書かれたローカルのスライド実行・開発環境です。スライドは読めて diff が取れてレビューできるファイル、つまり素の HTML・CSS・JavaScript です。独自のスライド DSL も、必須の Markdown も、TOML や JSON に埋め込まれた本文もありません。"
 
 #: src/introduction.md:11
 msgid ""
 "New here? Read [Install and create a deck](./getting-started.md), then "
 "[Writing a slide](./writing-slides.md). Everything else is reference "
 "material you can come back to."
-msgstr ""
+msgstr "はじめての方は [インストールとデッキの作成](./getting-started.md) → [スライドの書き方](./writing-slides.md) の順に読んでください。それ以外は必要になったときに戻ってくればよいリファレンスです。"
 
 #: src/introduction.md:17
 msgid "See it running"
-msgstr ""
+msgstr "動いているものを見る"
 
 #: src/introduction.md:19
 msgid ""
@@ -129,144 +129,144 @@ msgid ""
 "`deck build` and published next to this guide. Its source lives in "
 "[`site/`](https://github.com/azishio/deck/tree/main/site) if you want to "
 "read a real deck rather than snippets."
-msgstr ""
+msgstr "[紹介デッキ](/deck/slide/present) そのものが deck で作られており、`deck build` の出力をこのガイドの隣で配信しています。断片ではなく実物のデッキを読みたい場合、ソースは [`site/`](https://github.com/azishio/deck/tree/main/site) にあります。"
 
 #: src/introduction.md:23
 msgid "What you get"
-msgstr ""
+msgstr "できること"
 
 #: src/introduction.md:27
 msgid "**Directory-based discovery**"
-msgstr ""
+msgstr "**ディレクトリからの自動検出**"
 
 #: src/introduction.md:27
 msgid "`slides/**/*.html` in lexicographic order. No slide list to maintain."
-msgstr ""
+msgstr "`slides/**/*.html` を辞書順に読み込みます。スライド一覧を書いて保守する必要はありません。"
 
 #: src/introduction.md:28
 msgid "**iframe isolation**"
-msgstr ""
+msgstr "**iframe による分離**"
 
 #: src/introduction.md:28
 msgid ""
 "Per-slide JavaScript, CSS and DOM state, with a three-frame ring so 100 "
 "slides do not mean 100 iframes."
-msgstr ""
+msgstr "JavaScript・CSS・DOM の状態がスライドごとに分離されます。3枚のリング構成なので、100枚のデッキでも iframe が100個になることはありません。"
 
 #: src/introduction.md:29
 msgid "**Absolute steps**"
-msgstr ""
+msgstr "**絶対 step**"
 
 #: src/introduction.md:29
 msgid ""
 "`screen state = f(slide_id, step)`. Deep links and reloads land exactly "
 "where you left off."
-msgstr ""
+msgstr "`screen state = f(slide_id, step)`。ディープリンクでもリロードでも、離れた場所に正確に戻ります。"
 
 #: src/introduction.md:30
 msgid "**Tailwind CSS**"
-msgstr ""
+msgstr "**Tailwind CSS**"
 
 #: src/introduction.md:30
 msgid ""
 "v4 browser build, vendored. Utilities compile inside each slide — no "
 "bundler, no CDN."
-msgstr ""
+msgstr "v4 のブラウザビルドを同梱しています。ユーティリティは各スライド内でコンパイルされ、バンドラも CDN も不要です。"
 
 #: src/introduction.md:31
 msgid "**Anime.js**"
-msgstr ""
+msgstr "**Anime.js**"
 
 #: src/introduction.md:31
 msgid "Vendored and importable straight from a slide."
-msgstr ""
+msgstr "同梱済みで、スライドから直接 import できます。"
 
 #: src/introduction.md:32
 msgid "**Hot reload**"
-msgstr ""
+msgstr "**Hot Reload**"
 
 #: src/introduction.md:32
 msgid ""
 "HTML, CSS and component edits apply while keeping the current slide, step "
 "and presenter timer."
-msgstr ""
+msgstr "HTML・CSS・コンポーネントの編集が、現在のスライド・step・発表者タイマーを保ったまま反映されます。"
 
 #: src/introduction.md:33
 msgid "**Presenter View**"
-msgstr ""
+msgstr "**Presenter View**"
 
 #: src/introduction.md:33
 msgid ""
 "Current and next slide, speaker notes, timer, clock, blackout, live "
 "diagnostics."
-msgstr ""
+msgstr "現在と次のスライド、スピーカーノート、タイマー、時刻、ブラックアウト、リアルタイムの診断。"
 
 #: src/introduction.md:34
 msgid "**Printing**"
-msgstr ""
+msgstr "**印刷**"
 
 #: src/introduction.md:34
 msgid ""
 "A real `/print` page for the browser's own print dialog. The CLI never "
 "generates a PDF."
-msgstr ""
+msgstr "ブラウザ自身の印刷ダイアログのための実ページ `/print` を提供します。CLI は PDF を生成しません。"
 
 #: src/introduction.md:35
 msgid "**Checks**"
-msgstr ""
+msgstr "**検査**"
 
 #: src/introduction.md:35
 msgid ""
 "headless Chromium finds layout, runtime and asset problems. Human, JSON or "
 "SARIF output."
-msgstr ""
+msgstr "headless Chromium がレイアウト・実行時・アセットの問題を検出します。出力は human・JSON・SARIF から選べます。"
 
 #: src/introduction.md:36
 msgid "**Static build**"
-msgstr ""
+msgstr "**静的ビルド**"
 
 #: src/introduction.md:36
 msgid "`deck build` emits a folder any static host can serve."
-msgstr ""
+msgstr "`deck build` は任意の静的ホスティングで配信できるフォルダを出力します。"
 
 #: src/introduction.md:38
 msgid "Why plain HTML"
-msgstr ""
+msgstr "なぜ素の HTML なのか"
 
 #: src/introduction.md:40
 msgid ""
 "Most slide tools ask you to learn their format. This one asks you to use the "
 "web platform you already know."
-msgstr ""
+msgstr "多くのスライドツールは独自フォーマットの習得を要求します。deck が要求するのは、すでに知っている Web プラットフォームを使うことだけです。"
 
 #: src/introduction.md:43
 msgid ""
 "**Editable by humans and agents alike.** No intermediate representation to "
 "translate through, so \"add a slide about X\" is a request an agent can "
 "carry out and you can review as a diff."
-msgstr ""
+msgstr "**人にもエージェントにも編集できる。** 変換を挟む中間表現が無いので、「X についてのスライドを追加して」はエージェントが実行でき、あなたが diff としてレビューできる依頼になります。"
 
 #: src/introduction.md:46
 msgid ""
 "**Nothing is off-limits.** SVG, Canvas, WebGL, a live iframe, a custom "
 "element you wrote this morning — if it runs in Chromium, it runs in a slide."
-msgstr ""
+msgstr "**使えないものが無い。** SVG、Canvas、WebGL、生きた iframe、今朝書いた Custom Element — Chromium で動くものはスライドでも動きます。"
 
 #: src/introduction.md:48
 msgid ""
 "**Isolated by construction.** One slide's JavaScript cannot leak into the "
 "next, so a broken experiment on slide 12 does not take down slide 13."
-msgstr ""
+msgstr "**構造として分離されている。** あるスライドの JavaScript が次のスライドに漏れないので、12枚目の失敗した実験が13枚目を壊しません。"
 
 #: src/introduction.md:50
 msgid ""
 "**Verifiable.** Overflow, clipped text, broken assets and console errors are "
 "lint rules, not things you discover from the back of the room."
-msgstr ""
+msgstr "**検証できる。** はみ出し、切れたテキスト、壊れたアセット、console error は lint ルールです。会場の後ろの席で気づくものではありません。"
 
 #: src/introduction.md:53
 msgid "What it is not"
-msgstr ""
+msgstr "対象外のこと"
 
 #: src/introduction.md:55
 msgid ""
@@ -274,43 +274,43 @@ msgid ""
 "boundary isolates DOM, CSS and JavaScript state; it is **not** a security "
 "sandbox, and slide HTML is treated as trusted local code. Running untrusted "
 "decks is out of scope."
-msgstr ""
+msgstr "deck が対象とするのは意図的に **Chromium 系ブラウザのみ**です。`iframe` の境界は DOM・CSS・JavaScript の状態を分離するためのもので、セキュリティサンドボックス**ではありません**。スライドの HTML は信頼済みのローカルコードとして扱います。信頼できないデッキの実行は対象外です。"
 
 #: src/introduction.md:59
 msgid ""
 "The CLI never produces a PDF. Printing belongs to the browser, and `/print` "
 "is a real page you can inspect before committing to paper."
-msgstr ""
+msgstr "CLI は PDF を生成しません。印刷はブラウザの仕事であり、`/print` は紙に出す前に中身を確認できる実ページです。"
 
 #: src/getting-started.md:3
 msgid "Requirements"
-msgstr ""
+msgstr "必要なもの"
 
 #: src/getting-started.md:5
 msgid "A Rust toolchain, to build the CLI."
-msgstr ""
+msgstr "CLI をビルドするための Rust ツールチェイン。"
 
 #: src/getting-started.md:6
 msgid "A Chromium-based browser — Chrome, Chromium, Edge or Brave."
-msgstr ""
+msgstr "Chromium 系ブラウザ（Chrome、Chromium、Edge、Brave など）。"
 
 #: src/getting-started.md:8
 msgid ""
 "**Node.js is not required.** Tailwind CSS and Anime.js are vendored into the "
 "binary, so normal use touches neither npm nor a CDN."
-msgstr ""
+msgstr "**Node.js は不要です。** Tailwind CSS と Anime.js はバイナリに同梱されているので、通常利用で npm も CDN も使いません。"
 
 #: src/getting-started.md:11
 msgid "Install"
-msgstr ""
+msgstr "インストール"
 
 #: src/getting-started.md:17
 msgid "Or from a clone, which is also what you want for hacking on deck itself:"
-msgstr ""
+msgstr "クローンからでも構いません。deck 自体に手を入れる場合はこちらです。"
 
 #: src/getting-started.md:25
 msgid "Check that the environment is sound before you start authoring:"
-msgstr ""
+msgstr "スライドを書き始める前に、環境が整っているか確認します。"
 
 #: src/getting-started.md:31
 msgid ""
@@ -319,56 +319,66 @@ msgid ""
 "matches the running binary. If Chromium lives somewhere unusual, or its "
 "sandbox is unavailable (containers and most CI runners), see "
 "[Configuration](./configuration.md#browser)."
-msgstr ""
+msgstr "Chromium の実行ファイルとバージョン、CDP 接続、利用可能なフォント、書き込み可能なディレクトリ、ポート、`deck.lock` と実行中バイナリの一致を報告します。Chromium が特殊な場所にある場合や、sandbox が使えない環境（コンテナや多くの CI ランナー）では [設定](./configuration.md#browser) を参照してください。"
 
 #: src/getting-started.md:36
 msgid "Create a deck"
-msgstr ""
+msgstr "デッキを作る"
 
 #: src/getting-started.md:44
 msgid ""
 "`deck dev` starts a local server, opens the presenter view and watches your "
 "files. Editing a slide updates the screen without losing your place."
-msgstr ""
+msgstr "`deck dev` はローカルサーバーを起動し、Presenter View を開き、ファイルを監視します。スライドを編集すると、表示位置を失わずに画面が更新されます。"
 
 #: src/getting-started.md:47
 msgid ""
 "The generated project is a working three-slide deck, not an empty shell — "
 "see [Editing the template](./editing-the-template.md) for a tour of what to "
 "change first."
-msgstr ""
+msgstr "生成されるのは空の雛形ではなく、動く3枚のデッキです。まず何を変えればよいかは [テンプレートを編集する](./editing-the-template.md) を参照してください。"
 
 #: src/getting-started.md:50
 msgid "Pick a starting look with `--theme`:"
-msgstr ""
+msgstr "`--theme` で出発点となる見た目を選べます。"
 
 #: src/getting-started.md:53
 msgid "# default | minimal-light | dark\n"
 msgstr ""
+"# default | minimal-light | dark\n"
+""
 
 #: src/getting-started.md:56
 msgid "The four commands you will actually use"
-msgstr ""
+msgstr "実際に使う4つのコマンド"
 
 #: src/getting-started.md:59
 msgid "# author, with hot reload\n"
 msgstr ""
+"# Hot Reload 付きで執筆\n"
+""
 
 #: src/getting-started.md:60
 msgid "# lint the deck before you present\n"
 msgstr ""
+"# 発表前にデッキを検査\n"
+""
 
 #: src/getting-started.md:61
 msgid "# present it\n"
 msgstr ""
+"# 発表する\n"
+""
 
 #: src/getting-started.md:62
 msgid "# hand it out as a static site\n"
 msgstr ""
+"# 静的サイトとして配布する\n"
+""
 
 #: src/getting-started.md:65
 msgid "Everything else is in the [CLI reference](./cli.md)."
-msgstr ""
+msgstr "それ以外は [CLI リファレンス](./cli.md) にあります。"
 
 #: src/layout.md:18
 msgid ""
@@ -376,87 +386,87 @@ msgid ""
 "convention** and cannot be reconfigured. A predictable layout is what lets "
 "the CLI, the file watcher, the static build and any agent editing the deck "
 "all stay simple."
-msgstr ""
+msgstr "`slides/`、`components/`、`design/`、`assets/` の名前は**規約として固定**で、設定で変更できません。構成が予測可能であることが、CLI・ファイル監視・静的ビルド・デッキを編集するエージェントのすべてを単純に保っています。"
 
 #: src/layout.md:22
 msgid "What each directory is for"
-msgstr ""
+msgstr "各ディレクトリの役割"
 
 #: src/layout.md:24
 msgid ""
 "**`slides/`** — one complete HTML document per slide. Order comes from the "
 "file path, sorted lexicographically. Numbers go up in tens so there is room "
 "to insert:"
-msgstr ""
+msgstr "**`slides/`** — 1スライド1つの完全な HTML 文書。順序はファイルパスの辞書順です。挿入の余地を残すため、番号は10刻みにします。"
 
 #: src/layout.md:37
 msgid ""
 "Subdirectories are walked recursively and sort as part of the path, so "
 "`20-architecture/00-overview.html` comes after `10-background.html`. Files "
 "starting with `_` or `.` are skipped, which is handy for drafts."
-msgstr ""
+msgstr "サブディレクトリは再帰的に走査され、パスの一部としてソートされます。したがって `20-architecture/00-overview.html` は `10-background.html` の後に来ます。`_` や `.` で始まるファイルは無視されるので、下書き置き場に使えます。"
 
 #: src/layout.md:41
 msgid ""
 "**`components/`** — your Custom Elements. `components/index.js` is the entry "
 "point; everything it imports is available in every slide. See [Adding your "
 "own components](./own-components.md)."
-msgstr ""
+msgstr "**`components/`** — 自作の Custom Elements。`components/index.js` がエントリポイントで、そこから import したものはすべてのスライドで使えます。[コンポーネントを追加する](./own-components.md) を参照してください。"
 
 #: src/layout.md:45
 msgid ""
 "**`design/`** — the deck's look, in four files that differ only in cascade "
 "order. See [Styling and theming](./styling.md)."
-msgstr ""
+msgstr "**`design/`** — デッキの見た目。カスケード順だけが異なる4つのファイルです。[スタイルとテーマ](./styling.md) を参照してください。"
 
 #: src/layout.md:48
 msgid ""
 "**`assets/`** — anything served at `/assets/…`. Fonts placed in "
 "`assets/fonts/` register themselves. See [Assets, fonts and the "
 "cursor](./assets.md)."
-msgstr ""
+msgstr "**`assets/`** — `/assets/…` で配信されるもの全般。`assets/fonts/` に置いたフォントは自動登録されます。[アセット・フォント・カーソル](./assets.md) を参照してください。"
 
 #: src/layout.md:51
 msgid ""
 "**`.deck/`** — generated: the `--changed` cache, reports and screenshots. "
 "Safe to delete."
-msgstr ""
+msgstr "**`.deck/`** — 生成物です。`--changed` のキャッシュ、レポート、スクリーンショット。削除して問題ありません。"
 
 #: src/layout.md:53
 msgid "**`dist/`** — the static build. Safe to delete."
-msgstr ""
+msgstr "**`dist/`** — 静的ビルドの出力。削除して問題ありません。"
 
 #: src/layout.md:55
 msgid "Order, identity and title"
-msgstr ""
+msgstr "順序・同一性・タイトル"
 
 #: src/layout.md:57
 msgid "Three different things, deliberately kept separate:"
-msgstr ""
+msgstr "意図的に分離された3つの別物です。"
 
 #: src/layout.md:59
 msgid "Comes from"
-msgstr ""
+msgstr "由来"
 
 #: src/layout.md:59
 msgid "Changes when"
-msgstr ""
+msgstr "変わるとき"
 
 #: src/layout.md:61
 msgid "Order"
-msgstr ""
+msgstr "順序"
 
 #: src/layout.md:61
 msgid "the file path"
-msgstr ""
+msgstr "ファイルパス"
 
 #: src/layout.md:61
 msgid "you rename or renumber"
-msgstr ""
+msgstr "リネームや番号の振り直し"
 
 #: src/layout.md:62
 msgid "Identity"
-msgstr ""
+msgstr "同一性"
 
 #: src/layout.md:62
 msgid "`<deck-slide id=\"…\">`"
@@ -464,11 +474,11 @@ msgstr ""
 
 #: src/layout.md:62
 msgid "you decide to change it"
-msgstr ""
+msgstr "自分で変えたとき"
 
 #: src/layout.md:63
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: src/layout.md:63
 msgid "`<title>`"
@@ -476,7 +486,7 @@ msgstr ""
 
 #: src/layout.md:63
 msgid "you edit the heading"
-msgstr ""
+msgstr "見出しを編集したとき"
 
 #: src/layout.md:65
 msgid ""
@@ -485,13 +495,13 @@ msgid ""
 "you omit the `id`, it falls back to the relative path without the extension, "
 "which works but ties the two together — write an explicit `id` on any slide "
 "you might link to."
-msgstr ""
+msgstr "同一性が順序から独立しているため、番号を振り直してもディープリンク・Presenter View の同期・Hot Reload の現在位置は壊れません。`id` を省略すると拡張子を除いた相対パスが使われます。動きはしますが順序と同一性が結びついてしまうので、リンクする可能性のあるスライドには明示的に `id` を書いてください。"
 
 #: src/writing-slides.md:3
 msgid ""
 "A slide is a complete HTML document. Nothing is generated from a template at "
 "build time, so what you read in the file is what the browser gets."
-msgstr ""
+msgstr "スライドは完全な HTML 文書です。ビルド時にテンプレートから生成されるものは何も無く、ファイルに書かれているものがそのままブラウザに渡ります。"
 
 #: src/writing-slides.md:8
 msgid "\"en\""
@@ -556,7 +566,7 @@ msgstr ""
 
 #: src/writing-slides.md:46
 msgid "Four things to notice:"
-msgstr ""
+msgstr "注目すべき点が4つあります。"
 
 #: src/writing-slides.md:48
 msgid ""
@@ -564,34 +574,34 @@ msgid ""
 "and `/@deck/boot.js` starts the slide runtime. If you leave them out, the "
 "server injects them — but writing them keeps the file honest about its "
 "dependencies."
-msgstr ""
+msgstr "**2つのランタイムタグ。** `/@deck/design.css` がデザインシステムを読み込み、`/@deck/boot.js` がスライドランタイムを起動します。省略してもサーバーが注入しますが、明示しておくとファイルが自分の依存関係を正しく語ります。"
 
 #: src/writing-slides.md:51
 msgid ""
 "**`<deck-slide id=\"…\">` is the slide root.** One per document. Its `id` is "
 "the slide's stable identity."
-msgstr ""
+msgstr "**`<deck-slide id=\"…\">` がスライドのルート。** 1文書に1つです。`id` はスライドの安定した同一性になります。"
 
 #: src/writing-slides.md:53
 msgid ""
 "**`<title>` is the display title**, shown in the presenter view and the "
 "index."
-msgstr ""
+msgstr "**`<title>` が表示タイトル**で、Presenter View と索引に出ます。"
 
 #: src/writing-slides.md:54
 msgid "**`<deck-notes>` never renders on the slide.** It is speaker-only."
-msgstr ""
+msgstr "**`<deck-notes>` はスライドに描画されません。** 発表者だけが見るものです。"
 
 #: src/writing-slides.md:56
 msgid "The canvas is fixed"
-msgstr ""
+msgstr "キャンバスは固定"
 
 #: src/writing-slides.md:58
 msgid ""
 "Every slide is laid out on exactly **1280×720 CSS pixels** (configurable, "
 "but constant across the deck). The presentation shell scales the whole "
 "iframe to fit the screen."
-msgstr ""
+msgstr "すべてのスライドは正確に **1280×720 CSS ピクセル**でレイアウトされます（設定可能ですが、デッキ全体で一定です）。画面に合わせて iframe 全体を拡大縮小するのはシェルの役目です。"
 
 #: src/writing-slides.md:61
 msgid ""
@@ -599,69 +609,69 @@ msgid ""
 "queries. Use absolute sizes and flexbox, and let the shell handle screens. A "
 "slide that reflows at different widths will look right on your laptop and "
 "wrong on the projector."
-msgstr ""
+msgstr "つまり、**レスポンシブなレイアウトを書かないでください。** `vw` も `vh` もメディアクエリも使いません。絶対サイズと flexbox を使い、画面への適合はシェルに任せます。幅によって組み替わるスライドは、手元のノート PC では正しく見えてプロジェクタでは崩れます。"
 
 #: src/writing-slides.md:65
 msgid ""
 "`deck-slide` is a flex column with the deck's padding applied. `layout` "
 "picks a variant:"
-msgstr ""
+msgstr "`deck-slide` はデッキのパディングが適用された flex カラムです。`layout` でその変種を選べます。"
 
 #: src/writing-slides.md:67
 msgid "`layout`"
-msgstr ""
+msgstr "`layout`"
 
 #: src/writing-slides.md:67
 msgid "Effect"
-msgstr ""
+msgstr "効果"
 
 #: src/writing-slides.md:69
 msgid "_(none)_"
-msgstr ""
+msgstr "_(なし)_"
 
 #: src/writing-slides.md:69
 msgid "content stacked from the top"
-msgstr ""
+msgstr "上から順に積む"
 
 #: src/writing-slides.md:70
 msgid "`title`"
-msgstr ""
+msgstr "`title`"
 
 #: src/writing-slides.md:70
 msgid "vertically centred, tighter gaps"
-msgstr ""
+msgstr "垂直中央、間隔を詰める"
 
 #: src/writing-slides.md:71
 msgid "`center`"
-msgstr ""
+msgstr "`center`"
 
 #: src/writing-slides.md:71
 msgid "vertically centred"
-msgstr ""
+msgstr "垂直中央"
 
 #: src/writing-slides.md:72
 msgid "`bleed`"
-msgstr ""
+msgstr "`bleed`"
 
 #: src/writing-slides.md:72
 msgid "no padding, for full-bleed imagery"
-msgstr ""
+msgstr "パディング無し。全面に画像を敷く場合"
 
 #: src/writing-slides.md:74
 msgid "Steps and reveals"
-msgstr ""
+msgstr "step と段階表示"
 
 #: src/writing-slides.md:76
 msgid ""
 "`data-step=\"N\"` reveals an element at step _N_ and keeps it visible "
 "afterwards:"
-msgstr ""
+msgstr "`data-step=\"N\"` は step _N_ で要素を表示し、以降は表示したままにします。"
 
 #: src/writing-slides.md:83
 msgid ""
 "Hidden elements keep their space, so revealing one never shifts the layout. "
 "The step count is simply the highest `data-step` in the document."
-msgstr ""
+msgstr "非表示の要素も領域を保持するので、表示してもレイアウトがずれません。step 数は文書内の `data-step` の最大値そのものです。"
 
 #: src/writing-slides.md:86
 msgid ""
@@ -669,11 +679,11 @@ msgid ""
 "function of `(slide id, step)`, which is why a deep link, a reload and a hot "
 "swap all land in exactly the same state. The URL carries it: "
 "`/present#/architecture/2`."
-msgstr ""
+msgstr "step は「次へ」の積み重ねではなく**絶対値**です。画面は `(slide id, step)` の関数であり、だからこそディープリンク・リロード・Hot Reload のすべてが完全に同じ状態に着地します。URL がそれを保持します: `/present#/architecture/2`。"
 
 #: src/writing-slides.md:90
 msgid "For anything richer than a reveal, listen for the change:"
-msgstr ""
+msgstr "単純な段階表示より複雑なことをしたい場合は、変化を購読します。"
 
 #: src/writing-slides.md:94
 msgid "\"deck:stepchange\""
@@ -685,84 +695,88 @@ msgstr ""
 
 #: src/writing-slides.md:103
 msgid "Navigating"
-msgstr ""
+msgstr "ページ送り"
 
 #: src/writing-slides.md:105
 msgid ""
 "Every page navigates the same way, including a single slide opened on its "
 "own:"
-msgstr ""
+msgstr "個別に開いた1枚のスライドを含め、どのページも同じ操作でページ送りできます。"
 
 #: src/writing-slides.md:109
 msgid "`→` `Space` `PageDown`, or a click on the **right half**"
-msgstr ""
+msgstr "`→` `Space` `PageDown`、または**右半分**のクリック"
 
 #: src/writing-slides.md:109 src/presenting.md:25
 msgid "next step, then the next slide"
-msgstr ""
+msgstr "次の step、使い切ったら次のスライド"
 
 #: src/writing-slides.md:110
 msgid "`←` `PageUp`, right-click, or a click on the **left half**"
-msgstr ""
+msgstr "`←` `PageUp`、右クリック、または**左半分**のクリック"
 
 #: src/writing-slides.md:110 src/presenting.md:26
 msgid "previous step, then the previous slide"
-msgstr ""
+msgstr "前の step、step 0 なら前のスライド"
 
 #: src/writing-slides.md:111 src/presenting.md:27
 msgid "`↑` `↓`"
-msgstr ""
+msgstr "`↑` `↓`"
 
 #: src/writing-slides.md:111 src/presenting.md:27
 msgid "previous / next slide, skipping steps"
-msgstr ""
+msgstr "step を飛ばして前後のスライドへ"
 
 #: src/writing-slides.md:112 src/presenting.md:28
 msgid "`Home` `End`"
-msgstr ""
+msgstr "`Home` `End`"
 
 #: src/writing-slides.md:112 src/presenting.md:28
 msgid "first / last step"
-msgstr ""
+msgstr "最初 / 最後の step"
 
 #: src/writing-slides.md:113
 msgid "`b`"
-msgstr ""
+msgstr "`b`"
 
 #: src/writing-slides.md:113 src/presenting.md:29
 msgid "blackout"
-msgstr ""
+msgstr "ブラックアウト"
 
 #: src/writing-slides.md:114 src/presenting.md:30
 msgid "`f`"
-msgstr ""
+msgstr "`f`"
 
 #: src/writing-slides.md:114 src/presenting.md:30
 msgid "fullscreen"
-msgstr ""
+msgstr "全画面"
 
 #: src/writing-slides.md:116
 msgid ""
 "Clicks on links, buttons, form controls and media are left alone, as is a "
 "click that ends a text selection. Mark anything else that must not advance "
 "the deck with `data-deck-no-nav`."
-msgstr ""
+msgstr "リンク・ボタン・フォーム要素・メディアへのクリック、およびテキスト選択を終えるクリックは対象外です。それ以外でページ送りさせたくない要素には `data-deck-no-nav` を付けてください。"
 
 #: src/writing-slides.md:120
 msgid "Adding slides"
-msgstr ""
+msgstr "スライドを追加する"
 
 #: src/writing-slides.md:122
 msgid "Let the CLI pick the number, so gaps are used rather than guessed:"
-msgstr ""
+msgstr "番号は CLI に決めさせます。勘で付けるのではなく、空き番号が使われます。"
 
 #: src/writing-slides.md:125
 msgid "# -> slides/25-security.html\n"
 msgstr ""
+"# -> slides/25-security.html\n"
+""
 
 #: src/writing-slides.md:126
 msgid "# -> appended, next multiple of ten\n"
 msgstr ""
+"# -> 末尾に追加、次の10の倍数\n"
+""
 
 #: src/components.md:3
 msgid ""
@@ -770,44 +784,48 @@ msgid ""
 "Everything except `deck-code` renders in **Light DOM**, so ordinary CSS "
 "selectors, Tailwind utilities, Anime.js and DevTools all keep working on the "
 "insides."
-msgstr ""
+msgstr "デザインシステムは `deck-*` 名前空間の Custom Elements として提供されます。`deck-code` 以外はすべて **Light DOM** に描画されるため、通常の CSS セレクタ・Tailwind ユーティリティ・Anime.js・DevTools が中身に対してそのまま働きます。"
 
 #: src/components.md:7
 msgid ""
 "Content goes in **child elements**, not attributes. A JSON blob in an "
 "attribute is a slide DSL in disguise; if you find yourself reaching for one, "
 "write plain HTML instead."
-msgstr ""
+msgstr "内容は属性ではなく**子要素**に書きます。属性に詰め込んだ JSON は形を変えたスライド DSL です。そうしたくなったら、素の HTML を書いてください。"
 
 #: src/components.md:11
 msgid "# what is available, built-in and yours\n"
 msgstr ""
+"# 組み込みと自作、使えるもの一覧\n"
+""
 
 #: src/components.md:12
 msgid "# the built-in styles for one component\n"
 msgstr ""
+"# 指定コンポーネントの組み込みスタイル\n"
+""
 
 #: src/components.md:15
 msgid "Structure"
-msgstr ""
+msgstr "構造"
 
 #: src/components.md:17
 msgid ""
 "**`deck-slide`** — the slide root, one per document. `id` is the stable "
 "identity; `layout` is `title`, `center` or `bleed`."
-msgstr ""
+msgstr "**`deck-slide`** — スライドのルート。1文書に1つ。`id` が安定した同一性で、`layout` は `title`・`center`・`bleed` から選びます。"
 
 #: src/components.md:20
 msgid ""
 "**`deck-grid`** — a CSS grid. `columns=\"3\"`, `gap=\"24\"` (px or any CSS "
 "length), `align=\"start|center|stretch\"`."
-msgstr ""
+msgstr "**`deck-grid`** — CSS グリッド。`columns=\"3\"`、`gap=\"24\"`（px または任意の CSS 長さ）、`align=\"start|center|stretch\"`。"
 
 #: src/components.md:23
 msgid ""
 "**`deck-stack`** — a flex column, or a row with `direction=\"row\"`. `gap`, "
 "`align`, and `grow` to take the free space."
-msgstr ""
+msgstr "**`deck-stack`** — flex カラム。`direction=\"row\"` で行になります。`gap`、`align`、余白を占める `grow` を指定できます。"
 
 #: src/components.md:27
 msgid "\"40\""
@@ -831,46 +849,46 @@ msgstr ""
 
 #: src/components.md:35
 msgid "Headings"
-msgstr ""
+msgstr "見出し"
 
 #: src/components.md:37
 msgid ""
 "**`deck-heading`** — a heading with optional `eyebrow` and `sub` attributes, "
 "and `level=\"title\"` for the larger size."
-msgstr ""
+msgstr "**`deck-heading`** — 見出し。`eyebrow` と `sub` を任意で付けられ、`level=\"title\"` で大きいサイズになります。"
 
 #: src/components.md:40
 msgid ""
 "**`deck-eyebrow` / `deck-title` / `deck-subtitle`** — the same three parts "
 "as child elements. Use these when the text is content you want in the markup "
 "rather than configuration squeezed into attributes:"
-msgstr ""
+msgstr "**`deck-eyebrow` / `deck-title` / `deck-subtitle`** — 同じ3要素を子要素として書く形。属性に押し込んだ設定ではなく、マークアップに置きたい内容であるときに使います。"
 
 #: src/components.md:50
 msgid "Content blocks"
-msgstr ""
+msgstr "コンテンツブロック"
 
 #: src/components.md:52
 msgid "**`deck-card`** — a bordered surface. `variant=\"accent|outline|plain\"`."
-msgstr ""
+msgstr "**`deck-card`** — 枠線のある面。`variant=\"accent|outline|plain\"`。"
 
 #: src/components.md:54
 msgid ""
 "**`deck-callout`** — an aside with a coloured edge. "
 "`tone=\"info|warning|success|danger\"` and `label=\"Note\"`."
-msgstr ""
+msgstr "**`deck-callout`** — 色付きの縁を持つ補足。`tone=\"info|warning|success|danger\"` と `label=\"Note\"`。"
 
 #: src/components.md:57
 msgid ""
 "**`deck-stat`** — a big number followed by a caption. Add `countup` to "
 "animate it from zero, and `countup-duration=\"1200\"` to slow it down:"
-msgstr ""
+msgstr "**`deck-stat`** — 大きな数値とその説明。`countup` を付けると 0 からアニメーションし、`countup-duration=\"1200\"` で速度を変えられます。"
 
 #: src/components.md:67
 msgid ""
 "**`deck-figure`** — an image or SVG with a `caption`. The media is "
 "`object-fit: contain`, so it never overflows."
-msgstr ""
+msgstr "**`deck-figure`** — `caption` を付けられる画像または SVG。メディアは `object-fit: contain` なので、はみ出しません。"
 
 #: src/components.md:70
 msgid ""
@@ -878,17 +896,17 @@ msgid ""
 "Shadow DOM, because the internal `<pre><code>` structure is not something a "
 "slide should style directly. `language` accepts `rust`, `js`/`ts`, `python`, "
 "`go`, `bash`, `toml` and `json`; `highlight-lines=\"3-5,8\"` marks lines."
-msgstr ""
+msgstr "**`deck-code`** — シンタックスハイライト付きのコード。内部の `<pre><code>` 構造はスライドが直接スタイルすべきものではないため、唯一 Shadow DOM を使うコンポーネントです。`language` は `rust`・`js`/`ts`・`python`・`go`・`bash`・`toml`・`json` に対応し、`highlight-lines=\"3-5,8\"` で行を強調できます。"
 
 #: src/components.md:75
 msgid ""
 "Escape the markup inside it: `&lt;div&gt;`. Style it through "
 "`--deck-code-font-size` and the `part=\"pre\"` / `part=\"code\"` hooks."
-msgstr ""
+msgstr "中のマークアップはエスケープしてください: `&lt;div&gt;`。スタイルは `--deck-code-font-size` と `part=\"pre\"` / `part=\"code\"` 経由で当てます。"
 
 #: src/components.md:78
 msgid "Running furniture"
-msgstr ""
+msgstr "常設要素"
 
 #: src/components.md:80
 msgid ""
@@ -896,46 +914,46 @@ msgid ""
 "with `margin-block-start: auto` rather than positioned absolutely, so it can "
 "never overlap the content above it — give the block above it "
 "`class=\"grow\"` and the footer takes care of itself."
-msgstr ""
+msgstr "**`deck-footer`** — 下部の帯。`divider` で罫線が付きます。絶対配置ではなく `margin-block-start: auto` で押し下げているため、上のコンテンツに重なることがありません。上のブロックに `class=\"grow\"` を付けておけば、フッターは自分で位置を決めます。"
 
 #: src/components.md:85
 msgid ""
 "**`deck-slide-number`** — this slide's position. `format` is a template with "
 "`{number}`, `{total}` and `{percent}`, defaulting to `{number} / {total}`."
-msgstr ""
+msgstr "**`deck-slide-number`** — このスライドの位置。`format` は `{number}`・`{total}`・`{percent}` を使えるテンプレートで、既定は `{number} / {total}` です。"
 
 #: src/components.md:88
 msgid ""
 "**`deck-progress`** — a thin bar showing how far through the deck the slide "
 "is."
-msgstr ""
+msgstr "**`deck-progress`** — デッキ内の進捗を示す細いバー。"
 
 #: src/components.md:90
 msgid ""
 "Both read the deck manifest, so the numbering survives inserting and "
 "reordering slides."
-msgstr ""
+msgstr "どちらもデッキのマニフェストを読むので、スライドの挿入や並べ替えをしても番号は追従します。"
 
 #: src/components.md:99
 msgid "Speaker notes"
-msgstr ""
+msgstr "スピーカーノート"
 
 #: src/components.md:101
 msgid ""
 "**`deck-notes`** — never rendered on the slide. It appears in the presenter "
 "view, and in the print view when `[print] show_notes = true`."
-msgstr ""
+msgstr "**`deck-notes`** — スライドには描画されません。Presenter View に表示され、`[print] show_notes = true` のときは印刷ページにも出ます。"
 
 #: src/editing-the-template.md:3
 msgid ""
 "`deck init` gives you a working three-slide deck rather than an empty "
 "directory. This is a tour of what to change, roughly in the order you will "
 "want to change it."
-msgstr ""
+msgstr "`deck init` が作るのは空のディレクトリではなく、動く3枚のデッキです。ここでは変更したくなる順に、どこを直すかを案内します。"
 
 #: src/editing-the-template.md:21
 msgid "1. Deck metadata"
-msgstr ""
+msgstr "1. デッキのメタデータ"
 
 #: src/editing-the-template.md:23
 msgid ""
@@ -953,51 +971,51 @@ msgid ""
 "`title` is used by the browser tab, the index page and the print view. "
 "`lang` lands on `<html lang>` in the pages deck generates — your slide files "
 "carry their own."
-msgstr ""
+msgstr "`title` はブラウザのタブ、索引ページ、印刷ページで使われます。`lang` は deck が生成するページの `<html lang>` に入ります。スライドファイルは各自の `lang` を持ちます。"
 
 #: src/editing-the-template.md:34
 msgid "2. The slides"
-msgstr ""
+msgstr "2. スライド"
 
 #: src/editing-the-template.md:36
 msgid ""
 "Rewrite them; do not start from scratch. Each one demonstrates something "
 "worth keeping:"
-msgstr ""
+msgstr "ゼロから作るのではなく、書き換えてください。それぞれが残す価値のある要素を示しています。"
 
 #: src/editing-the-template.md:38
 msgid ""
 "**`00-title.html`** — `layout=\"title\"`, `deck-heading` with `eyebrow` and "
 "`sub`, and a Tailwind gradient. Replace the text and you have your title "
 "slide."
-msgstr ""
+msgstr "**`00-title.html`** — `layout=\"title\"`、`eyebrow` と `sub` を付けた `deck-heading`、Tailwind のグラデーション。文字を差し替えればタイトルスライドになります。"
 
 #: src/editing-the-template.md:40
 msgid ""
 "**`10-overview.html`** — three `data-step` reveals, numbered with Tailwind "
 "utilities. A good place to see how steps behave before you rely on them."
-msgstr ""
+msgstr "**`10-overview.html`** — `data-step` による3段階の表示。番号は Tailwind ユーティリティで組んでいます。step に頼る前に挙動を確認するのに適した場所です。"
 
 #: src/editing-the-template.md:42
 msgid ""
 "**`20-architecture.html`** — `deck-grid` with two `deck-card`s, a "
 "`deck-callout`, and a `<script type=\"module\">` at the bottom that reacts "
 "to `deck:stepchange`. This is the pattern for slide-local behaviour."
-msgstr ""
+msgstr "**`20-architecture.html`** — `deck-card` を2枚並べた `deck-grid`、`deck-callout`、そして末尾で `deck:stepchange` に反応する `<script type=\"module\">`。スライド固有の振る舞いを書くときの型です。"
 
 #: src/editing-the-template.md:46
 msgid "Then add your own:"
-msgstr ""
+msgstr "そのうえで自分のスライドを追加します。"
 
 #: src/editing-the-template.md:52
 msgid "3. The look"
-msgstr ""
+msgstr "3. 見た目"
 
 #: src/editing-the-template.md:54
 msgid ""
 "Change a **token** before you change anything else — one value restyles the "
 "whole deck:"
-msgstr ""
+msgstr "何よりも先に**トークン**を変えてください。1つの値でデッキ全体の見た目が変わります。"
 
 #: src/editing-the-template.md:57 src/own-components.md:51
 msgid "/* design/theme.css */"
@@ -1010,17 +1028,17 @@ msgid ""
 "sizes and fonts in `tokens.css`, colours and component tweaks in "
 "`theme.css`, Tailwind additions in `tailwind.css`, and `overrides.css` for "
 "the fix you are not proud of."
-msgstr ""
+msgstr "`design/` の4ファイルはカスケード順だけが違います。どれを使うかは [スタイルとテーマ](./styling.md) で説明します。目安としては、サイズとフォントは `tokens.css`、色とコンポーネントの調整は `theme.css`、Tailwind の追加は `tailwind.css`、そして胸を張れない応急処置は `overrides.css` です。"
 
 #: src/editing-the-template.md:68
 msgid "4. Fonts"
-msgstr ""
+msgstr "4. フォント"
 
 #: src/editing-the-template.md:70
 msgid ""
 "Drop a webfont into `assets/fonts/` and point a token at it. No `@font-face` "
 "to write — the file name carries the metadata:"
-msgstr ""
+msgstr "`assets/fonts/` に Web フォントを置き、トークンから参照します。`@font-face` を書く必要はありません。ファイル名がメタデータを持ちます。"
 
 #: src/editing-the-template.md:74 src/assets.md:51
 msgid "/* design/tokens.css */"
@@ -1032,50 +1050,50 @@ msgstr ""
 
 #: src/editing-the-template.md:80
 msgid "See [Assets, fonts and the cursor](./assets.md)."
-msgstr ""
+msgstr "[アセット・フォント・カーソル](./assets.md) を参照してください。"
 
 #: src/editing-the-template.md:82
 msgid "5. Components"
-msgstr ""
+msgstr "5. コンポーネント"
 
 #: src/editing-the-template.md:84
 msgid ""
 "`components/example-badge.js` exists to be read once and deleted. When you "
 "want your own:"
-msgstr ""
+msgstr "`components/example-badge.js` は一度読んで削除するために置かれています。自分のものが必要になったら次のようにします。"
 
 #: src/editing-the-template.md:91
 msgid "See [Adding your own components](./own-components.md)."
-msgstr ""
+msgstr "[コンポーネントを追加する](./own-components.md) を参照してください。"
 
 #: src/editing-the-template.md:93
 msgid "6. Check as you go"
-msgstr ""
+msgstr "6. こまめに検査する"
 
 #: src/editing-the-template.md:99
 msgid ""
 "A freshly generated deck passes with no errors and no warnings, so anything "
 "the check reports is something you introduced. Keep it that way and the deck "
 "stays presentable."
-msgstr ""
+msgstr "生成直後のデッキはエラーも警告もゼロで通ります。つまり検査が報告するものは、すべて自分が持ち込んだものです。この状態を保てば、デッキは常に人前に出せます。"
 
 #: src/styling.md:3
 msgid ""
 "Four project stylesheets, one Tailwind entry, and a cascade order that is "
 "fixed so you never have to fight it."
-msgstr ""
+msgstr "プロジェクト側のスタイルシート4枚、Tailwind エントリ1枚、そして戦わずに済むよう固定されたカスケード順。"
 
 #: src/styling.md:6
 msgid "File"
-msgstr ""
+msgstr "ファイル"
 
 #: src/styling.md:6
 msgid "For"
-msgstr ""
+msgstr "用途"
 
 #: src/styling.md:6
 msgid "Loaded into"
-msgstr ""
+msgstr "読み込み先"
 
 #: src/styling.md:8
 msgid "`design/tokens.css`"
@@ -1083,7 +1101,7 @@ msgstr ""
 
 #: src/styling.md:8
 msgid "`--deck-*` values: sizes, fonts, spacing"
-msgstr ""
+msgstr "`--deck-*` の値。サイズ・フォント・余白"
 
 #: src/styling.md:8 src/styling.md:9 src/styling.md:10
 msgid "`@layer project`"
@@ -1095,7 +1113,7 @@ msgstr ""
 
 #: src/styling.md:9
 msgid "the project look: colours, component tweaks"
-msgstr ""
+msgstr "プロジェクトの見た目。色・コンポーネントの調整"
 
 #: src/styling.md:10
 msgid "`design/overrides.css`"
@@ -1103,7 +1121,7 @@ msgstr ""
 
 #: src/styling.md:10
 msgid "the last word, for one-off fixes"
-msgstr ""
+msgstr "最終的な上書き。単発の修正用"
 
 #: src/styling.md:11
 msgid "`design/tailwind.css`"
@@ -1115,24 +1133,24 @@ msgstr ""
 
 #: src/styling.md:11
 msgid "Tailwind's own layers"
-msgstr ""
+msgstr "Tailwind 自身のレイヤー"
 
 #: src/styling.md:13
 msgid ""
 "The first three are listed in `[theme].styles` in `deck.toml` and loaded in "
 "that order, so `overrides.css` wins ties. They are all in the same layer; "
 "the split is a convention for humans, not a mechanism."
-msgstr ""
+msgstr "最初の3枚は `deck.toml` の `[theme].styles` に列挙され、その順に読み込まれるので、競合時は `overrides.css` が勝ちます。3枚は同じレイヤーにあり、分割は仕組みではなく人間のための慣習です。"
 
 #: src/styling.md:17
 msgid "Start with a token"
-msgstr ""
+msgstr "まずトークンから"
 
 #: src/styling.md:19
 msgid ""
 "Every built-in style is driven by a custom property, so changing one value "
 "restyles the whole deck:"
-msgstr ""
+msgstr "組み込みのスタイルはすべてカスタムプロパティで駆動されているので、1つの値を変えるだけでデッキ全体の見た目が変わります。"
 
 #: src/styling.md:30
 msgid ""
@@ -1140,7 +1158,7 @@ msgid ""
 "`--deck-space-*`, `--deck-radius-*`, `--deck-slide-padding-*` and "
 "`--deck-step-*`. Run `deck component show deck-card` to see which ones a "
 "component actually reads."
-msgstr ""
+msgstr "系統は `--deck-color-*`、`--deck-font-*`、`--deck-font-size-*`、`--deck-space-*`、`--deck-radius-*`、`--deck-slide-padding-*`、`--deck-step-*` です。あるコンポーネントが実際にどれを読むかは `deck component show deck-card` で確認できます。"
 
 #: src/styling.md:34
 msgid "Tailwind CSS"
@@ -1151,13 +1169,13 @@ msgid ""
 "Tailwind is part of the runtime, not an optional add-on. The vendored v4 "
 "**browser build** compiles utilities inside each slide document, so there is "
 "no build step, no bundler and no network access."
-msgstr ""
+msgstr "Tailwind は任意の追加要素ではなく、ランタイムの一部です。同梱した v4 の**ブラウザビルド**が各スライド文書の中でユーティリティをコンパイルするため、ビルド工程もバンドラもネットワークアクセスもありません。"
 
 #: src/styling.md:40
 msgid ""
 "deck's tokens are bridged into the Tailwind theme, which means the utilities "
 "follow your theme instead of duplicating it:"
-msgstr ""
+msgstr "deck のトークンは Tailwind のテーマへ橋渡しされています。つまりユーティリティはテーマを複製せず、テーマに追従します。"
 
 #: src/styling.md:44
 msgid "\"text-small text-muted font-mono\""
@@ -1165,53 +1183,53 @@ msgstr ""
 
 #: src/styling.md:47
 msgid "Project additions go in `design/tailwind.css`:"
-msgstr ""
+msgstr "プロジェクト固有の追加は `design/tailwind.css` に書きます。"
 
 #: src/styling.md:60
 msgid "The cascade"
-msgstr ""
+msgstr "カスケード"
 
 #: src/styling.md:62
 msgid ""
 "Declared in both `design.css` and the Tailwind entry, so it holds regardless "
 "of which stylesheet the browser applies first:"
-msgstr ""
+msgstr "`design.css` と Tailwind エントリの両方で宣言しているため、ブラウザがどちらのスタイルシートを先に適用しても順序が保たれます。"
 
 #: src/styling.md:70
 msgid "Reading left to right, lowest priority first:"
-msgstr ""
+msgstr "左から右へ、優先度の低い順です。"
 
 #: src/styling.md:72
 msgid "**`base`** — Tailwind's preflight (the reset)."
-msgstr ""
+msgstr "**`base`** — Tailwind の preflight（リセット）。"
 
 #: src/styling.md:73
 msgid "**`theme`** — Tailwind's theme variables."
-msgstr ""
+msgstr "**`theme`** — Tailwind のテーマ変数。"
 
 #: src/styling.md:74
 msgid ""
 "**`deck`** — the deck design system: `reset`, `tokens`, `base`, `components`."
-msgstr ""
+msgstr "**`deck`** — deck のデザインシステム。`reset`・`tokens`・`base`・`components`。"
 
 #: src/styling.md:75
 msgid "**`project`** — your `design/` files."
-msgstr ""
+msgstr "**`project`** — 自分の `design/` のファイル。"
 
 #: src/styling.md:76
 msgid "**`slide`** — per-slide CSS."
-msgstr ""
+msgstr "**`slide`** — スライドごとの CSS。"
 
 #: src/styling.md:77
 msgid "**`components`, `utilities`** — Tailwind's, which win over everything."
-msgstr ""
+msgstr "**`components`・`utilities`** — Tailwind のもの。すべてに勝ちます。"
 
 #: src/styling.md:79
 msgid ""
 "So your CSS outranks the design system, and a Tailwind utility outranks your "
 "CSS. That is the intended order: utilities are the escape hatch for one "
 "element."
-msgstr ""
+msgstr "つまり自分の CSS はデザインシステムに勝ち、Tailwind ユーティリティは自分の CSS に勝ちます。これは意図した順序で、ユーティリティは要素1つ分の逃げ道です。"
 
 #: src/styling.md:84
 msgid ""
@@ -1219,89 +1237,91 @@ msgid ""
 "Tailwind's top-level `base`. Listing them in a single `@layer` statement "
 "would place the whole `deck` layer wherever its first sub-layer appears and "
 "sink the entire design system below preflight — hence the two statements."
-msgstr ""
+msgstr "`deck.base` は「`deck` レイヤー内の `base` サブレイヤー」であり、Tailwind のトップレベルの `base` とは**別物**です。両者を1つの `@layer` 文に並べると、`deck` レイヤー全体が最初のサブレイヤーの位置に置かれ、デザインシステムが preflight の下に沈みます。だから宣言が2文に分かれています。"
 
 #: src/styling.md:91
 msgid "Slide-local CSS"
-msgstr ""
+msgstr "スライド固有の CSS"
 
 #: src/styling.md:93
 msgid "Wrap it so it stays in the right place:"
-msgstr ""
+msgstr "正しい位置に留まるよう、包んでください。"
 
 #: src/styling.md:103
 msgid ""
 "Without the `@layer slide` wrapper the rule becomes unlayered, which puts it "
 "**above** Tailwind's utilities — so a `class=\"text-accent\"` on the same "
 "element would stop working."
-msgstr ""
+msgstr "`@layer slide` で包まないとルールはレイヤー無しになり、Tailwind のユーティリティ**より上**に来ます。すると同じ要素の `class=\"text-accent\"` が効かなくなります。"
 
 #: src/styling.md:106
 msgid "Taking a built-in apart"
-msgstr ""
+msgstr "組み込みを分解する"
 
 #: src/styling.md:108
 msgid "To edit a built-in component's styles rather than override them:"
-msgstr ""
+msgstr "組み込みコンポーネントのスタイルを上書きするのではなく、直接編集したい場合。"
 
 #: src/styling.md:111
 msgid "# -> design/ejected/deck-card.css\n"
 msgstr ""
+"# -> design/ejected/deck-card.css\n"
+""
 
 #: src/styling.md:114
 msgid ""
 "Add the file to `[theme].styles` and edit freely. The component keeps "
 "working; you have simply moved its appearance into the project."
-msgstr ""
+msgstr "そのファイルを `[theme].styles` に追加すれば、自由に編集できます。コンポーネントは動き続け、見た目だけがプロジェクト側に移ります。"
 
 #: src/styling.md:117
 msgid "Themes"
-msgstr ""
+msgstr "テーマ"
 
 #: src/styling.md:119
 msgid "`deck init --theme` picks the starting point for `design/theme.css`:"
-msgstr ""
+msgstr "`deck init --theme` は `design/theme.css` の出発点を選びます。"
 
 #: src/styling.md:123
 msgid "`default`"
-msgstr ""
+msgstr "`default`"
 
 #: src/styling.md:123
 msgid "light, red accent"
-msgstr ""
+msgstr "明るい配色、赤のアクセント"
 
 #: src/styling.md:124
 msgid "`minimal-light`"
-msgstr ""
+msgstr "`minimal-light`"
 
 #: src/styling.md:124
 msgid "light, blue accent, no shadows"
-msgstr ""
+msgstr "明るい配色、青のアクセント、影なし"
 
 #: src/styling.md:125
 msgid "`dark`"
-msgstr ""
+msgstr "`dark`"
 
 #: src/styling.md:125
 msgid "dark surfaces, light text"
-msgstr ""
+msgstr "暗い面、明るい文字"
 
 #: src/styling.md:127
 msgid ""
 "It writes a normal file. There is no theme system to fight — after `init`, "
 "the theme is just your CSS."
-msgstr ""
+msgstr "書き出されるのは普通のファイルです。戦うべきテーマシステムは存在せず、`init` の後のテーマは単なる自分の CSS です。"
 
 #: src/own-components.md:3
 msgid ""
 "A component is a Custom Element. There is no registry to declare, no build "
 "step and no framework — if `customElements.define()` runs, the element works "
 "in every slide."
-msgstr ""
+msgstr "コンポーネントは Custom Element です。宣言するレジストリもビルド工程もフレームワークもありません。`customElements.define()` が実行されれば、その要素はすべてのスライドで使えます。"
 
 #: src/own-components.md:6
 msgid "Scaffold one"
-msgstr ""
+msgstr "雛形を作る"
 
 #: src/own-components.md:12
 msgid ""
@@ -1309,18 +1329,18 @@ msgid ""
 "`components/index.js`, which is the entry point every slide loads. Hot "
 "reload picks it up immediately: only the frames that actually use the tag "
 "are reloaded."
-msgstr ""
+msgstr "`components/acme-metric.js` を作成し、すべてのスライドが読み込むエントリポイント `components/index.js` に import を追加します。Hot Reload が即座に反応し、そのタグを実際に使っている iframe だけが再読込されます。"
 
 #: src/own-components.md:16
 msgid "The rules"
-msgstr ""
+msgstr "守ること"
 
 #: src/own-components.md:18
 msgid ""
 "**Use a project prefix.** `deck-*` is reserved for the built-ins. `acme-*`, "
 "`rccs-*`, anything of yours — and a Custom Element name must contain a "
 "hyphen, which is a platform rule rather than a deck one."
-msgstr ""
+msgstr "**プロジェクト固有の接頭辞を使う。** `deck-*` は組み込み用に予約されています。`acme-*`、`rccs-*`、何でも構いません。なお Custom Element 名にハイフンが必要なのは deck の規則ではなくプラットフォームの規則です。"
 
 #: src/own-components.md:22
 msgid ""
@@ -1330,13 +1350,13 @@ msgid ""
 "structure genuinely pays for itself — a chart that builds its own SVG, a "
 "widget wrapping a third-party library. In the built-in set, only `deck-code` "
 "qualifies."
-msgstr ""
+msgstr "**Light DOM を優先する。** 通常の文書に描画すれば、CSS セレクタ・Tailwind ユーティリティ・Anime.js・レイアウト検査・DevTools のすべてが働き続けます。Shadow DOM は内部構造を隠すことに本当に価値があるときだけ使ってください。自前で SVG を組み立てるチャートや、サードパーティ製ライブラリを包むウィジェットなどです。組み込みでは `deck-code` だけが該当します。"
 
 #: src/own-components.md:28
 msgid ""
 "**Keep generated markup idempotent.** `connectedCallback` can run more than "
 "once, so check before you create:"
-msgstr ""
+msgstr "**生成するマークアップを冪等に保つ。** `connectedCallback` は複数回走りうるので、作る前に存在を確認します。"
 
 #: src/own-components.md:34
 msgid "\":scope > .acme-metric__label\""
@@ -1362,7 +1382,7 @@ msgstr ""
 msgid ""
 "**Style it from `design/`, not from JavaScript.** Light DOM means a plain "
 "selector works, and the styles then live with the rest of the deck's look:"
-msgstr ""
+msgstr "**スタイルは JavaScript ではなく `design/` から当てる。** Light DOM なので通常のセレクタが効き、スタイルはデッキの見た目の残りと同じ場所に置けます。"
 
 #: src/own-components.md:59
 msgid ""
@@ -1370,7 +1390,7 @@ msgid ""
 "its iframe is created, and the shell preloads the neighbouring slides — so "
 "the animation would run off-screen and appear to fire at random. Use "
 "`deck.onReveal`, covered in [Animation](./animation.md):"
-msgstr ""
+msgstr "**`connectedCallback` からアニメーションを始めない。** 要素が構築されるのは iframe が作られたときで、シェルは前後のスライドをプリロードします。つまりアニメーションは画面外で走り、再生タイミングがランダムに見えます。[アニメーション](./animation.md) で説明する `deck.onReveal` を使ってください。"
 
 #: src/own-components.md:67 src/animation.md:52
 msgid "\"abort\""
@@ -1378,13 +1398,13 @@ msgstr ""
 
 #: src/own-components.md:71
 msgid "Reading the deck's state"
-msgstr ""
+msgstr "デッキの状態を読む"
 
 #: src/own-components.md:73
 msgid ""
 "`window.deck` is available inside every slide, so a component can react to "
 "the deck rather than just to its own attributes:"
-msgstr ""
+msgstr "`window.deck` はすべてのスライド内で使えるので、コンポーネントは自分の属性だけでなくデッキの状態にも反応できます。"
 
 #: src/own-components.md:78
 msgid "`"
@@ -1396,7 +1416,7 @@ msgstr ""
 
 #: src/own-components.md:82
 msgid "See [Animation](./animation.md#the-runtime-api) for the full surface."
-msgstr ""
+msgstr "全 API は [アニメーション](./animation.md#the-runtime-api) を参照してください。"
 
 #: src/own-components.md:86
 msgid ""
@@ -1404,22 +1424,24 @@ msgid ""
 "you forgot to import, is reported as `invalid_component_name` rather than "
 "silently rendering nothing — an undefined Custom Element is an empty inline "
 "box, which is easy to miss on a slide."
-msgstr ""
+msgstr "`deck check` はどのタグが存在するかを把握しています。タグ名の打ち間違いや import 忘れは、黙って何も描画されるのではなく `invalid_component_name` として報告されます。未定義の Custom Element は空のインラインボックスであり、スライド上では見落としやすいからです。"
 
 #: src/own-components.md:91
 msgid "# built-ins, plus every tag found under components/\n"
 msgstr ""
+"# 組み込みと、components/ 以下で見つかった全タグ\n"
+""
 
 #: src/assets.md:3
 msgid "Everything under `assets/` is served from `/assets/…`."
-msgstr ""
+msgstr "`assets/` の中身はすべて `/assets/…` で配信されます。"
 
 #: src/assets.md:14
 msgid ""
 "The subdirectories are a convention, not a mechanism — nothing breaks if you "
 "add `assets/video/`. They exist so a deck with fifty files still has an "
 "obvious place to put the fifty-first."
-msgstr ""
+msgstr "サブディレクトリは仕組みではなく慣習です。`assets/video/` を追加しても何も壊れません。ファイルが50個あるデッキでも、51個目を置く場所が自明であるために存在します。"
 
 #: src/assets.md:20
 msgid ""
@@ -1428,17 +1450,17 @@ msgid ""
 "`slides/<id>/index.html`, so a relative path that works during `deck dev` "
 "will 404 in the static build. `deck check` reports these as `missing_file` "
 "or `invalid_local_url`."
-msgstr ""
+msgstr "**アセットは常にルート絶対パスで参照してください**: `/assets/images/diagram.svg`。`deck build` は各スライドを `slides/<id>/index.html` へ再配置するので、`deck dev` では動く相対パスが静的ビルドでは 404 になります。`deck check` はこれを `missing_file` または `invalid_local_url` として報告します。"
 
 #: src/assets.md:27
 msgid "Fonts"
-msgstr ""
+msgstr "フォント"
 
 #: src/assets.md:29
 msgid ""
 "Drop font files into `assets/fonts/` and deck writes the `@font-face` rules. "
 "The file name carries the metadata:"
-msgstr ""
+msgstr "`assets/fonts/` にフォントファイルを置けば、`@font-face` は deck が書きます。ファイル名がメタデータを持ちます。"
 
 #: src/assets.md:39
 msgid ""
@@ -1446,18 +1468,18 @@ msgid ""
 "(`100`–`1000`) or named (`thin`, `light`, `regular`, `medium`, `semibold`, "
 "`bold`, `black`, …), and `italic` or `oblique` sets the style. "
 "Subdirectories are walked, so `assets/fonts/Inter/Inter-700.woff2` works too."
-msgstr ""
+msgstr "対応形式は `.woff2`・`.woff`・`.ttf`・`.otf`。ウェイトは数値（`100`〜`1000`）でも名前（`thin`・`light`・`regular`・`medium`・`semibold`・`bold`・`black` など）でも指定でき、`italic` または `oblique` でスタイルが決まります。サブディレクトリも走査するので `assets/fonts/Inter/Inter-700.woff2` も有効です。"
 
 #: src/assets.md:44
 msgid ""
 "They load with `font-display: block`, because a slide should never flash its "
 "fallback in front of an audience. Slide readiness waits for "
 "`document.fonts.ready`, so printing and checking always see the real font."
-msgstr ""
+msgstr "読み込みは `font-display: block` です。聴衆の前でフォールバックがちらつくべきではないからです。スライドの ready 判定は `document.fonts.ready` を待つので、印刷と検査は必ず本来のフォントを見ます。"
 
 #: src/assets.md:48
 msgid "Then point a token at the family:"
-msgstr ""
+msgstr "あとはトークンからそのファミリを参照します。"
 
 #: src/assets.md:54
 msgid "\"JetBrains Mono\""
@@ -1468,18 +1490,18 @@ msgid ""
 "`deck check` reports `missing_font` if a family is referenced but never "
 "loads — which catches the classic \"it works on my machine\" font, and is "
 "why `deck doctor` lists the families it can find."
-msgstr ""
+msgstr "参照されているのに読み込まれないファミリがあれば、`deck check` は `missing_font` を報告します。「自分の環境では動く」フォントを捕まえるためで、`deck doctor` が見つかったファミリを列挙するのも同じ理由です。"
 
 #: src/assets.md:62
 msgid "Custom cursor"
-msgstr ""
+msgstr "カーソルの差し替え"
 
 #: src/assets.md:64
 msgid ""
 "Put `cursor.svg` — or `.png`, `.webp`, `.gif`, `.jpg` — directly in "
 "`assets/` and it replaces the mouse cursor on every slide and across the "
 "presentation view."
-msgstr ""
+msgstr "`cursor.svg`（または `.png`・`.webp`・`.gif`・`.jpg`）を `assets/` 直下に置くと、すべてのスライドと発表画面のマウスカーソルが差し替わります。"
 
 #: src/assets.md:71
 msgid ""
@@ -1487,33 +1509,33 @@ msgid ""
 "explicit `width` and `height` attributes, and images larger than 128×128 are "
 "ignored. A 24–32px image with the hotspot at its top-left corner behaves the "
 "way people expect."
-msgstr ""
+msgstr "制約が2つありますが、これは deck ではなくブラウザ由来です。SVG カーソルには `width` と `height` 属性が必須で、128×128 より大きい画像は無視されます。24〜32px で、ホットスポットが左上にある画像が期待どおりに振る舞います。"
 
 #: src/assets.md:75
 msgid "Override it per element with ordinary CSS:"
-msgstr ""
+msgstr "要素ごとの上書きは通常の CSS で行えます。"
 
 #: src/animation.md:3
 msgid ""
 "Two layers, deliberately separated: the **shell** owns transitions between "
 "slides, and each **slide** owns what happens inside it."
-msgstr ""
+msgstr "意図的に分離された2層構造です。スライド間のトランジションは**シェル**が持ち、スライド内で起きることは各**スライド**が持ちます。"
 
 #: src/animation.md:6
 msgid "The standard reveal"
-msgstr ""
+msgstr "標準の段階表示"
 
 #: src/animation.md:8
 msgid ""
 "`data-step` is enough for most slides. The runtime fades and lifts each "
 "element as it is revealed, with a small stagger, driven by tokens:"
-msgstr ""
+msgstr "ほとんどのスライドは `data-step` だけで足ります。ランタイムが表示される要素をわずかにずらしながらフェードと持ち上げで見せ、その挙動はトークンで制御されます。"
 
 #: src/animation.md:18
 msgid ""
 "Nothing to write, and it is consistent across the deck. Reach for the rest "
 "of this page only when a reveal is not enough."
-msgstr ""
+msgstr "書くものは何もなく、デッキ全体で一貫します。このページの残りは、段階表示だけでは足りないときに読んでください。"
 
 #: src/animation.md:21
 msgid "Anime.js"
@@ -1521,7 +1543,7 @@ msgstr ""
 
 #: src/animation.md:23
 msgid "Anime.js v4 is vendored, so importing it needs no install and no network:"
-msgstr ""
+msgstr "Anime.js v4 は同梱済みなので、import にインストールもネットワークも不要です。"
 
 #: src/animation.md:27
 msgid "\"/@deck/vendor/animejs.js\""
@@ -1529,22 +1551,22 @@ msgstr ""
 
 #: src/animation.md:30
 msgid "// printing seeks it to its final frame"
-msgstr ""
+msgstr "// 印刷時に最終フレームまでシークされる"
 
 #: src/animation.md:34
 msgid ""
 "`registerTimeline` matters for print: `/print` drives each slide to its "
 "requested step and then seeks every registered timeline to the end, so a "
 "printed slide shows the final state rather than frame one."
-msgstr ""
+msgstr "`registerTimeline` は印刷で意味を持ちます。`/print` は各スライドを指定 step まで進めたうえで、登録されたタイムラインをすべて末尾までシークします。だから印刷結果は1フレーム目ではなく最終状態になります。"
 
 #: src/animation.md:38
 msgid "Animate on reveal, never on construction"
-msgstr ""
+msgstr "生成時ではなく可視化時にアニメーションする"
 
 #: src/animation.md:40
 msgid "This is the one rule worth internalising."
-msgstr ""
+msgstr "身につける価値のあるルールはこれ1つです。"
 
 #: src/animation.md:42
 msgid ""
@@ -1553,11 +1575,11 @@ msgid ""
 "`connectedCallback` runs while the slide is still off-screen, finishes "
 "before you arrive, and then appears to re-trigger at random depending on how "
 "far away the previous slide was."
-msgstr ""
+msgstr "要素が構築されるのは **iframe** が作られたときで、シェルは前後のスライドをプリロードします。つまり `connectedCallback` から始めたアニメーションはスライドが画面外にある間に走り、到着する前に終わり、そして直前のスライドがどれだけ離れていたかによって再生タイミングがランダムに見えます。"
 
 #: src/animation.md:47
 msgid "`deck.onReveal` ties the animation to visibility instead:"
-msgstr ""
+msgstr "代わりに `deck.onReveal` がアニメーションを可視性に結びつけます。"
 
 #: src/animation.md:56
 msgid ""
@@ -1566,254 +1588,258 @@ msgid ""
 "being true. So the animation cannot run off-screen, cannot outlive its "
 "reveal, and replays when you step back and forward again — the same "
 "behaviour as the standard reveal."
-msgstr ""
+msgstr "スライドに入り、**かつ**その要素の `data-step` に到達したときに発火し、どちらかが成り立たなくなった瞬間に `AbortSignal` が abort します。したがってアニメーションは画面外で走らず、表示より長く生き残らず、step を戻して進め直せば再生されます。標準の段階表示と同じ挙動です。"
 
 #: src/animation.md:61
 msgid ""
 "`deck-stat`'s `countup` is built on it, and reflects its state in "
 "`data-deck-countup` (`idle`, `running`, `done`) if you want to hook CSS onto "
 "it."
-msgstr ""
+msgstr "`deck-stat` の `countup` はこの上に作られており、状態を `data-deck-countup`（`idle`・`running`・`done`）に反映します。CSS のフックに使えます。"
 
 #: src/animation.md:64
 msgid "Reduced motion, print and check"
-msgstr ""
+msgstr "reduced motion・印刷・検査"
 
 #: src/animation.md:66
 msgid ""
 "Animation is skipped entirely in **print** and **check** mode, so "
 "screenshots, printed pages and layout checks are deterministic. `[animation] "
 "reduced_motion` decides what the OS preference does:"
-msgstr ""
+msgstr "**print** と **check** モードではアニメーションを完全にスキップするので、スクリーンショット・印刷結果・レイアウト検査が決定的になります。OS の設定をどう扱うかは `[animation] reduced_motion` が決めます。"
 
 #: src/animation.md:72
 msgid "`instant` _(default)_"
-msgstr ""
+msgstr "`instant` _(既定)_"
 
 #: src/animation.md:72
 msgid "honour it, and jump to the final state"
-msgstr ""
+msgstr "尊重し、最終状態へ即座に飛ぶ"
 
 #: src/animation.md:73
 msgid "`respect`"
-msgstr ""
+msgstr "`respect`"
 
 #: src/animation.md:73
 msgid "honour it"
-msgstr ""
+msgstr "尊重する"
 
 #: src/animation.md:74
 msgid "`ignore`"
-msgstr ""
+msgstr "`ignore`"
 
 #: src/animation.md:74
 msgid "always animate"
-msgstr ""
+msgstr "常にアニメーションする"
 
 #: src/animation.md:76
 msgid ""
 "`deck.animator()` returns `null` whenever animation is off, so the same code "
 "path handles all of it:"
-msgstr ""
+msgstr "アニメーションが無効なとき `deck.animator()` は `null` を返すので、同じコード経路で全ケースを扱えます。"
 
 #: src/animation.md:82
 msgid "// final state, no animation\n"
 msgstr ""
+"// アニメーションなしで最終状態\n"
+""
 
 #: src/animation.md:87
 msgid "The runtime API"
-msgstr ""
+msgstr "ランタイム API"
 
 #: src/animation.md:89
 msgid "`window.deck` inside a slide:"
-msgstr ""
+msgstr "スライド内の `window.deck`。"
 
 #: src/animation.md:93
 msgid "`mode`"
-msgstr ""
+msgstr "`mode`"
 
 #: src/animation.md:93
 msgid "`present`, `presenter`, `print`, `check` or `standalone`"
-msgstr ""
+msgstr "`present`・`presenter`・`print`・`check`・`standalone`"
 
 #: src/animation.md:94
 msgid "`slideId` `step` `stepCount`"
-msgstr ""
+msgstr "`slideId` `step` `stepCount`"
 
 #: src/animation.md:94
 msgid "where you are"
-msgstr ""
+msgstr "現在位置"
 
 #: src/animation.md:95
 msgid "`position` `whenPositioned()`"
-msgstr ""
+msgstr "`position` `whenPositioned()`"
 
 #: src/animation.md:95
 msgid "`{ index, number, total }` from the manifest"
-msgstr ""
+msgstr "マニフェスト由来の `{ index, number, total }`"
 
 #: src/animation.md:96
 msgid "`canvas`"
-msgstr ""
+msgstr "`canvas`"
 
 #: src/animation.md:96
 msgid "`{ width, height }`"
-msgstr ""
+msgstr "`{ width, height }`"
 
 #: src/animation.md:97
 msgid "`reducedMotion` `ready`"
-msgstr ""
+msgstr "`reducedMotion` `ready`"
 
 #: src/animation.md:97
 msgid "flags"
-msgstr ""
+msgstr "フラグ"
 
 #: src/animation.md:98
 msgid "`onReveal(element, cb)`"
-msgstr ""
+msgstr "`onReveal(element, cb)`"
 
 #: src/animation.md:98
 msgid "run `cb` when the element becomes visible"
-msgstr ""
+msgstr "要素が可視になったら `cb` を実行"
 
 #: src/animation.md:99
 msgid "`animator()` `anime()`"
-msgstr ""
+msgstr "`animator()` `anime()`"
 
 #: src/animation.md:99
 msgid "Anime.js access, or `null` when animation is off"
-msgstr ""
+msgstr "Anime.js へのアクセス。無効時は `null`"
 
 #: src/animation.md:100
 msgid "`registerTimeline(t)`"
-msgstr ""
+msgstr "`registerTimeline(t)`"
 
 #: src/animation.md:100
 msgid "seek `t` to the end before printing"
-msgstr ""
+msgstr "印刷前に `t` を末尾までシークする"
 
 #: src/animation.md:101
 msgid "`waitUntil(promise)`"
-msgstr ""
+msgstr "`waitUntil(promise)`"
 
 #: src/animation.md:101
 msgid "delay `deck:ready` until it settles"
-msgstr ""
+msgstr "解決するまで `deck:ready` を遅らせる"
 
 #: src/animation.md:102
 msgid "`setStepCount(n)`"
-msgstr ""
+msgstr "`setStepCount(n)`"
 
 #: src/animation.md:102
 msgid "declare steps not expressed with `data-step`"
-msgstr ""
+msgstr "`data-step` で表せない step を宣言する"
 
 #: src/animation.md:103
 msgid "`advance(dir)` `goToStep(n)` `goToSlide(id)`"
-msgstr ""
+msgstr "`advance(dir)` `goToStep(n)` `goToSlide(id)`"
 
 #: src/animation.md:103
 msgid "navigate"
-msgstr ""
+msgstr "移動する"
 
 #: src/animation.md:105
 msgid "Events on `document`:"
-msgstr ""
+msgstr "`document` 上のイベント。"
 
 #: src/animation.md:107
 msgid "Event"
-msgstr ""
+msgstr "イベント"
 
 #: src/animation.md:107
 msgid "When"
-msgstr ""
+msgstr "発火するとき"
 
 #: src/animation.md:109
 msgid "`deck:init`"
-msgstr ""
+msgstr "`deck:init`"
 
 #: src/animation.md:109
 msgid "initial state is known; `waitUntil()` available"
-msgstr ""
+msgstr "初期状態が確定。`waitUntil()` が使える"
 
 #: src/animation.md:110
 msgid "`deck:ready`"
-msgstr ""
+msgstr "`deck:ready`"
 
 #: src/animation.md:110
 msgid "fonts, images, components and custom promises have settled"
-msgstr ""
+msgstr "フォント・画像・コンポーネント・独自 Promise が解決済み"
 
 #: src/animation.md:111
 msgid "`deck:enter` / `deck:leave`"
-msgstr ""
+msgstr "`deck:enter` / `deck:leave`"
 
 #: src/animation.md:111
 msgid "the slide became / stopped being current"
-msgstr ""
+msgstr "そのスライドが現在のものになった / でなくなった"
 
 #: src/animation.md:112
 msgid "`deck:stepchange`"
-msgstr ""
+msgstr "`deck:stepchange`"
 
 #: src/animation.md:112
 msgid "a step was applied (`from`, `to`, `direction`, `instant`)"
-msgstr ""
+msgstr "step が適用された（`from`・`to`・`direction`・`instant`）"
 
 #: src/animation.md:113
 msgid "`deck:pause` / `deck:resume`"
-msgstr ""
+msgstr "`deck:pause` / `deck:resume`"
 
 #: src/animation.md:113
 msgid "the presenter paused or resumed"
-msgstr ""
+msgstr "発表者が一時停止・再開した"
 
 #: src/animation.md:114
 msgid "`deck:prepare-print`"
-msgstr ""
+msgstr "`deck:prepare-print`"
 
 #: src/animation.md:114
 msgid "finalise state before printing; `waitUntil()` available"
-msgstr ""
+msgstr "印刷前に状態を確定。`waitUntil()` が使える"
 
 #: src/animation.md:115
 msgid "`deck:dispose`"
-msgstr ""
+msgstr "`deck:dispose`"
 
 #: src/animation.md:115
 msgid "the iframe is about to go away"
-msgstr ""
+msgstr "iframe が破棄される直前"
 
 #: src/animation.md:117
 msgid ""
 "Prefer `onReveal()` over `deck:enter` for animation: `deck:enter` fires once "
 "per visit and knows nothing about steps."
-msgstr ""
+msgstr "アニメーションには `deck:enter` より `onReveal()` を使ってください。`deck:enter` は1回の訪問で1度しか発火せず、step のことを何も知りません。"
 
 #: src/animation.md:120
 msgid "Slide transitions"
-msgstr ""
+msgstr "スライド間のトランジション"
 
 #: src/animation.md:122
 msgid ""
 "Transitions between slides belong to the shell, not to a slide. It "
 "crossfades frames; a hot reload uses the same crossfade between the old and "
 "new iframe, which is why editing the current slide never flashes white."
-msgstr ""
+msgstr "スライド間のトランジションはスライドではなくシェルの担当です。シェルは iframe をクロスフェードします。Hot Reload も新旧 iframe の間で同じクロスフェードを使うので、現在のスライドを編集しても画面が白く飛びません。"
 
 #: src/presenting.md:4
 msgid "# opens /present\n"
 msgstr ""
+"# /present を開く\n"
+""
 
 #: src/presenting.md:9
 msgid "The two views"
-msgstr ""
+msgstr "2つのビュー"
 
 #: src/presenting.md:11
 msgid ""
 "**`/present`** is what the audience sees: the slide scaled to the window, a "
 "progress bar, and a small HUD that fades out when the mouse stops moving."
-msgstr ""
+msgstr "**`/present`** は聴衆が見る画面です。ウィンドウに合わせて拡大されたスライド、進捗バー、そしてマウスを止めると消える小さな HUD。"
 
 #: src/presenting.md:14
 msgid ""
@@ -1821,89 +1847,89 @@ msgid ""
 "notes, a timer, a clock, the slide and step number, blackout, pause, and a "
 "live diagnostics panel showing anything the current slide reported. Open it "
 "on a second screen."
-msgstr ""
+msgstr "**`/presenter`** は発表者用です。現在と次のスライド、スピーカーノート、タイマー、時刻、スライドと step の番号、ブラックアウト、一時停止、そして現在のスライドが報告した内容を映す診断パネル。2画面目で開いてください。"
 
 #: src/presenting.md:18
 msgid ""
 "The two stay in sync over a websocket, so they work across two windows, two "
 "displays or two devices on the same network. Whichever one you drive, the "
 "other follows."
-msgstr ""
+msgstr "両者は WebSocket で同期するので、2つのウィンドウ、2つのディスプレイ、同じネットワーク上の2台の端末をまたいで動きます。どちらを操作しても、もう一方が追従します。"
 
 #: src/presenting.md:21
 msgid "Controls"
-msgstr ""
+msgstr "操作"
 
 #: src/presenting.md:25
 msgid "`→` `Space` `PageDown`, click the **right half**"
-msgstr ""
+msgstr "`→` `Space` `PageDown`、**右半分**のクリック"
 
 #: src/presenting.md:26
 msgid "`←` `PageUp`, right-click, click the **left half**"
-msgstr ""
+msgstr "`←` `PageUp`、右クリック、**左半分**のクリック"
 
 #: src/presenting.md:29
 msgid "`b` or `.`"
-msgstr ""
+msgstr "`b` または `.`"
 
 #: src/presenting.md:31
 msgid "`p` or `s`"
-msgstr ""
+msgstr "`p` または `s`"
 
 #: src/presenting.md:31
 msgid "open the presenter view"
-msgstr ""
+msgstr "Presenter View を開く"
 
 #: src/presenting.md:32
 msgid "`t` `r` _(presenter)_"
-msgstr ""
+msgstr "`t` `r` _(Presenter View)_"
 
 #: src/presenting.md:32
 msgid "start/pause and reset the timer"
-msgstr ""
+msgstr "タイマーの開始・一時停止とリセット"
 
 #: src/presenting.md:34
 msgid ""
 "The position lives in the URL — `/present#/architecture/2` — so a reload, a "
 "bookmark or a pasted link all land in the same place."
-msgstr ""
+msgstr "現在位置は URL に入っています（`/present#/architecture/2`）。リロードでもブックマークでも貼り付けたリンクでも、同じ場所に着地します。"
 
 #: src/presenting.md:37
 msgid "Only three iframes"
-msgstr ""
+msgstr "iframe は3枚だけ"
 
 #: src/presenting.md:39
 msgid ""
 "The shell keeps a ring of three frames: previous, current, next. A "
 "hundred-slide deck never loads a hundred iframes, and stepping back and "
 "forth is instant because the neighbours are already warm."
-msgstr ""
+msgstr "シェルは「前・現在・次」の3枚のリングを保ちます。100枚のデッキでも iframe を100個読み込むことはなく、前後の移動が即座なのは隣が既に温まっているからです。"
 
 #: src/presenting.md:43
 msgid ""
 "Preloaded frames stay dormant: they do not run reveal animations until they "
 "are actually shown. `[server] preload` controls how many neighbours are kept."
-msgstr ""
+msgstr "プリロードされたフレームは休眠状態で、実際に表示されるまで表示アニメーションを走らせません。保持する枚数は `[server] preload` で決まります。"
 
 #: src/presenting.md:46
 msgid "Presenting from a second machine"
-msgstr ""
+msgstr "別の端末から発表する"
 
 #: src/presenting.md:52
 msgid ""
 "deck prints a warning, because that makes the deck readable by anyone on the "
 "network. The default binding is `127.0.0.1`."
-msgstr ""
+msgstr "この場合ネットワーク上の誰でもデッキを閲覧できるようになるため、deck は警告を表示します。既定のバインド先は `127.0.0.1` です。"
 
 #: src/presenting.md:55
 msgid "Printing"
-msgstr ""
+msgstr "印刷"
 
 #: src/presenting.md:57
 msgid ""
 "There is no PDF pipeline in the CLI. Printing is the browser's job, and "
 "`/print` is a real page you can inspect first."
-msgstr ""
+msgstr "CLI に PDF 生成のパイプラインはありません。印刷はブラウザの仕事で、`/print` は事前に中身を確認できる実ページです。"
 
 #: src/presenting.md:64
 msgid ""
@@ -1912,55 +1938,55 @@ msgid ""
 "then enables the **Print** button. `window.print()` is never called for you "
 "— the point is that you get to read the preflight report before committing "
 "to paper."
-msgstr ""
+msgstr "このページは全スライドを印刷モードで読み込み、指定 step まで進め、フォント・画像・スライドが登録した Promise を待ってから **Print** ボタンを有効化します。`window.print()` を自動で呼ぶことはありません。紙に出す前に preflight レポートを読めることが要点です。"
 
 #: src/presenting.md:69
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/presenting.md:69
 msgid "Pages"
-msgstr ""
+msgstr "ページ"
 
 #: src/presenting.md:71
 msgid "`/print` or `/print?steps=final`"
-msgstr ""
+msgstr "`/print` または `/print?steps=final`"
 
 #: src/presenting.md:71
 msgid "one page per slide, fully revealed"
-msgstr ""
+msgstr "1スライド1ページ、すべて表示した状態"
 
 #: src/presenting.md:72
 msgid "`/print?steps=initial`"
-msgstr ""
+msgstr "`/print?steps=initial`"
 
 #: src/presenting.md:72
 msgid "one page per slide, nothing revealed"
-msgstr ""
+msgstr "1スライド1ページ、何も表示していない状態"
 
 #: src/presenting.md:73
 msgid "`/print?steps=each`"
-msgstr ""
+msgstr "`/print?steps=each`"
 
 #: src/presenting.md:73
 msgid "one page per step"
-msgstr ""
+msgstr "1 step 1ページ"
 
 #: src/presenting.md:74
 msgid "`/print?slide=architecture`"
-msgstr ""
+msgstr "`/print?slide=architecture`"
 
 #: src/presenting.md:74
 msgid "one slide only"
-msgstr ""
+msgstr "指定した1枚だけ"
 
 #: src/presenting.md:76
 msgid "The preflight panel lists what loaded and what each slide reported:"
-msgstr ""
+msgstr "preflight パネルには、読み込まれたものと各スライドが報告した内容が並びます。"
 
 #: src/presenting.md:85
 msgid "Errors do not block you. Print anyway if you know better."
-msgstr ""
+msgstr "エラーがあっても印刷は妨げられません。承知のうえならそのまま印刷してください。"
 
 #: src/presenting.md:87
 msgid ""
@@ -1968,7 +1994,7 @@ msgid ""
 "and enable background graphics. `@page` is already sized to the canvas, so "
 "one slide is one page. Set `[print] show_notes = true` to print speaker "
 "notes under each slide."
-msgstr ""
+msgstr "ブラウザの印刷ダイアログでは **PDF に保存**を選び、余白をなしにして背景グラフィックを有効にしてください。`@page` はすでにキャンバスサイズなので、1スライドが1ページになります。`[print] show_notes = true` にすると各スライドの下にスピーカーノートが印刷されます。"
 
 #: src/checking.md:3
 msgid ""
@@ -1976,31 +2002,37 @@ msgid ""
 "of text one pixel too tall for its box, an image that 404s, a console error "
 "that stops the animation on slide 14. `deck check` finds them with headless "
 "Chromium."
-msgstr ""
+msgstr "スライドの失敗は、人が会場に入るまで見えない形で起きます。枠より1ピクセル高いテキスト、404 になる画像、14枚目のアニメーションを止める console error。`deck check` は headless Chromium でこれらを見つけます。"
 
 #: src/checking.md:8
 msgid "# static + runtime + layout\n"
 msgstr ""
+"# 静的 + 実行時 + レイアウト\n"
+""
 
 #: src/checking.md:9
 msgid "# no browser, fast\n"
 msgstr ""
+"# ブラウザなし、高速\n"
+""
 
 #: src/checking.md:10
 msgid "# only what you edited\n"
 msgstr ""
+"# 編集したものだけ\n"
+""
 
 #: src/checking.md:15
 msgid "Exit code `1` means violations, so it drops into CI as-is."
-msgstr ""
+msgstr "終了コード `1` が違反を意味するので、そのまま CI に組み込めます。"
 
 #: src/checking.md:17
 msgid "What it checks"
-msgstr ""
+msgstr "検査する内容"
 
 #: src/checking.md:19
 msgid "**Static** — no browser needed:"
-msgstr ""
+msgstr "**静的** — ブラウザ不要。"
 
 #: src/checking.md:21
 msgid ""
@@ -2011,7 +2043,7 @@ msgstr ""
 
 #: src/checking.md:24
 msgid "**Runtime** — with the slide actually running:"
-msgstr ""
+msgstr "**実行時** — スライドを実際に動かして。"
 
 #: src/checking.md:26
 msgid ""
@@ -2022,7 +2054,7 @@ msgstr ""
 
 #: src/checking.md:30
 msgid "**Layout** — measured in the browser at the real canvas size:"
-msgstr ""
+msgstr "**レイアウト** — 実際のキャンバスサイズでブラウザ上で計測。"
 
 #: src/checking.md:32
 msgid ""
@@ -2032,106 +2064,106 @@ msgstr ""
 
 #: src/checking.md:35
 msgid "Reading a failure"
-msgstr ""
+msgstr "検出結果の読み方"
 
 #: src/checking.md:45
 msgid ""
 "Each finding carries the slide, the source file, a CSS selector and the "
 "element's bounding box, so you can go straight to it. With `--screenshots` "
 "the report also points at a PNG per slide under `.deck/screenshots/`."
-msgstr ""
+msgstr "各指摘はスライド・ソースファイル・CSS セレクタ・要素の外接矩形を持つので、直接その場所へ行けます。`--screenshots` を付けると `.deck/screenshots/` 以下のスライドごとの PNG も示されます。"
 
 #: src/checking.md:49
 msgid "What they usually mean:"
-msgstr ""
+msgstr "それぞれの典型的な意味。"
 
 #: src/checking.md:51
 msgid "Rule"
-msgstr ""
+msgstr "ルール"
 
 #: src/checking.md:51
 msgid "Usually means"
-msgstr ""
+msgstr "典型的な意味"
 
 #: src/checking.md:53
 msgid "`slide_overflow`"
-msgstr ""
+msgstr "`slide_overflow`"
 
 #: src/checking.md:53
 msgid "too much content; cut text or split the slide"
-msgstr ""
+msgstr "内容が多すぎる。文章を削るかスライドを分割する"
 
 #: src/checking.md:54
 msgid "`clipped_text`"
-msgstr ""
+msgstr "`clipped_text`"
 
 #: src/checking.md:54
 msgid "a fixed-height box is smaller than its text"
-msgstr ""
+msgstr "高さ固定の箱がテキストより小さい"
 
 #: src/checking.md:55
 msgid "`outside_canvas`"
-msgstr ""
+msgstr "`outside_canvas`"
 
 #: src/checking.md:55
 msgid "an element escapes the 1280×720 canvas entirely"
-msgstr ""
+msgstr "要素が 1280×720 のキャンバスから完全に外れている"
 
 #: src/checking.md:56
 msgid "`outside_safe_area`"
-msgstr ""
+msgstr "`outside_safe_area`"
 
 #: src/checking.md:56
 msgid "content is closer to an edge than the safe area allows"
-msgstr ""
+msgstr "内容が safe area より端に寄っている"
 
 #: src/checking.md:57
 msgid "`min_font_size`"
-msgstr ""
+msgstr "`min_font_size`"
 
 #: src/checking.md:57
 msgid "below 18px; unreadable from the back of a room"
-msgstr ""
+msgstr "18px 未満。会場の後ろから読めない"
 
 #: src/checking.md:58
 msgid "`low_contrast`"
-msgstr ""
+msgstr "`low_contrast`"
 
 #: src/checking.md:58
 msgid "below WCAG AA against the actual computed background"
-msgstr ""
+msgstr "実際の計算済み背景色に対して WCAG AA を下回る"
 
 #: src/checking.md:59
 msgid "`text_overlap`"
-msgstr ""
+msgstr "`text_overlap`"
 
 #: src/checking.md:59
 msgid "two text blocks sit on top of each other"
-msgstr ""
+msgstr "2つのテキストブロックが重なっている"
 
 #: src/checking.md:60
 msgid "`missing_file`"
-msgstr ""
+msgstr "`missing_file`"
 
 #: src/checking.md:60
 msgid "a referenced asset does not exist, or the path is relative"
-msgstr ""
+msgstr "参照先のアセットが存在しない、またはパスが相対"
 
 #: src/checking.md:61
 msgid "`undefined_component`"
-msgstr ""
+msgstr "`undefined_component`"
 
 #: src/checking.md:61
 msgid "a tag whose Custom Element never registered"
-msgstr ""
+msgstr "Custom Element が登録されなかったタグ"
 
 #: src/checking.md:63
 msgid "Severity and suppression"
-msgstr ""
+msgstr "重大度と抑止"
 
 #: src/checking.md:65
 msgid "Every rule is `error`, `warning` or `off`:"
-msgstr ""
+msgstr "各ルールは `error`・`warning`・`off` のいずれかです。"
 
 #: src/checking.md:67
 msgid ""
@@ -2144,7 +2176,7 @@ msgstr ""
 
 #: src/checking.md:73
 msgid "Suppress a single element, naming the rule:"
-msgstr ""
+msgstr "ルール名を指定して要素単位で抑止できます。"
 
 #: src/checking.md:76
 msgid "\"outside-safe-area\""
@@ -2156,7 +2188,7 @@ msgstr ""
 
 #: src/checking.md:80
 msgid "Or by selector, deck-wide:"
-msgstr ""
+msgstr "デッキ全体に対してセレクタで指定することもできます。"
 
 #: src/checking.md:82
 msgid ""
@@ -2171,11 +2203,11 @@ msgstr ""
 msgid ""
 "Prefer fixing over suppressing. A decorative shape that intentionally bleeds "
 "off the canvas is a fair suppression; a heading that does not fit is not."
-msgstr ""
+msgstr "抑止より修正を優先してください。意図的にキャンバスの外へ抜ける装飾図形は妥当な抑止ですが、収まらない見出しはそうではありません。"
 
 #: src/checking.md:91
 msgid "Reproducibility"
-msgstr ""
+msgstr "再現性"
 
 #: src/checking.md:93
 msgid ""
@@ -2183,11 +2215,11 @@ msgid ""
 "timezone and reduced-motion preference are pinned, animation is disabled in "
 "check mode, and each run gets its own browser profile. Two runs on the same "
 "deck produce the same report, which is what makes it useful in CI."
-msgstr ""
+msgstr "結果は実行ごとに安定します。ビューポート・デバイスピクセル比・ロケール・タイムゾーン・reduced motion の設定を固定し、検査モードではアニメーションを無効化し、実行ごとに専用のブラウザプロファイルを使います。同じデッキを2回検査すれば同じレポートが出る。これが CI で役に立つ理由です。"
 
 #: src/checking.md:98
 msgid "In CI"
-msgstr ""
+msgstr "CI での実行"
 
 #: src/checking.md:101 src/deploying.md:59
 msgid "run"
@@ -2216,64 +2248,66 @@ msgstr ""
 #: src/checking.md:104
 msgid "\"false\"   # runners restrict user namespaces\n"
 msgstr ""
+"\"false\"   # ランナーはユーザー名前空間を制限している\n"
+""
 
 #: src/checking.md:107
 msgid ""
 "SARIF uploads as code-scanning results, which annotates the pull request "
 "line by line. `--report json` is easier to post-process yourself."
-msgstr ""
+msgstr "SARIF は code scanning の結果としてアップロードでき、プルリクエストに行単位で注釈が付きます。自分で後処理するなら `--report json` が扱いやすいです。"
 
 #: src/deploying.md:7
 msgid ""
 "`dist/` is a plain folder any static HTTP server can serve. Neither Node.js "
 "nor the deck CLI is needed to run it."
-msgstr ""
+msgstr "`dist/` は任意の静的 HTTP サーバーで配信できる普通のフォルダです。動かすのに Node.js も deck CLI も必要ありません。"
 
 #: src/deploying.md:22
 msgid ""
 "Hot reload and the presenter/audience websocket sync are gone in a static "
 "build, as you would expect — the shell notices the missing server and "
 "carries on."
-msgstr ""
+msgstr "静的ビルドでは Hot Reload と Presenter/聴衆間の WebSocket 同期は当然なくなります。シェルはサーバーが無いことを検知して、そのまま動作を続けます。"
 
 #: src/deploying.md:25
 msgid "Serving under a sub-path"
-msgstr ""
+msgstr "サブパスで配信する"
 
 #: src/deploying.md:31
 msgid ""
 "Every root-absolute URL is rewritten onto that base exactly once, including "
 "the runtime tags and the fingerprinted asset names."
-msgstr ""
+msgstr "ルート絶対 URL はすべて、ランタイムタグやハッシュ付きアセット名を含めて、そのベースへちょうど1回だけ書き換えられます。"
 
 #: src/deploying.md:36
 msgid ""
 "Reference assets with root-absolute paths (`/assets/diagram.svg`). The build "
 "relocates each slide to `slides/<id>/index.html`, so relative paths cannot "
 "resolve. `deck check` catches these before you deploy."
-msgstr ""
+msgstr "アセットはルート絶対パスで参照してください（`/assets/diagram.svg`）。ビルドは各スライドを `slides/<id>/index.html` へ再配置するため、相対パスは解決できません。`deck check` がデプロイ前に検出します。"
 
 #: src/deploying.md:42
 msgid "Fingerprinting"
-msgstr ""
+msgstr "ハッシュ付きファイル名"
 
 #: src/deploying.md:44
 msgid ""
 "`[build] fingerprint_assets` (on by default) renames assets with a content "
 "hash — `logo.a1b2c3d4.png` — and rewrites the references. Set a far-future "
 "cache header and never think about cache invalidation again."
-msgstr ""
+msgstr "`[build] fingerprint_assets`（既定で有効）はアセットを内容ハッシュ付きの名前（`logo.a1b2c3d4.png`）に変え、参照も書き換えます。遠い未来の Cache-Control を設定すれば、キャッシュ破棄について考える必要がなくなります。"
 
 #: src/deploying.md:48
 msgid "GitHub Pages"
-msgstr ""
+msgstr "GitHub Pages"
 
 #: src/deploying.md:50
 msgid ""
 "This guide and the [introduction deck](/deck/slide/present) are both "
 "published this way, from one workflow. The book goes to the root and the "
 "deck to a sub-path, so they never fight over URLs:"
-msgstr ""
+msgstr "このガイドと [紹介デッキ](/deck/slide/present) は、どちらもこの方法で1つのワークフローから公開されています。ドキュメントをルートに、デッキをサブパスに置くので、URL が衝突しません。"
 
 #: src/deploying.md:55
 msgid "uses"
@@ -2303,17 +2337,17 @@ msgstr ""
 msgid ""
 "`configure-pages` reports the base path (`/deck` for a project site, empty "
 "for a user site), which is exactly what `--base-url` needs."
-msgstr ""
+msgstr "`configure-pages` はベースパス（プロジェクトサイトなら `/deck`、ユーザーサイトなら空）を出力します。これがまさに `--base-url` に必要な値です。"
 
 #: src/deploying.md:74
 msgid ""
 "The full workflow is in "
 "[`.github/workflows/pages.yml`](https://github.com/azishio/deck/blob/main/.github/workflows/pages.yml)."
-msgstr ""
+msgstr "ワークフロー全文は [`.github/workflows/pages.yml`](https://github.com/azishio/deck/blob/main/.github/workflows/pages.yml) にあります。"
 
 #: src/deploying.md:77
 msgid "Anywhere else"
-msgstr ""
+msgstr "その他の配信先"
 
 #: src/deploying.md:79
 msgid ""
@@ -2322,23 +2356,23 @@ msgid ""
 "`python3 -m http.server` all work unchanged. For a one-off share, zip it — "
 "opening `index.html` from the file system will not work, because ES modules "
 "and `fetch` need an origin, but any local server does."
-msgstr ""
+msgstr "`dist/` がサーバーに求めるのはファイル配信とディレクトリインデックスだけなので、Netlify・Cloudflare Pages・S3 + CloudFront・`nginx`・`python3 -m http.server` のいずれでもそのまま動きます。一度きりの共有なら zip で渡してください。ES モジュールと `fetch` にはオリジンが必要なので、ファイルシステムから `index.html` を直接開くことはできませんが、ローカルサーバーなら何でも動きます。"
 
 #: src/configuration.md:3
 msgid ""
 "`deck.toml` holds deck-wide settings and nothing else — no slide list, no "
 "slide content."
-msgstr ""
+msgstr "`deck.toml` が持つのはデッキ全体の設定だけです。スライド一覧もスライド本文も入りません。"
 
 #: src/configuration.md:5
 msgid "Merge order, lowest priority first:"
-msgstr ""
+msgstr "マージ順序（優先度の低いものから）。"
 
 #: src/configuration.md:11
 msgid ""
 "`deck.local.toml` is for machine-specific values and is not committed. A "
 "Chromium path is the usual reason to have one:"
-msgstr ""
+msgstr "`deck.local.toml` は環境固有の値のためのもので、コミットしません。用意する理由として多いのは Chromium のパスです。"
 
 #: src/configuration.md:14
 msgid ""
@@ -2352,7 +2386,7 @@ msgstr ""
 
 #: src/configuration.md:21
 msgid "The whole file"
-msgstr ""
+msgstr "ファイル全体"
 
 #: src/configuration.md:23
 msgid ""
@@ -2429,28 +2463,28 @@ msgstr ""
 
 #: src/configuration.md:91
 msgid "Notes on individual settings"
-msgstr ""
+msgstr "個別の設定について"
 
 #: src/configuration.md:93
 msgid "canvas"
-msgstr ""
+msgstr "canvas"
 
 #: src/configuration.md:95
 msgid ""
 "`width` and `height` are the logical size every slide is laid out on; the "
 "shell scales it. `safe_area` is the margin the `outside_safe_area` check "
 "enforces — content outside it may be clipped by an unfamiliar projector."
-msgstr ""
+msgstr "`width` と `height` は全スライドがレイアウトされる論理サイズで、拡大縮小はシェルが行います。`safe_area` は `outside_safe_area` 検査が守らせる余白です。ここを超えた内容は、初めて使うプロジェクタで切れる可能性があります。"
 
 #: src/configuration.md:99
 msgid "browser"
-msgstr ""
+msgstr "browser"
 
 #: src/configuration.md:101
 msgid ""
 "`command` is resolved the way a shell would: an absolute path is used as "
 "given, a bare name is looked up in `PATH`."
-msgstr ""
+msgstr "`command` はシェルと同じ方法で解決されます。絶対パスはそのまま使われ、名前だけなら `PATH` から探します。"
 
 #: src/configuration.md:104
 msgid ""
@@ -2458,11 +2492,11 @@ msgid ""
 "container images and CI runners, where unprivileged user namespaces are "
 "restricted and Chromium aborts with \"No usable sandbox\". Everything deck "
 "opens is localhost."
-msgstr ""
+msgstr "`sandbox = false` は Ubuntu 23.10 以降、多くのコンテナイメージ、CI ランナーのための正式な回避策です。これらの環境では非特権ユーザー名前空間が制限されており、Chromium が「No usable sandbox」で停止します。deck が開くものはすべて localhost です。"
 
 #: src/configuration.md:108
 msgid "tailwind"
-msgstr ""
+msgstr "tailwind"
 
 #: src/configuration.md:110
 msgid ""
@@ -2470,32 +2504,32 @@ msgid ""
 "— below the deck design system, so it normalises the document without "
 "overriding components. Turn it off if you would rather rely on deck's own "
 "reset alone."
-msgstr ""
+msgstr "`preflight` は Tailwind のリセットをエントリの先頭、`@layer base` に置きます。deck のデザインシステムより下のレイヤーなので、コンポーネントを上書きせずに文書を正規化します。deck 自身のリセットだけに任せたい場合は無効にしてください。"
 
 #: src/configuration.md:114 src/cli.md:76
 msgid "check"
-msgstr ""
+msgstr "check"
 
 #: src/configuration.md:116
 msgid ""
 "`on_save` reserves the behaviour for editor integrations; `deck check "
 "--changed` is the command-line equivalent, comparing content hashes recorded "
 "under `.deck/cache/`."
-msgstr ""
+msgstr "`on_save` はエディタ統合のための予約設定です。コマンドラインでの同等物は `deck check --changed` で、`.deck/cache/` に記録した内容ハッシュと比較します。"
 
 #: src/configuration.md:119
 msgid ""
 "`external_network = \"deny\"` reports any request that leaves the local "
 "origin. A deck should not need the network while you present."
-msgstr ""
+msgstr "`external_network = \"deny\"` はローカルオリジンを出るリクエストをすべて報告します。発表中のデッキがネットワークを必要とすべきではありません。"
 
 #: src/configuration.md:122
 msgid "Environment variables"
-msgstr ""
+msgstr "環境変数"
 
 #: src/configuration.md:124
 msgid "Useful for CI and one-off overrides:"
-msgstr ""
+msgstr "CI や一時的な上書きに便利です。"
 
 #: src/configuration.md:126
 msgid ""
@@ -2509,82 +2543,84 @@ msgstr ""
 
 #: src/configuration.md:132
 msgid "`DECK_LOG` sets the tracing filter, e.g. `DECK_LOG=deck_core=debug`."
-msgstr ""
+msgstr "`DECK_LOG` はトレースのフィルタを設定します（例: `DECK_LOG=deck_core=debug`）。"
 
 #: src/configuration.md:134
 msgid "deck.lock"
-msgstr ""
+msgstr "deck.lock"
 
 #: src/configuration.md:136
 msgid ""
 "Records the versions the deck was authored against: the deck runtime, "
 "Anime.js, Tailwind CSS, the built-in components and theme. `deck build` "
 "refreshes it, `deck doctor` reports drift. Commit it."
-msgstr ""
+msgstr "デッキが依拠したバージョンを記録します。deck ランタイム、Anime.js、Tailwind CSS、組み込みコンポーネントとテーマです。`deck build` が更新し、`deck doctor` が差分を報告します。コミットしてください。"
 
 #: src/configuration.md:140
 msgid "Reserved URLs"
-msgstr ""
+msgstr "予約 URL"
 
 #: src/configuration.md:142
 msgid "Served by the dev server and emitted by the static build:"
-msgstr ""
+msgstr "開発サーバーが配信し、静的ビルドが出力するものです。"
 
 #: src/cli.md:15
 msgid "Global options, valid on every subcommand:"
-msgstr ""
+msgstr "すべてのサブコマンドで有効なグローバルオプション。"
 
 #: src/cli.md:25
 msgid "Exit codes:"
-msgstr ""
+msgstr "終了コード。"
 
 #: src/cli.md:29
 msgid "`0`"
-msgstr ""
+msgstr "`0`"
 
 #: src/cli.md:29
 msgid "success"
-msgstr ""
+msgstr "成功"
 
 #: src/cli.md:30
 msgid "`1`"
-msgstr ""
+msgstr "`1`"
 
 #: src/cli.md:30
 msgid "check violations"
-msgstr ""
+msgstr "検査違反"
 
 #: src/cli.md:31
 msgid "`2`"
-msgstr ""
+msgstr "`2`"
 
 #: src/cli.md:31
 msgid "configuration or input error"
-msgstr ""
+msgstr "設定または入力のエラー"
 
 #: src/cli.md:32
 msgid "`3`"
-msgstr ""
+msgstr "`3`"
 
 #: src/cli.md:32
 msgid "browser launch or connection error"
-msgstr ""
+msgstr "ブラウザの起動・接続エラー"
 
 #: src/cli.md:33
 msgid "`4`"
-msgstr ""
+msgstr "`4`"
 
 #: src/cli.md:33
 msgid "render or build error"
-msgstr ""
+msgstr "レンダリングまたはビルドのエラー"
 
 #: src/cli.md:35
 msgid "init"
-msgstr ""
+msgstr "init"
 
 #: src/cli.md:38
 msgid "# in the current directory\n"
 msgstr ""
+"# カレントディレクトリに作成\n"
+""
 
 #: src/cli.md:40
 msgid "\"Q1 Review\""
@@ -2595,11 +2631,11 @@ msgid ""
 "`--theme` is `default`, `minimal-light` or `dark`. Writes a working "
 "three-slide deck plus the `deck-slides` agent skill — see [Working with "
 "agents](./agents.md)."
-msgstr ""
+msgstr "`--theme` は `default`・`minimal-light`・`dark` から選びます。動く3枚のデッキと、エージェント用スキル `deck-slides` を書き出します。[エージェントと使う](./agents.md) を参照してください。"
 
 #: src/cli.md:46
 msgid "add slide"
-msgstr ""
+msgstr "add slide"
 
 #: src/cli.md:53
 msgid ""
@@ -2607,27 +2643,31 @@ msgid ""
 "it, the number lands in the gap: `20-architecture` → **`25-security`** → "
 "`30-demo`. If the integers run out, a letter suffix keeps the order "
 "(`20a-…`, which still sorts between 20 and 21)."
-msgstr ""
+msgstr "`--after` を付けない場合、次の10の倍数で末尾に追加されます。付けた場合は空き番号に入ります: `20-architecture` → **`25-security`** → `30-demo`。整数が足りなくなった場合は英字の接尾辞で順序を保ちます（`20a-…` は 20 と 21 の間にソートされます）。"
 
 #: src/cli.md:57
 msgid "dev"
-msgstr ""
+msgstr "dev"
 
 #: src/cli.md:61
 msgid "# none | index | present | presenter | print\n"
 msgstr ""
+"# none | index | present | presenter | print\n"
+""
 
 #: src/cli.md:62
 msgid "# start on this slide\n"
 msgstr ""
+"# このスライドから開始\n"
+""
 
 #: src/cli.md:67
 msgid "present"
-msgstr ""
+msgstr "present"
 
 #: src/cli.md:74
 msgid "Same server as `deck dev`, opening `/present`."
-msgstr ""
+msgstr "`deck dev` と同じサーバーを起動し、`/present` を開きます。"
 
 #: src/cli.md:80
 msgid "# no browser\n"
@@ -2636,26 +2676,32 @@ msgstr ""
 #: src/cli.md:81
 msgid "# only what changed since last run\n"
 msgstr ""
+"# 前回から変更のあったものだけ\n"
+""
 
 #: src/cli.md:83
 msgid "# a PNG per slide in .deck/screenshots/\n"
 msgstr ""
+"# .deck/screenshots/ にスライドごとの PNG\n"
+""
 
 #: src/cli.md:87
 msgid "build"
-msgstr ""
+msgstr "build"
 
 #: src/cli.md:94
 msgid "open"
-msgstr ""
+msgstr "open"
 
 #: src/cli.md:97
 msgid "# opens /print; printing stays with the browser\n"
 msgstr ""
+"# /print を開く。印刷自体はブラウザの担当\n"
+""
 
 #: src/cli.md:102
 msgid "component"
-msgstr ""
+msgstr "component"
 
 #: src/cli.md:105
 msgid "# built-ins and yours\n"
@@ -2664,18 +2710,24 @@ msgstr ""
 #: src/cli.md:106
 msgid "# its built-in styles\n"
 msgstr ""
+"# 組み込みスタイルを表示\n"
+""
 
 #: src/cli.md:107
 msgid "# copy them into design/ejected/\n"
 msgstr ""
+"# design/ejected/ にコピー\n"
+""
 
 #: src/cli.md:108
 msgid "# scaffold and register\n"
 msgstr ""
+"# 雛形を作って登録\n"
+""
 
 #: src/cli.md:111
 msgid "doctor"
-msgstr ""
+msgstr "doctor"
 
 #: src/cli.md:118
 msgid ""
@@ -2683,7 +2735,7 @@ msgid ""
 "availability, writable directories, the port, and whether `deck.lock` "
 "matches the running binary. The first thing to run when something behaves "
 "oddly."
-msgstr ""
+msgstr "Chromium の実行ファイルとバージョン、CDP 接続、フォントの有無、書き込み可能なディレクトリ、ポート、`deck.lock` と実行中バイナリの一致を確認します。何かがおかしいとき、最初に実行するコマンドです。"
 
 #: src/agents.md:3
 msgid ""
@@ -2691,13 +2743,13 @@ msgid ""
 "request a coding agent can carry out and you can review as a diff. There is "
 "no intermediate representation to translate through, and no build output to "
 "inspect separately from the source."
-msgstr ""
+msgstr "deck の入力形式は素の HTML です。だから「X についてのスライドを追加して」は、コーディングエージェントが実行でき、あなたが diff としてレビューできる依頼になります。変換を挟む中間表現も、ソースとは別に確認すべきビルド出力もありません。"
 
 #: src/agents.md:8
 msgid ""
 "`deck init` writes a skill so the agent starts with the house rules instead "
 "of guessing them:"
-msgstr ""
+msgstr "`deck init` はスキルを書き出します。エージェントが規約を推測するのではなく、それを前提に始められるようにするためです。"
 
 #: src/agents.md:17
 msgid ""
@@ -2705,60 +2757,60 @@ msgid ""
 "symlink means Claude Code picks it up without a second copy to keep in sync. "
 "On Windows, where symlinks need elevation, `deck init` falls back to a copy "
 "and says so."
-msgstr ""
+msgstr "ファイルは1つ、パスは2つです。`.agents/skills/` がベンダー非依存の置き場所で、シンボリックリンクによって Claude Code は同期すべき2つ目のコピーなしに読み込めます。シンボリックリンクに昇格が必要な Windows では、`deck init` はコピーにフォールバックし、その旨を表示します。"
 
 #: src/agents.md:21
 msgid "What the skill covers"
-msgstr ""
+msgstr "スキルの内容"
 
 #: src/agents.md:23
 msgid ""
 "The same ground as this guide, compressed to what an agent needs while "
 "editing:"
-msgstr ""
+msgstr "このガイドと同じ範囲を、編集中のエージェントに必要な形へ圧縮したものです。"
 
 #: src/agents.md:25
 msgid ""
 "the ground rules — one file is one complete HTML document, the canvas is "
 "fixed at 1280×720, content goes in child elements, assets use root-absolute "
 "paths, run `deck check` before finishing"
-msgstr ""
+msgstr "基本ルール — 1ファイルは1つの完全な HTML 文書、キャンバスは 1280×720 固定、内容は子要素に、アセットはルート絶対パス、終える前に `deck check`"
 
 #: src/agents.md:28
 msgid ""
 "file conventions: order from the path, identity from `deck-slide[id]`, title "
 "from `<title>`, and `deck add slide --after` rather than inventing a number"
-msgstr ""
+msgstr "ファイル規約 — 順序はパス、同一性は `deck-slide[id]`、タイトルは `<title>`、番号は勘で付けず `deck add slide --after`"
 
 #: src/agents.md:30
 msgid "a slide skeleton to copy"
-msgstr ""
+msgstr "コピーして使えるスライドの雛形"
 
 #: src/agents.md:31
 msgid "the built-in components and their attributes"
-msgstr ""
+msgstr "組み込みコンポーネントとその属性"
 
 #: src/agents.md:32
 msgid "the absolute step model and the `deck:*` events"
-msgstr ""
+msgstr "絶対 step モデルと `deck:*` イベント"
 
 #: src/agents.md:33
 msgid ""
 "where styling belongs: token, then Tailwind utility, then slide-local "
 "`@layer slide`"
-msgstr ""
+msgstr "スタイルをどこに書くか — トークン、次に Tailwind ユーティリティ、次にスライド固有の `@layer slide`"
 
 #: src/agents.md:34
 msgid "how to add a component, and why never to animate from `connectedCallback`"
-msgstr ""
+msgstr "コンポーネントの追加方法と、`connectedCallback` からアニメーションしてはいけない理由"
 
 #: src/agents.md:35
 msgid "what each check rule means when it fires"
-msgstr ""
+msgstr "各検査ルールが発火したときの意味"
 
 #: src/agents.md:37
 msgid "Why the checks matter more with an agent"
-msgstr ""
+msgstr "エージェントと使うとき検査がより重要になる理由"
 
 #: src/agents.md:39
 msgid ""
@@ -2766,17 +2818,17 @@ msgid ""
 "overflow, clipped text, contrast, broken assets and console errors all come "
 "back as text, with a selector and a bounding box, which is exactly the "
 "feedback an agent can act on."
-msgstr ""
+msgstr "エージェントはスライドを見られません。そのループを閉じるのが `deck check` です。はみ出し、切れたテキスト、コントラスト、壊れたアセット、console error のすべてが、セレクタと外接矩形付きのテキストとして返ります。エージェントが行動に移せるフィードバックの形そのものです。"
 
 #: src/agents.md:47
 msgid ""
 "So the useful instruction is not \"make it look nice\" but \"make `deck "
 "check` pass\", which is checkable by both of you."
-msgstr ""
+msgstr "したがって有効な指示は「見栄えよくして」ではなく「`deck check` を通して」です。これはお互いに確認できます。"
 
 #: src/agents.md:50
 msgid "Editing the skill"
-msgstr ""
+msgstr "スキルを編集する"
 
 #: src/agents.md:52
 msgid ""
@@ -2784,10 +2836,10 @@ msgid ""
 "belong there: the fonts you use, the components you have added, the slide "
 "numbering scheme for a hundred-slide deck, whatever your team keeps getting "
 "wrong."
-msgstr ""
+msgstr "プロジェクト内の普通のファイルなので、編集してください。そのデッキ固有の規約はそこに書きます。使うフォント、追加したコンポーネント、100枚デッキの番号付け方針、チームが繰り返し間違えること、何でも。"
 
 #: src/agents.md:56
 msgid ""
 "The frontmatter decides when the skill is loaded, so keep the `description` "
 "concrete about the situations it applies to:"
-msgstr ""
+msgstr "スキルが読み込まれるタイミングは frontmatter が決めます。`description` には適用される状況を具体的に書いてください。"
