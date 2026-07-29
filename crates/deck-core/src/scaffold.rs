@@ -66,7 +66,7 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
     }
     write_file(&root.join("assets/README.md"), ASSETS_README)?;
     write_file(&root.join(".gitignore"), GITIGNORE_TEMPLATE)?;
-    install_skill(root)?;
+    install_skills(root)?;
 
     write_file(&root.join("slides/00-title.html"), title_slide(title))?;
     write_file(&root.join("slides/10-overview.html"), OVERVIEW_SLIDE)?;
@@ -76,16 +76,22 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
     Ok(())
 }
 
-/// Agent instructions for authoring slides in the generated deck.
+/// Agent instructions for working on the generated deck, split by task so the
+/// right one loads for the job at hand.
 ///
-/// The canonical copy lives in `.agents/skills/`, with `.claude/skills` linked
-/// to it so Claude Code picks it up without a second copy to keep in sync.
-const SKILL: &str = include_str!("../templates/deck-slides-skill.md");
+/// The canonical copies live in `.agents/skills/`, with `.claude/skills` linked
+/// to them so Claude Code picks them up without a second copy to keep in sync.
+pub const SKILLS: &[(&str, &str)] = &[
+    ("deck-slides", include_str!("../templates/skills/deck-slides.md")),
+    ("deck-styling", include_str!("../templates/skills/deck-styling.md")),
+    ("deck-components", include_str!("../templates/skills/deck-components.md")),
+];
 const SKILL_DIR: &str = ".agents/skills";
-const SKILL_NAME: &str = "deck-slides";
 
-fn install_skill(root: &Utf8Path) -> Result<()> {
-    write_file(&root.join(SKILL_DIR).join(SKILL_NAME).join("SKILL.md"), SKILL)?;
+fn install_skills(root: &Utf8Path) -> Result<()> {
+    for (name, body) in SKILLS {
+        write_file(&root.join(SKILL_DIR).join(name).join("SKILL.md"), body)?;
+    }
 
     let link = root.join(".claude").join("skills");
     if link.exists() || link.symlink_metadata().is_ok() {
@@ -97,10 +103,13 @@ fn install_skill(root: &Utf8Path) -> Result<()> {
     match symlink_dir(Utf8Path::new("..").join(SKILL_DIR).as_std_path(), link.as_std_path()) {
         Ok(()) => Ok(()),
         Err(error) => {
-            // Windows needs developer mode or elevation for symlinks; a copy
-            // keeps the skill discoverable, at the cost of a second file.
+            // Windows needs developer mode or elevation for symlinks; copies
+            // keep the skills discoverable, at the cost of duplicate files.
             tracing::warn!("could not symlink {link} ({error}); copying instead");
-            write_file(&link.join(SKILL_NAME).join("SKILL.md"), SKILL)
+            for (name, body) in SKILLS {
+                write_file(&link.join(name).join("SKILL.md"), body)?;
+            }
+            Ok(())
         }
     }
 }
@@ -767,29 +776,39 @@ mod tests {
     }
 
     #[test]
-    fn the_skill_has_usable_frontmatter() {
-        let mut lines = SKILL.lines();
-        assert_eq!(lines.next(), Some("---"), "SKILL.md must open with frontmatter");
-        let frontmatter: Vec<&str> = lines.take_while(|line| *line != "---").collect();
-        assert!(frontmatter.iter().any(|line| line.starts_with("name: ")));
-        assert!(frontmatter.iter().any(|line| line.starts_with("description: ")));
+    fn every_skill_has_usable_frontmatter() {
+        for (name, body) in SKILLS {
+            let mut lines = body.lines();
+            assert_eq!(lines.next(), Some("---"), "{name}: SKILL.md must open with frontmatter");
+            let frontmatter: Vec<&str> = lines.take_while(|line| *line != "---").collect();
+            assert!(
+                frontmatter.contains(&format!("name: {name}").as_str()),
+                "{name}: frontmatter name must match the directory"
+            );
+            assert!(
+                frontmatter.iter().any(|line| line.starts_with("description: ")),
+                "{name}: needs a description, which is what decides when it loads"
+            );
+        }
     }
 
     #[test]
-    fn init_links_claude_skills_at_the_canonical_copy() {
+    fn init_links_claude_skills_at_the_canonical_copies() {
         let root = Utf8PathBuf::from_path_buf(std::env::temp_dir())
             .expect("temp dir is UTF-8")
             .join(format!("deck-skill-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         init(&root, "T", Theme::Default).expect("init");
 
-        let canonical = root.join(".agents/skills/deck-slides/SKILL.md");
-        let linked = root.join(".claude/skills/deck-slides/SKILL.md");
-        assert!(canonical.is_file());
-        assert_eq!(
-            std::fs::read_to_string(&linked).expect("readable through the link"),
-            std::fs::read_to_string(&canonical).expect("readable"),
-        );
+        for (name, _) in SKILLS {
+            let canonical = root.join(".agents/skills").join(name).join("SKILL.md");
+            let linked = root.join(".claude/skills").join(name).join("SKILL.md");
+            assert!(canonical.is_file(), "{name}: missing canonical copy");
+            assert_eq!(
+                std::fs::read_to_string(&linked).expect("readable through the link"),
+                std::fs::read_to_string(&canonical).expect("readable"),
+            );
+        }
 
         let _ = std::fs::remove_dir_all(&root);
     }

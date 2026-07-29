@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: deck\n"
-"POT-Creation-Date: 2026-07-30T07:46:59+09:00\n"
+"POT-Creation-Date: 2026-07-30T08:15:18+09:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2695,72 +2695,65 @@ msgstr ""
 
 #: src/agents.md:8
 msgid ""
-"`deck init` writes a skill so the agent starts with the house rules instead "
-"of guessing them:"
+"`deck init` writes three skills so the agent starts with the house rules "
+"instead of guessing them:"
 msgstr ""
 
-#: src/agents.md:17
+#: src/agents.md:20
 msgid ""
-"One file, two paths. `.agents/skills/` is the vendor-neutral location; the "
-"symlink means Claude Code picks it up without a second copy to keep in sync. "
-"On Windows, where symlinks need elevation, `deck init` falls back to a copy "
-"and says so."
+"One set of files, two paths. `.agents/skills/` is the vendor-neutral "
+"location; the symlink means Claude Code picks them up without a second copy "
+"to keep in sync. On Windows, where symlinks need elevation, `deck init` "
+"falls back to copies and says so."
 msgstr ""
 
-#: src/agents.md:21
-msgid "What the skill covers"
+#: src/agents.md:24
+msgid "Three skills, three jobs"
 msgstr ""
 
-#: src/agents.md:23
+#: src/agents.md:26
 msgid ""
-"The same ground as this guide, compressed to what an agent needs while "
-"editing:"
-msgstr ""
-
-#: src/agents.md:25
-msgid ""
-"the ground rules — one file is one complete HTML document, the canvas is "
-"fixed at 1280×720, content goes in child elements, assets use root-absolute "
-"paths, run `deck check` before finishing"
-msgstr ""
-
-#: src/agents.md:28
-msgid ""
-"file conventions: order from the path, identity from `deck-slide[id]`, title "
-"from `<title>`, and `deck add slide --after` rather than inventing a number"
+"They are split by task, because \"add a slide about X\" and \"make the "
+"accent colour warmer\" need different things in front of the agent — and a "
+"skill that tries to cover both ends up too long to be read carefully."
 msgstr ""
 
 #: src/agents.md:30
-msgid "a slide skeleton to copy"
-msgstr ""
-
-#: src/agents.md:31
-msgid "the built-in components and their attributes"
-msgstr ""
-
-#: src/agents.md:32
-msgid "the absolute step model and the `deck:*` events"
-msgstr ""
-
-#: src/agents.md:33
 msgid ""
-"where styling belongs: token, then Tailwind utility, then slide-local "
-"`@layer slide`"
-msgstr ""
-
-#: src/agents.md:34
-msgid "how to add a component, and why never to animate from `connectedCallback`"
+"**`deck-slides`** — writing and editing slides. The ground rules (one file "
+"is one complete HTML document, the canvas is fixed at 1280×720, content goes "
+"in child elements, assets use root-absolute paths), file conventions, a "
+"skeleton to copy, the built-in components, the absolute step model, and what "
+"each check rule means when it fires."
 msgstr ""
 
 #: src/agents.md:35
-msgid "what each check rule means when it fires"
+msgid ""
+"**`deck-styling`** — how the deck looks. Which of the four `design/` files "
+"to reach for, the token families, the Tailwind entry and the cascade order, "
+"webfonts in `assets/fonts/`, the custom cursor, ejecting a built-in's "
+"styles, and the checks that styling breaks."
 msgstr ""
 
-#: src/agents.md:37
+#: src/agents.md:40
+msgid ""
+"**`deck-components`** — Custom Elements. The project prefix, Light DOM by "
+"default, idempotent `connectedCallback`, styling from `design/` rather than "
+"JavaScript, the runtime API, and why an animation must be tied to "
+"`deck.onReveal` rather than to construction."
+msgstr ""
+
+#: src/agents.md:45
+msgid ""
+"Each one names the others, so an agent that lands on the wrong skill is "
+"pointed at the right one rather than guessing."
+msgstr ""
+
+#: src/agents.md:48
 msgid "Why the checks matter more with an agent"
 msgstr ""
 
-#: src/agents.md:39
+#: src/agents.md:50
 msgid ""
 "An agent cannot see the slide. `deck check` is what closes that loop: "
 "overflow, clipped text, contrast, broken assets and console errors all come "
@@ -2768,27 +2761,27 @@ msgid ""
 "feedback an agent can act on."
 msgstr ""
 
-#: src/agents.md:47
+#: src/agents.md:58
 msgid ""
 "So the useful instruction is not \"make it look nice\" but \"make `deck "
 "check` pass\", which is checkable by both of you."
 msgstr ""
 
-#: src/agents.md:50
-msgid "Editing the skill"
+#: src/agents.md:61
+msgid "Editing them"
 msgstr ""
 
-#: src/agents.md:52
+#: src/agents.md:63
 msgid ""
-"It is a normal file in your project — edit it. Deck-specific conventions "
+"They are normal files in your project — edit them. Deck-specific conventions "
 "belong there: the fonts you use, the components you have added, the slide "
 "numbering scheme for a hundred-slide deck, whatever your team keeps getting "
 "wrong."
 msgstr ""
 
-#: src/agents.md:56
+#: src/agents.md:67
 msgid ""
-"The frontmatter decides when the skill is loaded, so keep the `description` "
-"concrete about the situations it applies to:"
+"The frontmatter decides when a skill is loaded, so keep each `description` "
+"concrete about the situations it applies to, and distinct from its siblings:"
 msgstr ""
 

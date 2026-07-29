@@ -87,11 +87,11 @@ The names `slides/`, `components/`, `design/` and `assets/` are fixed by convent
 cannot be reconfigured. Keeping the layout predictable keeps the CLI, the watcher, the
 static build and any agent editing the deck simple.
 
-`deck init` also writes a `deck-slides` skill to `.agents/skills/`, with
-`.claude/skills` symlinked to it so Claude Code finds it without a second copy to keep
-in sync. It documents the conventions, the components, the step model and the check
-rules, so an agent asked to "add a slide about X" produces something that passes
-`deck check` instead of guessing.
+`deck init` also writes three agent skills to `.agents/skills/` — `deck-slides`,
+`deck-styling` and `deck-components` — with `.claude/skills` symlinked to them so Claude
+Code finds them without a second copy to keep in sync. They are split by task, so an
+agent asked to "add a slide about X" gets the slide conventions and the check rules, and
+one asked to warm up the accent colour gets the token and cascade rules instead.
 
 ## Writing a slide
 

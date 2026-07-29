@@ -2747,72 +2747,65 @@ msgstr "deck の入力形式は素の HTML です。だから「X について�
 
 #: src/agents.md:8
 msgid ""
-"`deck init` writes a skill so the agent starts with the house rules instead "
-"of guessing them:"
-msgstr "`deck init` はスキルを書き出します。エージェントが規約を推測するのではなく、それを前提に始められるようにするためです。"
+"`deck init` writes three skills so the agent starts with the house rules "
+"instead of guessing them:"
+msgstr "`deck init` は3つのスキルを書き出します。エージェントが規約を推測するのではなく、それを前提に始められるようにするためです。"
 
-#: src/agents.md:17
+#: src/agents.md:20
 msgid ""
-"One file, two paths. `.agents/skills/` is the vendor-neutral location; the "
-"symlink means Claude Code picks it up without a second copy to keep in sync. "
-"On Windows, where symlinks need elevation, `deck init` falls back to a copy "
-"and says so."
-msgstr "ファイルは1つ、パスは2つです。`.agents/skills/` がベンダー非依存の置き場所で、シンボリックリンクによって Claude Code は同期すべき2つ目のコピーなしに読み込めます。シンボリックリンクに昇格が必要な Windows では、`deck init` はコピーにフォールバックし、その旨を表示します。"
+"One set of files, two paths. `.agents/skills/` is the vendor-neutral "
+"location; the symlink means Claude Code picks them up without a second copy "
+"to keep in sync. On Windows, where symlinks need elevation, `deck init` "
+"falls back to copies and says so."
+msgstr "ファイル群は1組、パスは2つです。`.agents/skills/` がベンダー非依存の置き場所で、シンボリックリンクによって Claude Code は同期すべき2つ目のコピーなしに読み込めます。シンボリックリンクに昇格が必要な Windows では、`deck init` はコピーにフォールバックし、その旨を表示します。"
 
-#: src/agents.md:21
-msgid "What the skill covers"
-msgstr "スキルの内容"
+#: src/agents.md:24
+msgid "Three skills, three jobs"
+msgstr "3つのスキル、3つの仕事"
 
-#: src/agents.md:23
+#: src/agents.md:26
 msgid ""
-"The same ground as this guide, compressed to what an agent needs while "
-"editing:"
-msgstr "このガイドと同じ範囲を、編集中のエージェントに必要な形へ圧縮したものです。"
-
-#: src/agents.md:25
-msgid ""
-"the ground rules — one file is one complete HTML document, the canvas is "
-"fixed at 1280×720, content goes in child elements, assets use root-absolute "
-"paths, run `deck check` before finishing"
-msgstr "基本ルール — 1ファイルは1つの完全な HTML 文書、キャンバスは 1280×720 固定、内容は子要素に、アセットはルート絶対パス、終える前に `deck check`"
-
-#: src/agents.md:28
-msgid ""
-"file conventions: order from the path, identity from `deck-slide[id]`, title "
-"from `<title>`, and `deck add slide --after` rather than inventing a number"
-msgstr "ファイル規約 — 順序はパス、同一性は `deck-slide[id]`、タイトルは `<title>`、番号は勘で付けず `deck add slide --after`"
+"They are split by task, because \"add a slide about X\" and \"make the "
+"accent colour warmer\" need different things in front of the agent — and a "
+"skill that tries to cover both ends up too long to be read carefully."
+msgstr "タスクごとに分割してあります。「X についてのスライドを追加して」と「アクセント色を暖かくして」では、エージェントの前に置くべきものが違うからです。両方を1つに詰め込んだスキルは、丁寧に読まれるには長すぎます。"
 
 #: src/agents.md:30
-msgid "a slide skeleton to copy"
-msgstr "コピーして使えるスライドの雛形"
-
-#: src/agents.md:31
-msgid "the built-in components and their attributes"
-msgstr "組み込みコンポーネントとその属性"
-
-#: src/agents.md:32
-msgid "the absolute step model and the `deck:*` events"
-msgstr "絶対 step モデルと `deck:*` イベント"
-
-#: src/agents.md:33
 msgid ""
-"where styling belongs: token, then Tailwind utility, then slide-local "
-"`@layer slide`"
-msgstr "スタイルをどこに書くか — トークン、次に Tailwind ユーティリティ、次にスライド固有の `@layer slide`"
-
-#: src/agents.md:34
-msgid "how to add a component, and why never to animate from `connectedCallback`"
-msgstr "コンポーネントの追加方法と、`connectedCallback` からアニメーションしてはいけない理由"
+"**`deck-slides`** — writing and editing slides. The ground rules (one file "
+"is one complete HTML document, the canvas is fixed at 1280×720, content goes "
+"in child elements, assets use root-absolute paths), file conventions, a "
+"skeleton to copy, the built-in components, the absolute step model, and what "
+"each check rule means when it fires."
+msgstr "**`deck-slides`** — スライドの執筆と編集。基本ルール（1ファイルは1つの完全な HTML 文書、キャンバスは 1280×720 固定、内容は子要素に、アセットはルート絶対パス）、ファイル規約、コピーして使える雛形、組み込みコンポーネント、絶対 step モデル、各検査ルールが発火したときの意味。"
 
 #: src/agents.md:35
-msgid "what each check rule means when it fires"
-msgstr "各検査ルールが発火したときの意味"
+msgid ""
+"**`deck-styling`** — how the deck looks. Which of the four `design/` files "
+"to reach for, the token families, the Tailwind entry and the cascade order, "
+"webfonts in `assets/fonts/`, the custom cursor, ejecting a built-in's "
+"styles, and the checks that styling breaks."
+msgstr "**`deck-styling`** — デッキの見た目。`design/` の4ファイルのどれを使うか、トークンの系統、Tailwind エントリとカスケード順、`assets/fonts/` の Web フォント、カーソルの差し替え、組み込みスタイルの取り出し、スタイル変更で壊れる検査。"
 
-#: src/agents.md:37
+#: src/agents.md:40
+msgid ""
+"**`deck-components`** — Custom Elements. The project prefix, Light DOM by "
+"default, idempotent `connectedCallback`, styling from `design/` rather than "
+"JavaScript, the runtime API, and why an animation must be tied to "
+"`deck.onReveal` rather than to construction."
+msgstr "**`deck-components`** — Custom Elements。プロジェクト接頭辞、既定で Light DOM、冪等な `connectedCallback`、JavaScript ではなく `design/` からのスタイル、ランタイム API、そしてアニメーションを生成時ではなく `deck.onReveal` に結びつけるべき理由。"
+
+#: src/agents.md:45
+msgid ""
+"Each one names the others, so an agent that lands on the wrong skill is "
+"pointed at the right one rather than guessing."
+msgstr "それぞれが他の2つに言及しているので、間違ったスキルに辿り着いたエージェントは、推測するのではなく正しいスキルへ案内されます。"
+
+#: src/agents.md:48
 msgid "Why the checks matter more with an agent"
 msgstr "エージェントと使うとき検査がより重要になる理由"
 
-#: src/agents.md:39
+#: src/agents.md:50
 msgid ""
 "An agent cannot see the slide. `deck check` is what closes that loop: "
 "overflow, clipped text, contrast, broken assets and console errors all come "
@@ -2820,26 +2813,26 @@ msgid ""
 "feedback an agent can act on."
 msgstr "エージェントはスライドを見られません。そのループを閉じるのが `deck check` です。はみ出し、切れたテキスト、コントラスト、壊れたアセット、console error のすべてが、セレクタと外接矩形付きのテキストとして返ります。エージェントが行動に移せるフィードバックの形そのものです。"
 
-#: src/agents.md:47
+#: src/agents.md:58
 msgid ""
 "So the useful instruction is not \"make it look nice\" but \"make `deck "
 "check` pass\", which is checkable by both of you."
 msgstr "したがって有効な指示は「見栄えよくして」ではなく「`deck check` を通して」です。これはお互いに確認できます。"
 
-#: src/agents.md:50
-msgid "Editing the skill"
+#: src/agents.md:61
+msgid "Editing them"
 msgstr "スキルを編集する"
 
-#: src/agents.md:52
+#: src/agents.md:63
 msgid ""
-"It is a normal file in your project — edit it. Deck-specific conventions "
+"They are normal files in your project — edit them. Deck-specific conventions "
 "belong there: the fonts you use, the components you have added, the slide "
 "numbering scheme for a hundred-slide deck, whatever your team keeps getting "
 "wrong."
 msgstr "プロジェクト内の普通のファイルなので、編集してください。そのデッキ固有の規約はそこに書きます。使うフォント、追加したコンポーネント、100枚デッキの番号付け方針、チームが繰り返し間違えること、何でも。"
 
-#: src/agents.md:56
+#: src/agents.md:67
 msgid ""
-"The frontmatter decides when the skill is loaded, so keep the `description` "
-"concrete about the situations it applies to:"
-msgstr "スキルが読み込まれるタイミングは frontmatter が決めます。`description` には適用される状況を具体的に書いてください。"
+"The frontmatter decides when a skill is loaded, so keep each `description` "
+"concrete about the situations it applies to, and distinct from its siblings:"
+msgstr "スキルが読み込まれるタイミングは frontmatter が決めます。各 `description` には適用される状況を具体的に、かつ他のスキルと区別できるように書いてください。"
