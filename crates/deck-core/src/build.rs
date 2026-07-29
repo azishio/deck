@@ -39,7 +39,13 @@ pub fn run(project: &Project) -> Result<BuildSummary> {
         config.build.fingerprint_assets,
         &mut fingerprints,
     )?;
-    copy_tree(&project.components_dir(), &out.join("components"), "components", false, &mut Vec::new())?;
+    copy_tree(
+        &project.components_dir(),
+        &out.join("components"),
+        "components",
+        false,
+        &mut Vec::new(),
+    )?;
     copy_tree(&project.design_dir(), &out.join("design"), "design", false, &mut Vec::new())?;
 
     // 2. embedded runtime assets
@@ -121,7 +127,8 @@ fn copy_tree(
             let hashed = fingerprint_name(relative, &bytes);
             // Root-absolute on both sides: rebasing onto base_url happens later,
             // once, in render::rewrite_urls.
-            fingerprints.push((format!("/{url_prefix}/{relative}"), format!("/{url_prefix}/{hashed}")));
+            fingerprints
+                .push((format!("/{url_prefix}/{relative}"), format!("/{url_prefix}/{hashed}")));
             hashed
         } else {
             relative.to_path_buf()
