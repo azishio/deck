@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: deck\n"
-"POT-Creation-Date: 2026-07-30T08:15:18+09:00\n"
+"POT-Creation-Date: 2026-07-30T10:24:09+09:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2750,28 +2750,149 @@ msgid ""
 msgstr ""
 
 #: src/agents.md:48
-msgid "Why the checks matter more with an agent"
+msgid "Looking at a slide"
 msgstr ""
 
 #: src/agents.md:50
 msgid ""
-"An agent cannot see the slide. `deck check` is what closes that loop: "
-"overflow, clipped text, contrast, broken assets and console errors all come "
-"back as text, with a selector and a bounding box, which is exactly the "
-"feedback an agent can act on."
+"A slide is a URL on localhost, so an agent with browser access can open it, "
+"read the DOM, evaluate JavaScript against it and screenshot it — the same "
+"loop a person has, without waiting to be told what went wrong."
 msgstr ""
 
-#: src/agents.md:58
+#: src/agents.md:54
+msgid "Start the server on a fixed port and open one slide on its own:"
+msgstr ""
+
+#: src/agents.md:60
 msgid ""
-"So the useful instruction is not \"make it look nice\" but \"make `deck "
-"check` pass\", which is checkable by both of you."
+"```text\n"
+"http://127.0.0.1:5173/slides/architecture\n"
+"```"
 msgstr ""
 
-#: src/agents.md:61
+#: src/agents.md:64
+msgid ""
+"A single slide page has no presenter chrome, and the document **is** the "
+"canvas at exactly 1280×720 — so a 1280×720 viewport captures the slide and "
+"nothing else. Query parameters put it in a known state:"
+msgstr ""
+
+#: src/agents.md:70
+msgid "`?step=2`"
+msgstr ""
+
+#: src/agents.md:70
+msgid "a specific step"
+msgstr ""
+
+#: src/agents.md:71
+msgid "`?step=final`"
+msgstr ""
+
+#: src/agents.md:71
+msgid "everything revealed"
+msgstr ""
+
+#: src/agents.md:72
+msgid "`?deck-mode=check`"
+msgstr ""
+
+#: src/agents.md:72
+msgid "animation disabled, so a screenshot is deterministic"
+msgstr ""
+
+#: src/agents.md:74
+msgid ""
+"Wait for readiness before measuring anything, or you will screenshot a "
+"half-laid-out document:"
+msgstr ""
+
+#: src/agents.md:78
+msgid "\"true\""
+msgstr ""
+
+#: src/agents.md:81
+msgid ""
+"Then the runtime is available for questions the DOM alone will not answer:"
+msgstr ""
+
+#: src/agents.md:84
+msgid "// 2\n"
+msgstr ""
+
+#: src/agents.md:85
+msgid "// 3\n"
+msgstr ""
+
+#: src/agents.md:86
+msgid "// { index: 3, number: 4, total: 18 }\n"
+msgstr ""
+
+#: src/agents.md:87
+msgid "// anything the slide reported\n"
+msgstr ""
+
+#: src/agents.md:90
+msgid ""
+"`/present` works too, but the slide lives inside an iframe there, so reach "
+"it through `window.deckShell.currentFrame().iframe.contentDocument`. "
+"`window.deckShell` also drives navigation — `goToSlideId(\"architecture\")`, "
+"`setStep(2)`, `next()` — which is how the end-to-end tests in this "
+"repository check hot reload and step behaviour."
+msgstr ""
+
+#: src/agents.md:95
+msgid "Why `deck check` still matters"
+msgstr ""
+
+#: src/agents.md:97
+msgid ""
+"Being able to look at a slide does not make the checks redundant; they "
+"answer a different question."
+msgstr ""
+
+#: src/agents.md:102
+msgid "# PNG per slide in .deck/screenshots/\n"
+msgstr ""
+
+#: src/agents.md:105
+msgid ""
+"**It is exhaustive.** Eighteen slides, every rule, without deciding which "
+"ones to look at."
+msgstr ""
+
+#: src/agents.md:107
+msgid ""
+"**It is measured, not judged.** `contrast 4.36 < 4.5` and `+12px` are facts. "
+"\"Looks a bit tight\" is not something to act on with confidence."
+msgstr ""
+
+#: src/agents.md:109
+msgid ""
+"**It is reproducible.** Viewport, locale, timezone, device scale and reduced "
+"motion are pinned and animation is off, so two runs agree and a fix can be "
+"verified."
+msgstr ""
+
+#: src/agents.md:111
+msgid ""
+"**It catches what rendering hides.** A console error, a font that silently "
+"fell back, a request that left localhost — all invisible in a screenshot "
+"that looks fine."
+msgstr ""
+
+#: src/agents.md:114
+msgid ""
+"So the useful instruction is \"make `deck check` pass, then look at it\" — "
+"the checks for the facts, the browser for the judgement."
+msgstr ""
+
+#: src/agents.md:117
 msgid "Editing them"
 msgstr ""
 
-#: src/agents.md:63
+#: src/agents.md:119
 msgid ""
 "They are normal files in your project — edit them. Deck-specific conventions "
 "belong there: the fonts you use, the components you have added, the slide "
@@ -2779,7 +2900,7 @@ msgid ""
 "wrong."
 msgstr ""
 
-#: src/agents.md:67
+#: src/agents.md:123
 msgid ""
 "The frontmatter decides when a skill is loaded, so keep each `description` "
 "concrete about the situations it applies to, and distinct from its siblings:"

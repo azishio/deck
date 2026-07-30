@@ -164,3 +164,33 @@ box, easy to miss on a slide.
 deck check --static      # names and imports, no browser
 deck check               # plus anything the component throws at runtime
 ```
+
+## Trying it
+
+Behaviour is worth exercising rather than reasoning about. Open the slide that
+uses the component and drive it:
+
+```bash
+deck dev --port 5173 --open none
+# http://127.0.0.1:5173/slides/architecture
+```
+
+```js
+document.documentElement.dataset.deckReady === "true";   // wait for this first
+customElements.get("acme-metric");                       // did it register?
+document.querySelector("acme-metric").outerHTML;         // what did it render?
+window.deck.diagnostics;                                 // what did it report?
+```
+
+For a reveal animation, step away and back to confirm it re-arms — that is the
+failure mode `onReveal` exists to prevent:
+
+```js
+window.deck.goToStep(0);
+window.deck.goToStep(2);
+```
+
+In `/present` the slide is inside an iframe: reach it through
+`window.deckShell.currentFrame().iframe.contentDocument` and navigate with
+`window.deckShell.setStep(2)`. Add `?deck-mode=check` to disable animation when
+you want a deterministic screenshot instead.

@@ -2802,28 +2802,155 @@ msgid ""
 msgstr "それぞれが他の2つに言及しているので、間違ったスキルに辿り着いたエージェントは、推測するのではなく正しいスキルへ案内されます。"
 
 #: src/agents.md:48
-msgid "Why the checks matter more with an agent"
-msgstr "エージェントと使うとき検査がより重要になる理由"
+msgid "Looking at a slide"
+msgstr "スライドを見る"
 
 #: src/agents.md:50
 msgid ""
-"An agent cannot see the slide. `deck check` is what closes that loop: "
-"overflow, clipped text, contrast, broken assets and console errors all come "
-"back as text, with a selector and a bounding box, which is exactly the "
-"feedback an agent can act on."
-msgstr "エージェントはスライドを見られません。そのループを閉じるのが `deck check` です。はみ出し、切れたテキスト、コントラスト、壊れたアセット、console error のすべてが、セレクタと外接矩形付きのテキストとして返ります。エージェントが行動に移せるフィードバックの形そのものです。"
+"A slide is a URL on localhost, so an agent with browser access can open it, "
+"read the DOM, evaluate JavaScript against it and screenshot it — the same "
+"loop a person has, without waiting to be told what went wrong."
+msgstr "スライドは localhost 上の URL です。ブラウザを使えるエージェントなら、開いて DOM を読み、JavaScript を評価し、スクリーンショットを撮れます。人間と同じループを、何が悪いか教えてもらうのを待たずに回せます。"
 
-#: src/agents.md:58
+#: src/agents.md:54
+msgid "Start the server on a fixed port and open one slide on its own:"
+msgstr "ポートを固定してサーバーを起動し、スライドを1枚だけ開きます。"
+
+#: src/agents.md:60
 msgid ""
-"So the useful instruction is not \"make it look nice\" but \"make `deck "
-"check` pass\", which is checkable by both of you."
-msgstr "したがって有効な指示は「見栄えよくして」ではなく「`deck check` を通して」です。これはお互いに確認できます。"
+"```text\n"
+"http://127.0.0.1:5173/slides/architecture\n"
+"```"
+msgstr ""
 
-#: src/agents.md:61
+#: src/agents.md:64
+msgid ""
+"A single slide page has no presenter chrome, and the document **is** the "
+"canvas at exactly 1280×720 — so a 1280×720 viewport captures the slide and "
+"nothing else. Query parameters put it in a known state:"
+msgstr "個別スライドのページには発表用の枠が無く、文書そのものが正確に 1280×720 のキャンバス**です**。つまり 1280×720 のビューポートでスライドだけがちょうど収まります。状態はクエリパラメータで指定します。"
+
+#: src/agents.md:70
+msgid "`?step=2`"
+msgstr ""
+
+#: src/agents.md:70
+msgid "a specific step"
+msgstr "指定した step"
+
+#: src/agents.md:71
+msgid "`?step=final`"
+msgstr "`?step=final`"
+
+#: src/agents.md:71
+msgid "everything revealed"
+msgstr "すべて表示した状態"
+
+#: src/agents.md:72
+msgid "`?deck-mode=check`"
+msgstr "`?deck-mode=check`"
+
+#: src/agents.md:72
+msgid "animation disabled, so a screenshot is deterministic"
+msgstr "アニメーション無効。スクリーンショットが決定的になる"
+
+#: src/agents.md:74
+msgid ""
+"Wait for readiness before measuring anything, or you will screenshot a "
+"half-laid-out document:"
+msgstr "計測やキャプチャの前に ready を待ってください。さもないとレイアウト途中の文書を撮ることになります。"
+
+#: src/agents.md:78
+msgid "\"true\""
+msgstr ""
+
+#: src/agents.md:81
+msgid ""
+"Then the runtime is available for questions the DOM alone will not answer:"
+msgstr "そのうえで、DOM だけでは答えられない問いにはランタイムが答えます。"
+
+#: src/agents.md:84
+msgid "// 2\n"
+msgstr ""
+
+#: src/agents.md:85
+msgid "// 3\n"
+msgstr ""
+
+#: src/agents.md:86
+msgid "// { index: 3, number: 4, total: 18 }\n"
+msgstr ""
+"// { index: 3, number: 4, total: 18 }\n"
+""
+
+#: src/agents.md:87
+msgid "// anything the slide reported\n"
+msgstr ""
+"// スライドが報告した内容\n"
+""
+
+#: src/agents.md:90
+msgid ""
+"`/present` works too, but the slide lives inside an iframe there, so reach "
+"it through `window.deckShell.currentFrame().iframe.contentDocument`. "
+"`window.deckShell` also drives navigation — `goToSlideId(\"architecture\")`, "
+"`setStep(2)`, `next()` — which is how the end-to-end tests in this "
+"repository check hot reload and step behaviour."
+msgstr "`/present` でも同じことができますが、そこではスライドが iframe の中にあるため `window.deckShell.currentFrame().iframe.contentDocument` 経由で到達します。`window.deckShell` はページ送りも駆動します（`goToSlideId(\"architecture\")`・`setStep(2)`・`next()`）。このリポジトリの end-to-end テストが Hot Reload と step の挙動を検証しているのも、この方法です。"
+
+#: src/agents.md:95
+msgid "Why `deck check` still matters"
+msgstr "それでも `deck check` が要る理由"
+
+#: src/agents.md:97
+msgid ""
+"Being able to look at a slide does not make the checks redundant; they "
+"answer a different question."
+msgstr "スライドを見られることは、検査が不要になることを意味しません。両者は別の問いに答えています。"
+
+#: src/agents.md:102
+msgid "# PNG per slide in .deck/screenshots/\n"
+msgstr ""
+"# .deck/screenshots/ にスライドごとの PNG\n"
+""
+
+#: src/agents.md:105
+msgid ""
+"**It is exhaustive.** Eighteen slides, every rule, without deciding which "
+"ones to look at."
+msgstr "**網羅的である。** 18枚すべて、全ルールを、どれを見るか選ばずに検査します。"
+
+#: src/agents.md:107
+msgid ""
+"**It is measured, not judged.** `contrast 4.36 < 4.5` and `+12px` are facts. "
+"\"Looks a bit tight\" is not something to act on with confidence."
+msgstr "**判断ではなく計測である。** `contrast 4.36 < 4.5` や `+12px` は事実です。「少し詰まって見える」は、確信を持って手を動かせる材料ではありません。"
+
+#: src/agents.md:109
+msgid ""
+"**It is reproducible.** Viewport, locale, timezone, device scale and reduced "
+"motion are pinned and animation is off, so two runs agree and a fix can be "
+"verified."
+msgstr "**再現する。** ビューポート・ロケール・タイムゾーン・デバイスピクセル比・reduced motion を固定しアニメーションを切っているので、2回の実行結果が一致し、修正できたことを確認できます。"
+
+#: src/agents.md:111
+msgid ""
+"**It catches what rendering hides.** A console error, a font that silently "
+"fell back, a request that left localhost — all invisible in a screenshot "
+"that looks fine."
+msgstr "**描画では見えないものを捕まえる。** console error、黙ってフォールバックしたフォント、localhost を出たリクエスト。どれも問題なさそうなスクリーンショットには写りません。"
+
+#: src/agents.md:114
+msgid ""
+"So the useful instruction is \"make `deck check` pass, then look at it\" — "
+"the checks for the facts, the browser for the judgement."
+msgstr "したがって有効な指示は「`deck check` を通してから、見て確認する」です。事実は検査に、判断はブラウザに任せます。"
+
+#: src/agents.md:117
 msgid "Editing them"
 msgstr "スキルを編集する"
 
-#: src/agents.md:63
+#: src/agents.md:119
 msgid ""
 "They are normal files in your project — edit them. Deck-specific conventions "
 "belong there: the fonts you use, the components you have added, the slide "
@@ -2831,7 +2958,7 @@ msgid ""
 "wrong."
 msgstr "プロジェクト内の普通のファイルなので、編集してください。そのデッキ固有の規約はそこに書きます。使うフォント、追加したコンポーネント、100枚デッキの番号付け方針、チームが繰り返し間違えること、何でも。"
 
-#: src/agents.md:67
+#: src/agents.md:123
 msgid ""
 "The frontmatter decides when a skill is loaded, so keep each `description` "
 "concrete about the situations it applies to, and distinct from its siblings:"

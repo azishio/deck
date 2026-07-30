@@ -156,3 +156,24 @@ Styling changes are what `low_contrast`, `min_font_size`, `clipped_text` and
 `slide_overflow` catch. Contrast is measured against the actual computed
 background, so a tinted surface with muted text will be reported even though it
 looked fine to you.
+
+Then look at the result. A slide is a URL, and a single slide page is the canvas
+itself at 1280×720 with no presenter chrome:
+
+```bash
+deck dev --port 5173 --open none
+# http://127.0.0.1:5173/slides/title?step=final&deck-mode=check
+```
+
+`deck-mode=check` disables animation so a screenshot is deterministic; wait for
+`document.documentElement.dataset.deckReady === "true"` first.
+`deck check --screenshots` writes one PNG per slide to `.deck/screenshots/`,
+which is the quickest way to review a token change across the whole deck.
+
+Computed values are worth reading directly when a rule fires — it is usually
+faster than reasoning about the cascade:
+
+```js
+getComputedStyle(document.querySelector("deck-card")).backgroundColor;
+getComputedStyle(document.querySelector("deck-slide")).paddingLeft;
+```

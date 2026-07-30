@@ -169,6 +169,36 @@ Common failures and what they mean:
 | `text_overlap` | two text blocks sit on top of each other |
 | `missing_file` | a referenced asset does not exist, or the path is relative |
 
+## Look at it
+
+You can open the slide, not just lint it. A slide is a URL, and a single slide
+page is the canvas itself at 1280×720 with no presenter chrome — so a 1280×720
+viewport captures exactly the slide.
+
+```bash
+deck dev --port 5173 --open none
+```
+
+```text
+http://127.0.0.1:5173/slides/architecture?step=final&deck-mode=check
+```
+
+`step=2` or `step=final` sets the state; `deck-mode=check` disables animation so
+a screenshot is deterministic. Wait for readiness before measuring or capturing:
+
+```js
+document.documentElement.dataset.deckReady === "true"
+```
+
+Then `window.deck` answers what the DOM will not: `step`, `stepCount`,
+`position`, `diagnostics`. In `/present` the slide is inside an iframe — reach it
+through `window.deckShell.currentFrame().iframe.contentDocument`, and drive
+navigation with `window.deckShell.setStep(2)` or `.goToSlideId("architecture")`.
+
+Run `deck check` first anyway: it is exhaustive, measured rather than judged, and
+catches what a screenshot cannot — console errors, a font that fell back, a
+request that left localhost. Checks for the facts, the browser for the judgement.
+
 ## Commands
 
 ```bash

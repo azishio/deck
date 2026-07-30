@@ -45,18 +45,74 @@ construction.
 Each one names the others, so an agent that lands on the wrong skill is pointed at the
 right one rather than guessing.
 
-## Why the checks matter more with an agent
+## Looking at a slide
 
-An agent cannot see the slide. `deck check` is what closes that loop: overflow, clipped
-text, contrast, broken assets and console errors all come back as text, with a selector
-and a bounding box, which is exactly the feedback an agent can act on.
+A slide is a URL on localhost, so an agent with browser access can open it, read the DOM,
+evaluate JavaScript against it and screenshot it — the same loop a person has, without
+waiting to be told what went wrong.
+
+Start the server on a fixed port and open one slide on its own:
+
+```bash
+deck dev --port 5173 --open none
+```
+
+```text
+http://127.0.0.1:5173/slides/architecture
+```
+
+A single slide page has no presenter chrome, and the document **is** the canvas at
+exactly 1280×720 — so a 1280×720 viewport captures the slide and nothing else. Query
+parameters put it in a known state:
+
+| | |
+|---|---|
+| `?step=2` | a specific step |
+| `?step=final` | everything revealed |
+| `?deck-mode=check` | animation disabled, so a screenshot is deterministic |
+
+Wait for readiness before measuring anything, or you will screenshot a half-laid-out
+document:
+
+```js
+document.documentElement.dataset.deckReady === "true"
+```
+
+Then the runtime is available for questions the DOM alone will not answer:
+
+```js
+window.deck.step;              // 2
+window.deck.stepCount;         // 3
+window.deck.position;          // { index: 3, number: 4, total: 18 }
+window.deck.diagnostics;       // anything the slide reported
+```
+
+`/present` works too, but the slide lives inside an iframe there, so reach it through
+`window.deckShell.currentFrame().iframe.contentDocument`. `window.deckShell` also drives
+navigation — `goToSlideId("architecture")`, `setStep(2)`, `next()` — which is how the
+end-to-end tests in this repository check hot reload and step behaviour.
+
+## Why `deck check` still matters
+
+Being able to look at a slide does not make the checks redundant; they answer a different
+question.
 
 ```bash
 deck check --report json
+deck check --screenshots       # PNG per slide in .deck/screenshots/
 ```
 
-So the useful instruction is not "make it look nice" but "make `deck check` pass", which
-is checkable by both of you.
+- **It is exhaustive.** Eighteen slides, every rule, without deciding which ones to look
+  at.
+- **It is measured, not judged.** `contrast 4.36 < 4.5` and `+12px` are facts. "Looks a
+  bit tight" is not something to act on with confidence.
+- **It is reproducible.** Viewport, locale, timezone, device scale and reduced motion are
+  pinned and animation is off, so two runs agree and a fix can be verified.
+- **It catches what rendering hides.** A console error, a font that silently fell back, a
+  request that left localhost — all invisible in a screenshot that looks fine.
+
+So the useful instruction is "make `deck check` pass, then look at it" — the checks for
+the facts, the browser for the judgement.
 
 ## Editing them
 
