@@ -275,6 +275,88 @@ async fn a_single_slide_page_navigates_by_click() {
     browser.close().await;
 }
 
+/// A step driven from one client must animate on the others.
+///
+/// The presenter and the audience view are separate pages kept in step over a
+/// websocket; the audience is the one people are watching, so applying a remote
+/// step instantly made the view everyone sees the only one without animation.
+#[tokio::test]
+async fn a_remotely_driven_step_animates_on_the_other_client() {
+    let temp = TempProject::new("sync");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("skipping: no Chromium available");
+        return;
+    }
+
+    let canvas = project.config().canvas;
+    let browser_config = project.config().browser.clone();
+    let server = Server::bind(project).await.expect("bind");
+    let origin = server.origin();
+    let _task = server.spawn();
+
+    let browser = BrowserSession::launch(&browser_config, canvas).await.expect("launch");
+    // Two clients on the same deck, both sitting on a slide that has steps.
+    let driver = browser.open(&format!("{origin}/present#/overview/0")).await.expect("open");
+    let follower = browser.open(&format!("{origin}/presenter#/overview/0")).await.expect("open");
+
+    for page in [&driver, &follower] {
+        assert!(
+            page.wait_for(
+                "window.deckShell?.slide?.id === 'overview'                  && window.deckShell.currentFrame()?.ready === true",
+                Duration::from_secs(20),
+            )
+            .await
+            .expect("evaluate"),
+            "a client never settled on the slide"
+        );
+    }
+
+    // Record how the follower's slide is told to change step.
+    follower
+        .evaluate::<serde_json::Value>(
+            "window.__instant = [],              window.deckShell.currentFrame().iframe.contentDocument                  .addEventListener('deck:stepchange', (e) => window.__instant.push(e.detail.instant)),              null",
+        )
+        .await
+        .ok();
+
+    driver.evaluate::<serde_json::Value>("window.deckShell.next(), null").await.ok();
+
+    assert!(
+        follower
+            .wait_for("window.deckShell.step === 1", Duration::from_secs(10))
+            .await
+            .expect("evaluate"),
+        "the follower never received the step"
+    );
+
+    let instants: Vec<bool> = follower.evaluate("window.__instant").await.expect("evaluate");
+    assert_eq!(
+        instants,
+        vec![false],
+        "a remotely driven step must animate, exactly as it does for the client driving it"
+    );
+
+    // A client joining later catches up to the current position instead of
+    // replaying the reveals it missed.
+    let latecomer = browser.open(&format!("{origin}/present")).await.expect("open");
+    assert!(
+        latecomer
+            .wait_for(
+                "window.deckShell?.slide?.id === 'overview' && window.deckShell.step === 1",
+                Duration::from_secs(20),
+            )
+            .await
+            .expect("evaluate"),
+        "a client joining later did not catch up to the current slide and step"
+    );
+
+    latecomer.close().await;
+    follower.close().await;
+    driver.close().await;
+    browser.close().await;
+}
+
 /// A slide preloaded by the iframe ring must not start its reveal animations
 /// before it is actually shown, and must replay them on every re-entry.
 ///

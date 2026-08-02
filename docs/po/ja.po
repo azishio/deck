@@ -707,7 +707,7 @@ msgstr "個別に開いた1枚のスライドを含め、どのページも同�
 msgid "`→` `Space` `PageDown`, or a click on the **right half**"
 msgstr "`→` `Space` `PageDown`、または**右半分**のクリック"
 
-#: src/writing-slides.md:109 src/presenting.md:25
+#: src/writing-slides.md:109 src/presenting.md:29
 msgid "next step, then the next slide"
 msgstr "次の step、使い切ったら次のスライド"
 
@@ -715,23 +715,23 @@ msgstr "次の step、使い切ったら次のスライド"
 msgid "`←` `PageUp`, right-click, or a click on the **left half**"
 msgstr "`←` `PageUp`、右クリック、または**左半分**のクリック"
 
-#: src/writing-slides.md:110 src/presenting.md:26
+#: src/writing-slides.md:110 src/presenting.md:30
 msgid "previous step, then the previous slide"
 msgstr "前の step、step 0 なら前のスライド"
 
-#: src/writing-slides.md:111 src/presenting.md:27
+#: src/writing-slides.md:111 src/presenting.md:31
 msgid "`↑` `↓`"
 msgstr "`↑` `↓`"
 
-#: src/writing-slides.md:111 src/presenting.md:27
+#: src/writing-slides.md:111 src/presenting.md:31
 msgid "previous / next slide, skipping steps"
 msgstr "step を飛ばして前後のスライドへ"
 
-#: src/writing-slides.md:112 src/presenting.md:28
+#: src/writing-slides.md:112 src/presenting.md:32
 msgid "`Home` `End`"
 msgstr "`Home` `End`"
 
-#: src/writing-slides.md:112 src/presenting.md:28
+#: src/writing-slides.md:112 src/presenting.md:32
 msgid "first / last step"
 msgstr "最初 / 最後の step"
 
@@ -739,15 +739,15 @@ msgstr "最初 / 最後の step"
 msgid "`b`"
 msgstr "`b`"
 
-#: src/writing-slides.md:113 src/presenting.md:29
+#: src/writing-slides.md:113 src/presenting.md:33
 msgid "blackout"
 msgstr "ブラックアウト"
 
-#: src/writing-slides.md:114 src/presenting.md:30
+#: src/writing-slides.md:114 src/presenting.md:34
 msgid "`f`"
 msgstr "`f`"
 
-#: src/writing-slides.md:114 src/presenting.md:30
+#: src/writing-slides.md:114 src/presenting.md:34
 msgid "fullscreen"
 msgstr "全画面"
 
@@ -1853,85 +1853,88 @@ msgstr "**`/presenter`** は発表者用です。現在と次のスライド、�
 msgid ""
 "The two stay in sync over a websocket, so they work across two windows, two "
 "displays or two devices on the same network. Whichever one you drive, the "
-"other follows."
-msgstr "両者は WebSocket で同期するので、2つのウィンドウ、2つのディスプレイ、同じネットワーク上の2台の端末をまたいで動きます。どちらを操作しても、もう一方が追従します。"
+"other follows — and it follows with the same animation, so the audience view "
+"never looks like a slideshow of static frames while yours reveals smoothly. "
+"A client that joins late is the exception: it lands on the current slide and "
+"step directly rather than replaying the reveals it missed."
+msgstr "両者は WebSocket で同期するので、2つのウィンドウ、2つのディスプレイ、同じネットワーク上の2台の端末をまたいで動きます。どちらを操作しても、もう一方が追従します。しかも同じアニメーションで追従するので、手元だけが滑らかに表示され、聴衆側は静止画の切り替えに見える、ということが起きません。例外は後から参加したクライアントで、見逃した表示を再生せず、現在のスライドと step に直接着地します。"
 
-#: src/presenting.md:21
+#: src/presenting.md:25
 msgid "Controls"
 msgstr "操作"
 
-#: src/presenting.md:25
+#: src/presenting.md:29
 msgid "`→` `Space` `PageDown`, click the **right half**"
 msgstr "`→` `Space` `PageDown`、**右半分**のクリック"
 
-#: src/presenting.md:26
+#: src/presenting.md:30
 msgid "`←` `PageUp`, right-click, click the **left half**"
 msgstr "`←` `PageUp`、右クリック、**左半分**のクリック"
 
-#: src/presenting.md:29
+#: src/presenting.md:33
 msgid "`b` or `.`"
 msgstr "`b` または `.`"
 
-#: src/presenting.md:31
+#: src/presenting.md:35
 msgid "`p` or `s`"
 msgstr "`p` または `s`"
 
-#: src/presenting.md:31
+#: src/presenting.md:35
 msgid "open the presenter view"
 msgstr "Presenter View を開く"
 
-#: src/presenting.md:32
+#: src/presenting.md:36
 msgid "`t` `r` _(presenter)_"
 msgstr "`t` `r` _(Presenter View)_"
 
-#: src/presenting.md:32
+#: src/presenting.md:36
 msgid "start/pause and reset the timer"
 msgstr "タイマーの開始・一時停止とリセット"
 
-#: src/presenting.md:34
+#: src/presenting.md:38
 msgid ""
 "The position lives in the URL — `/present#/architecture/2` — so a reload, a "
 "bookmark or a pasted link all land in the same place."
 msgstr "現在位置は URL に入っています（`/present#/architecture/2`）。リロードでもブックマークでも貼り付けたリンクでも、同じ場所に着地します。"
 
-#: src/presenting.md:37
+#: src/presenting.md:41
 msgid "Only three iframes"
 msgstr "iframe は3枚だけ"
 
-#: src/presenting.md:39
+#: src/presenting.md:43
 msgid ""
 "The shell keeps a ring of three frames: previous, current, next. A "
 "hundred-slide deck never loads a hundred iframes, and stepping back and "
 "forth is instant because the neighbours are already warm."
 msgstr "シェルは「前・現在・次」の3枚のリングを保ちます。100枚のデッキでも iframe を100個読み込むことはなく、前後の移動が即座なのは隣が既に温まっているからです。"
 
-#: src/presenting.md:43
+#: src/presenting.md:47
 msgid ""
 "Preloaded frames stay dormant: they do not run reveal animations until they "
 "are actually shown. `[server] preload` controls how many neighbours are kept."
 msgstr "プリロードされたフレームは休眠状態で、実際に表示されるまで表示アニメーションを走らせません。保持する枚数は `[server] preload` で決まります。"
 
-#: src/presenting.md:46
+#: src/presenting.md:50
 msgid "Presenting from a second machine"
 msgstr "別の端末から発表する"
 
-#: src/presenting.md:52
+#: src/presenting.md:56
 msgid ""
 "deck prints a warning, because that makes the deck readable by anyone on the "
 "network. The default binding is `127.0.0.1`."
 msgstr "この場合ネットワーク上の誰でもデッキを閲覧できるようになるため、deck は警告を表示します。既定のバインド先は `127.0.0.1` です。"
 
-#: src/presenting.md:55
+#: src/presenting.md:59
 msgid "Printing"
 msgstr "印刷"
 
-#: src/presenting.md:57
+#: src/presenting.md:61
 msgid ""
 "There is no PDF pipeline in the CLI. Printing is the browser's job, and "
 "`/print` is a real page you can inspect first."
 msgstr "CLI に PDF 生成のパイプラインはありません。印刷はブラウザの仕事で、`/print` は事前に中身を確認できる実ページです。"
 
-#: src/presenting.md:64
+#: src/presenting.md:68
 msgid ""
 "The page loads every slide in print mode, drives each one to the requested "
 "step, waits for fonts, images and any promise a slide registered, and only "
@@ -1940,55 +1943,55 @@ msgid ""
 "to paper."
 msgstr "このページは全スライドを印刷モードで読み込み、指定 step まで進め、フォント・画像・スライドが登録した Promise を待ってから **Print** ボタンを有効化します。`window.print()` を自動で呼ぶことはありません。紙に出す前に preflight レポートを読めることが要点です。"
 
-#: src/presenting.md:69
+#: src/presenting.md:73
 msgid "URL"
 msgstr "URL"
 
-#: src/presenting.md:69
+#: src/presenting.md:73
 msgid "Pages"
 msgstr "ページ"
 
-#: src/presenting.md:71
+#: src/presenting.md:75
 msgid "`/print` or `/print?steps=final`"
 msgstr "`/print` または `/print?steps=final`"
 
-#: src/presenting.md:71
+#: src/presenting.md:75
 msgid "one page per slide, fully revealed"
 msgstr "1スライド1ページ、すべて表示した状態"
 
-#: src/presenting.md:72
+#: src/presenting.md:76
 msgid "`/print?steps=initial`"
 msgstr "`/print?steps=initial`"
 
-#: src/presenting.md:72
+#: src/presenting.md:76
 msgid "one page per slide, nothing revealed"
 msgstr "1スライド1ページ、何も表示していない状態"
 
-#: src/presenting.md:73
+#: src/presenting.md:77
 msgid "`/print?steps=each`"
 msgstr "`/print?steps=each`"
 
-#: src/presenting.md:73
+#: src/presenting.md:77
 msgid "one page per step"
 msgstr "1 step 1ページ"
 
-#: src/presenting.md:74
+#: src/presenting.md:78
 msgid "`/print?slide=architecture`"
 msgstr "`/print?slide=architecture`"
 
-#: src/presenting.md:74
+#: src/presenting.md:78
 msgid "one slide only"
 msgstr "指定した1枚だけ"
 
-#: src/presenting.md:76
+#: src/presenting.md:80
 msgid "The preflight panel lists what loaded and what each slide reported:"
 msgstr "preflight パネルには、読み込まれたものと各スライドが報告した内容が並びます。"
 
-#: src/presenting.md:85
+#: src/presenting.md:89
 msgid "Errors do not block you. Print anyway if you know better."
 msgstr "エラーがあっても印刷は妨げられません。承知のうえならそのまま印刷してください。"
 
-#: src/presenting.md:87
+#: src/presenting.md:91
 msgid ""
 "In the browser's print dialog, choose **Save as PDF**, set margins to none "
 "and enable background graphics. `@page` is already sized to the canvas, so "

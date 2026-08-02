@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: deck\n"
-"POT-Creation-Date: 2026-07-30T10:24:09+09:00\n"
+"POT-Creation-Date: 2026-08-03T04:03:48+09:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -697,7 +697,7 @@ msgstr ""
 msgid "`→` `Space` `PageDown`, or a click on the **right half**"
 msgstr ""
 
-#: src/writing-slides.md:109 src/presenting.md:25
+#: src/writing-slides.md:109 src/presenting.md:29
 msgid "next step, then the next slide"
 msgstr ""
 
@@ -705,23 +705,23 @@ msgstr ""
 msgid "`←` `PageUp`, right-click, or a click on the **left half**"
 msgstr ""
 
-#: src/writing-slides.md:110 src/presenting.md:26
+#: src/writing-slides.md:110 src/presenting.md:30
 msgid "previous step, then the previous slide"
 msgstr ""
 
-#: src/writing-slides.md:111 src/presenting.md:27
+#: src/writing-slides.md:111 src/presenting.md:31
 msgid "`↑` `↓`"
 msgstr ""
 
-#: src/writing-slides.md:111 src/presenting.md:27
+#: src/writing-slides.md:111 src/presenting.md:31
 msgid "previous / next slide, skipping steps"
 msgstr ""
 
-#: src/writing-slides.md:112 src/presenting.md:28
+#: src/writing-slides.md:112 src/presenting.md:32
 msgid "`Home` `End`"
 msgstr ""
 
-#: src/writing-slides.md:112 src/presenting.md:28
+#: src/writing-slides.md:112 src/presenting.md:32
 msgid "first / last step"
 msgstr ""
 
@@ -729,15 +729,15 @@ msgstr ""
 msgid "`b`"
 msgstr ""
 
-#: src/writing-slides.md:113 src/presenting.md:29
+#: src/writing-slides.md:113 src/presenting.md:33
 msgid "blackout"
 msgstr ""
 
-#: src/writing-slides.md:114 src/presenting.md:30
+#: src/writing-slides.md:114 src/presenting.md:34
 msgid "`f`"
 msgstr ""
 
-#: src/writing-slides.md:114 src/presenting.md:30
+#: src/writing-slides.md:114 src/presenting.md:34
 msgid "fullscreen"
 msgstr ""
 
@@ -1827,85 +1827,88 @@ msgstr ""
 msgid ""
 "The two stay in sync over a websocket, so they work across two windows, two "
 "displays or two devices on the same network. Whichever one you drive, the "
-"other follows."
-msgstr ""
-
-#: src/presenting.md:21
-msgid "Controls"
+"other follows — and it follows with the same animation, so the audience view "
+"never looks like a slideshow of static frames while yours reveals smoothly. "
+"A client that joins late is the exception: it lands on the current slide and "
+"step directly rather than replaying the reveals it missed."
 msgstr ""
 
 #: src/presenting.md:25
-msgid "`→` `Space` `PageDown`, click the **right half**"
-msgstr ""
-
-#: src/presenting.md:26
-msgid "`←` `PageUp`, right-click, click the **left half**"
+msgid "Controls"
 msgstr ""
 
 #: src/presenting.md:29
+msgid "`→` `Space` `PageDown`, click the **right half**"
+msgstr ""
+
+#: src/presenting.md:30
+msgid "`←` `PageUp`, right-click, click the **left half**"
+msgstr ""
+
+#: src/presenting.md:33
 msgid "`b` or `.`"
 msgstr ""
 
-#: src/presenting.md:31
+#: src/presenting.md:35
 msgid "`p` or `s`"
 msgstr ""
 
-#: src/presenting.md:31
+#: src/presenting.md:35
 msgid "open the presenter view"
 msgstr ""
 
-#: src/presenting.md:32
+#: src/presenting.md:36
 msgid "`t` `r` _(presenter)_"
 msgstr ""
 
-#: src/presenting.md:32
+#: src/presenting.md:36
 msgid "start/pause and reset the timer"
 msgstr ""
 
-#: src/presenting.md:34
+#: src/presenting.md:38
 msgid ""
 "The position lives in the URL — `/present#/architecture/2` — so a reload, a "
 "bookmark or a pasted link all land in the same place."
 msgstr ""
 
-#: src/presenting.md:37
+#: src/presenting.md:41
 msgid "Only three iframes"
 msgstr ""
 
-#: src/presenting.md:39
+#: src/presenting.md:43
 msgid ""
 "The shell keeps a ring of three frames: previous, current, next. A "
 "hundred-slide deck never loads a hundred iframes, and stepping back and "
 "forth is instant because the neighbours are already warm."
 msgstr ""
 
-#: src/presenting.md:43
+#: src/presenting.md:47
 msgid ""
 "Preloaded frames stay dormant: they do not run reveal animations until they "
 "are actually shown. `[server] preload` controls how many neighbours are kept."
 msgstr ""
 
-#: src/presenting.md:46
+#: src/presenting.md:50
 msgid "Presenting from a second machine"
 msgstr ""
 
-#: src/presenting.md:52
+#: src/presenting.md:56
 msgid ""
 "deck prints a warning, because that makes the deck readable by anyone on the "
 "network. The default binding is `127.0.0.1`."
 msgstr ""
 
-#: src/presenting.md:55
+#: src/presenting.md:59
 msgid "Printing"
 msgstr ""
 
-#: src/presenting.md:57
+#: src/presenting.md:61
 msgid ""
 "There is no PDF pipeline in the CLI. Printing is the browser's job, and "
 "`/print` is a real page you can inspect first."
 msgstr ""
 
-#: src/presenting.md:64
+#: src/presenting.md:68
 msgid ""
 "The page loads every slide in print mode, drives each one to the requested "
 "step, waits for fonts, images and any promise a slide registered, and only "
@@ -1914,55 +1917,55 @@ msgid ""
 "to paper."
 msgstr ""
 
-#: src/presenting.md:69
+#: src/presenting.md:73
 msgid "URL"
 msgstr ""
 
-#: src/presenting.md:69
+#: src/presenting.md:73
 msgid "Pages"
 msgstr ""
 
-#: src/presenting.md:71
+#: src/presenting.md:75
 msgid "`/print` or `/print?steps=final`"
 msgstr ""
 
-#: src/presenting.md:71
+#: src/presenting.md:75
 msgid "one page per slide, fully revealed"
 msgstr ""
 
-#: src/presenting.md:72
+#: src/presenting.md:76
 msgid "`/print?steps=initial`"
 msgstr ""
 
-#: src/presenting.md:72
+#: src/presenting.md:76
 msgid "one page per slide, nothing revealed"
 msgstr ""
 
-#: src/presenting.md:73
+#: src/presenting.md:77
 msgid "`/print?steps=each`"
 msgstr ""
 
-#: src/presenting.md:73
+#: src/presenting.md:77
 msgid "one page per step"
 msgstr ""
 
-#: src/presenting.md:74
+#: src/presenting.md:78
 msgid "`/print?slide=architecture`"
 msgstr ""
 
-#: src/presenting.md:74
+#: src/presenting.md:78
 msgid "one slide only"
 msgstr ""
 
-#: src/presenting.md:76
+#: src/presenting.md:80
 msgid "The preflight panel lists what loaded and what each slide reported:"
 msgstr ""
 
-#: src/presenting.md:85
+#: src/presenting.md:89
 msgid "Errors do not block you. Print anyway if you know better."
 msgstr ""
 
-#: src/presenting.md:87
+#: src/presenting.md:91
 msgid ""
 "In the browser's print dialog, choose **Save as PDF**, set margins to none "
 "and enable background graphics. `@page` is already sized to the canvas, so "

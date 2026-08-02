@@ -16,7 +16,11 @@ clock, the slide and step number, blackout, pause, and a live diagnostics panel 
 anything the current slide reported. Open it on a second screen.
 
 The two stay in sync over a websocket, so they work across two windows, two displays or
-two devices on the same network. Whichever one you drive, the other follows.
+two devices on the same network. Whichever one you drive, the other follows — and it
+follows with the same animation, so the audience view never looks like a slideshow of
+static frames while yours reveals smoothly. A client that joins late is the exception: it
+lands on the current slide and step directly rather than replaying the reveals it
+missed.
 
 ## Controls
 

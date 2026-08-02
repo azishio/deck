@@ -468,7 +468,15 @@ export class DeckShell {
     );
   }
 
-  applySync(state) {
+  /**
+   * Adopt another client's state.
+   *
+   * A live step change is animated, because the audience view is the one people
+   * are watching and it should look the same as the view being driven. Only the
+   * initial catch-up on connect is instant: a client joining at step 4 should
+   * arrive there, not replay four reveals it missed.
+   */
+  applySync(state, { initial = false } = {}) {
     if (!state) {
       return;
     }
@@ -477,10 +485,15 @@ export class DeckShell {
       if (state.slideId && state.slideId !== this.slide?.id) {
         const index = this.slides.findIndex((slide) => slide.id === state.slideId);
         if (index >= 0) {
+          // Arriving on a different slide always lands at its step directly;
+          // the reveals belong to the slide you were on.
           this.goTo(index, state.step ?? 0, { instant: true });
         }
       } else if (typeof state.step === "number" && state.step !== this.step) {
-        this.setStep(state.step, { instant: true });
+        this.setStep(state.step, {
+          direction: state.step > this.step ? "forward" : "backward",
+          instant: initial,
+        });
       }
       if (typeof state.blackout === "boolean" && state.blackout !== this.blackout) {
         this.setBlackout(state.blackout);
@@ -499,7 +512,7 @@ export class DeckShell {
       case "hello":
         this.manifestRevision = message.revision;
         if (message.sync) {
-          this.applySync(message.sync.state);
+          this.applySync(message.sync.state, { initial: true });
         }
         break;
       case "sync":
