@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: deck\n"
-"POT-Creation-Date: 2026-08-03T11:22:24+09:00\n"
+"POT-Creation-Date: 2026-08-03T11:52:15+09:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -528,8 +528,7 @@ msgstr ""
 msgid "\"/@deck/design.css\""
 msgstr ""
 
-#: src/writing-slides.md:19 src/writing-slides.md:97 src/visuals.md:77
-#: src/visuals.md:128 src/animation.md:26
+#: src/writing-slides.md:19 src/writing-slides.md:97 src/animation.md:26
 msgid "\"module\""
 msgstr ""
 
@@ -546,7 +545,7 @@ msgid "\"Architecture\""
 msgstr ""
 
 #: src/writing-slides.md:27 src/writing-slides.md:33 src/writing-slides.md:84
-#: src/visuals.md:38 src/components.md:27
+#: src/components.md:27
 msgid "\"2\""
 msgstr ""
 
@@ -554,7 +553,7 @@ msgstr ""
 msgid "\"grow\""
 msgstr ""
 
-#: src/writing-slides.md:28 src/writing-slides.md:83 src/visuals.md:124
+#: src/writing-slides.md:28 src/writing-slides.md:83
 msgid "\"1\""
 msgstr ""
 
@@ -687,7 +686,7 @@ msgstr ""
 msgid "For anything richer than a reveal, listen for the change:"
 msgstr ""
 
-#: src/writing-slides.md:98
+#: src/writing-slides.md:98 src/visuals.md:155
 msgid "\"deck:stepchange\""
 msgstr ""
 
@@ -786,328 +785,379 @@ msgstr ""
 #: src/visuals.md:7
 msgid ""
 "So the question to ask of each slide is not \"what should it say\" but "
-"**what should the audience see happen**. If the answer is a structure, a "
-"change over time, a quantity or a trade-off, the middle of the slide should "
-"be a drawing or a control rather than a paragraph."
+"**what should the audience watch happen**. Most of the time the best answer "
+"is an SVG scene that moves as you step through it."
 msgstr ""
 
-#: src/visuals.md:12
+#: src/visuals.md:11
 msgid "Instead of"
 msgstr ""
 
-#: src/visuals.md:12
+#: src/visuals.md:11
 msgid "Build"
 msgstr ""
 
-#: src/visuals.md:14
+#: src/visuals.md:13
 msgid "\"The pipeline has four stages\""
 msgstr ""
 
-#: src/visuals.md:14
-msgid "an SVG pipeline whose stages light up per step"
+#: src/visuals.md:13
+msgid "stages that light up as a token rides through them"
 msgstr ""
 
-#: src/visuals.md:15
+#: src/visuals.md:14
 msgid "\"Latency dropped 40%\""
 msgstr ""
 
+#: src/visuals.md:14
+msgid "a chart that draws itself, the old line still visible"
+msgstr ""
+
 #: src/visuals.md:15
-msgid "a chart that draws itself, with the old line still visible"
+msgid "\"The layers stack like this\""
+msgstr ""
+
+#: src/visuals.md:15
+msgid "the stack, assembling one layer per step"
 msgstr ""
 
 #: src/visuals.md:16
-msgid "A screenshot of a form"
-msgstr ""
-
-#: src/visuals.md:16
-msgid "the actual form, working, in the slide"
-msgstr ""
-
-#: src/visuals.md:17
 msgid "\"The algorithm backtracks here\""
 msgstr ""
 
-#: src/visuals.md:17
-msgid "a stepper the presenter can drive back and forth"
+#: src/visuals.md:16
+msgid "the walk, animated forwards and backwards"
 msgstr ""
 
-#: src/visuals.md:18
+#: src/visuals.md:17
 msgid "A bullet list of trade-offs"
 msgstr ""
 
-#: src/visuals.md:18
-msgid "two sliders and a readout that moves as you drag"
+#: src/visuals.md:17
+msgid "two quantities moving against each other"
 msgstr ""
 
-#: src/visuals.md:20
+#: src/visuals.md:19
 msgid ""
-"The test is whether the visual carries the argument. A diagram next to the "
+"The test is whether the drawing carries the argument. A diagram next to the "
 "same three bullets is still three bullets."
 msgstr ""
 
-#: src/visuals.md:23
+#: src/visuals.md:22
 msgid ""
 "Every slide in [the deck this guide ships "
 "with](https://azishio.github.io/deck/slide/) is built this way, and its "
-"source is in `site/slides/` in the repository."
+"source is in "
+"[`site/slides/`](https://github.com/azishio/deck/tree/main/site/slides)."
 msgstr ""
 
-#: src/visuals.md:26
-msgid "Inline SVG is the default medium"
+#: src/visuals.md:25
+msgid "The scene"
 msgstr ""
 
-#: src/visuals.md:28
+#: src/visuals.md:27
 msgid ""
 "Inline the SVG rather than referencing an `<img>`: it then inherits the "
 "deck's colours, responds to `data-step`, and can be animated element by "
 "element."
 msgstr ""
 
-#: src/visuals.md:32
-msgid "\"0 0 720 320\""
+#: src/visuals.md:31
+msgid "\"scene\""
 msgstr ""
 
-#: src/visuals.md:32
-msgid "\"w-full\""
+#: src/visuals.md:31
+msgid "\"0 0 1150 320\""
 msgstr ""
 
-#: src/visuals.md:32
+#: src/visuals.md:31
 msgid "\"none\""
 msgstr ""
 
-#: src/visuals.md:32 src/visuals.md:202 src/agents.md:84
-msgid "\"true\""
+#: src/visuals.md:31
+msgid "\"img\""
 msgstr ""
 
-#: src/visuals.md:33 src/visuals.md:124 src/components.md:28
-msgid "\"16\""
-msgstr ""
-
-#: src/visuals.md:33
-msgid "\"120\""
+#: src/visuals.md:32
+msgid "\"what a reader who cannot see it needs to know\""
 msgstr ""
 
 #: src/visuals.md:33
-msgid "\"160\""
+msgid "\"node\""
 msgstr ""
 
-#: src/visuals.md:33
+#: src/visuals.md:34
+msgid "\"10\""
+msgstr ""
+
+#: src/visuals.md:34
 msgid "\"80\""
 msgstr ""
 
-#: src/visuals.md:33
-msgid "\"8\""
-msgstr ""
-
 #: src/visuals.md:34
-msgid "\"var(--deck-color-surface)\""
-msgstr ""
-
-#: src/visuals.md:34
-msgid "\"var(--deck-color-border)\""
+msgid "\"200\""
 msgstr ""
 
 #: src/visuals.md:35
-msgid "\"96\""
+msgid "\"110\""
 msgstr ""
 
 #: src/visuals.md:35
-msgid "\"166\""
+msgid "\"114\""
 msgstr ""
 
-#: src/visuals.md:35
-msgid "\"middle\""
+#: src/visuals.md:37
+msgid "\"route\""
 msgstr ""
 
-#: src/visuals.md:35
-msgid "\"18\""
+#: src/visuals.md:37
+msgid "\"M210 120 H 450\""
 msgstr ""
 
-#: src/visuals.md:36
-msgid "\"var(--deck-color-text)\""
-msgstr ""
-
-#: src/visuals.md:39
-msgid "\"flow\""
-msgstr ""
-
-#: src/visuals.md:39
-msgid "\"M176 160 H 320\""
-msgstr ""
-
-#: src/visuals.md:39
-msgid "\"var(--deck-color-accent)\""
-msgstr ""
-
-#: src/visuals.md:39
-msgid "\"3\""
-msgstr ""
-
-#: src/visuals.md:44
-msgid "A few habits save time later:"
-msgstr ""
-
-#: src/visuals.md:46
+#: src/visuals.md:43
 msgid ""
-"**Size from the `viewBox`.** Give the root `width: 100%; height: auto` and "
-"let the aspect ratio decide the height. Stretching it to the free space "
-"instead scales the drawing up, and the first thing you hear about it is an "
-"`outside_safe_area` warning."
+"/* Sized from the viewBox: stretching it to the free space scales the "
+"drawing\n"
+"     up, and the first you hear of it is an outside_safe_area warning. */"
 msgstr ""
 
-#: src/visuals.md:49
+#: src/visuals.md:47
+msgid "/* Scaling or rotating an SVG element needs a box to transform about. */"
+msgstr ""
+
+#: src/visuals.md:55
+msgid "Habits that save time later:"
+msgstr ""
+
+#: src/visuals.md:57
+msgid "**Paint with tokens**, not hex, so a theme change carries."
+msgstr ""
+
+#: src/visuals.md:58
 msgid ""
-"**Paint with tokens** — `var(--deck-color-accent)` — so a theme change "
-"carries."
+"**Text in SVG is text.** The `min_font_size` and `low_contrast` rules read "
+"it, and a label that runs past its box is reported like any other overflow."
 msgstr ""
 
-#: src/visuals.md:50
+#: src/visuals.md:60
 msgid ""
 "**`data-step` works on SVG children.** The reveal is `opacity` and "
 "`visibility`, which apply to SVG elements exactly as they do to HTML."
 msgstr ""
 
-#: src/visuals.md:52
+#: src/visuals.md:62
 msgid ""
-"**Text in SVG is text.** The `min_font_size` and `low_contrast` rules read "
-"it, and a label that runs past its box will be reported like any other "
-"overflow."
+"**`aria-hidden=\"true\"`** on decorative drawings; `role=\"img\"` and an "
+"`aria-label` on ones that carry meaning."
 msgstr ""
 
-#: src/visuals.md:54
+#: src/visuals.md:65
+msgid "Animating it"
+msgstr ""
+
+#: src/visuals.md:67
 msgid ""
-"**`aria-hidden=\"true\"`** on decorative drawings, a `<title>` element on "
-"meaningful ones."
+"Anime.js v4 is vendored, so importing it needs no install and no network. "
+"Its SVG helpers each want a different shape, and that is the part worth "
+"reading rather than guessing:"
 msgstr ""
 
-#: src/visuals.md:56
-msgid "Animating a drawing"
-msgstr ""
-
-#: src/visuals.md:58
-msgid ""
-"Anime.js is vendored, and its SVG helpers are most of the reason to prefer "
-"SVG over an image:"
-msgstr ""
-
-#: src/visuals.md:62 src/visuals.md:78 src/animation.md:27
+#: src/visuals.md:71 src/animation.md:27
 msgid "\"/@deck/vendor/animejs.js\""
 msgstr ""
 
-#: src/visuals.md:65
-msgid "Helper"
+#: src/visuals.md:72
+msgid "// Draw a stroke on, as if by hand.\n"
 msgstr ""
 
-#: src/visuals.md:65
-msgid "Does"
-msgstr ""
-
-#: src/visuals.md:67
-msgid "`svg.createDrawable(path)`"
-msgstr ""
-
-#: src/visuals.md:67
-msgid "draw a stroke on, as if by hand"
-msgstr ""
-
-#: src/visuals.md:68
-msgid "`svg.morphTo(target)`"
-msgstr ""
-
-#: src/visuals.md:68
-msgid "morph one shape into another"
-msgstr ""
-
-#: src/visuals.md:69
-msgid "`svg.createMotionPath(path)`"
-msgstr ""
-
-#: src/visuals.md:69
-msgid "move something along a path"
-msgstr ""
-
-#: src/visuals.md:70
-msgid "`stagger(80)`"
-msgstr ""
-
-#: src/visuals.md:70
-msgid "fan a set of elements out in time"
-msgstr ""
-
-#: src/visuals.md:71
-msgid "`createTimeline()`"
-msgstr ""
-
-#: src/visuals.md:71
-msgid "sequence the whole explanation"
-msgstr ""
-
-#: src/visuals.md:73
-msgid ""
-"Start it from `deck.onReveal`, never at load — see "
-"[Animation](./animation.md) for why that distinction matters more than it "
-"looks:"
-msgstr ""
-
-#: src/visuals.md:80
-msgid "\"#flow\""
-msgstr ""
-
-#: src/visuals.md:84
+#: src/visuals.md:74 src/visuals.md:129
 msgid "\"0 0\""
 msgstr ""
 
-#: src/visuals.md:84
+#: src/visuals.md:74 src/visuals.md:129
 msgid "\"0 1\""
 msgstr ""
 
-#: src/visuals.md:86
+#: src/visuals.md:74 src/visuals.md:150
 msgid "\"outQuad\""
 msgstr ""
 
-#: src/visuals.md:88 src/visuals.md:160 src/own-components.md:67
-#: src/animation.md:52
-msgid "\"abort\""
+#: src/visuals.md:75
+msgid "// Morph one shape into another — the VALUE of `d`, not spread.\n"
 msgstr ""
 
-#: src/visuals.md:93
-msgid "Interaction"
+#: src/visuals.md:77
+msgid "\"#target\""
+msgstr ""
+
+#: src/visuals.md:78
+msgid ""
+"// Ride a path — spread, because it returns translateX/translateY/rotate.\n"
+msgstr ""
+
+#: src/visuals.md:80
+msgid "\"inOutQuad\""
+msgstr ""
+
+#: src/visuals.md:81
+msgid "// Fan a set out in time.\n"
+msgstr ""
+
+#: src/visuals.md:84
+msgid "// Per-target values: the function receives the element.\n"
+msgstr ""
+
+#: src/visuals.md:87
+msgid "// Tween a number by animating a plain object.\n"
 msgstr ""
 
 #: src/visuals.md:95
 msgid ""
-"Navigation lives inside the slide document — a click on the right half "
-"advances, arrow keys step — so an interactive slide and the deck are "
-"competing for the same input. The runtime settles that by handing input back "
-"to anything that plainly wants it: `input`, `select`, `textarea`, `button`, "
-"links, `details`, `[contenteditable]`, `[tabindex]`, and elements carrying "
-"an interactive `role`."
+"// Set state without animating: the branch for print, check and reduced "
+"motion.\n"
 msgstr ""
 
-#: src/visuals.md:101
+#: src/visuals.md:100
+msgid ""
+"`createTimeline()` sequences beats — consecutive `.add()` calls run one "
+"after another — and anything animating an SVG **attribute** (`cx`, `width`, "
+"`d`) behaves like a CSS property."
+msgstr ""
+
+#: src/visuals.md:104
+msgid ""
+"When a ride is meant to stop short, draw a second path rather than racing a "
+"timer against a running animation:"
+msgstr ""
+
+#: src/visuals.md:108
+msgid "\"route-full\""
+msgstr ""
+
+#: src/visuals.md:108
+msgid "\"M110 120 H 1010\""
+msgstr ""
+
+#: src/visuals.md:109
+msgid "\"route-gate\""
+msgstr ""
+
+#: src/visuals.md:109
+msgid "\"M110 120 H 550\""
+msgstr ""
+
+#: src/visuals.md:109
+msgid "<!-- geometry only, never stroked -->"
+msgstr ""
+
+#: src/visuals.md:112
+msgid "Driving a scene from the step model"
+msgstr ""
+
+#: src/visuals.md:114
+msgid "Two patterns. The choice is about how much state the scene has."
+msgstr ""
+
+#: src/visuals.md:116
+msgid "Groups, for a scene that accumulates"
+msgstr ""
+
+#: src/visuals.md:118
+msgid ""
+"Put `data-step` on a `<g>`: the runtime then handles visibility in every "
+"mode, including print and check. Add the choreography with `deck.onReveal`, "
+"which fires when the group becomes visible and aborts when it stops being — "
+"see [Animation](./animation.md) for why that beats animating at load."
+msgstr ""
+
+#: src/visuals.md:126
+msgid "// print and check already show the end state\n"
+msgstr ""
+
+#: src/visuals.md:131 src/visuals.md:214 src/own-components.md:67
+#: src/animation.md:52
+msgid "\"abort\""
+msgstr ""
+
+#: src/visuals.md:135
+msgid "One `apply(step)`, for a scene that moves"
+msgstr ""
+
+#: src/visuals.md:137
+msgid ""
+"When each step is a different arrangement rather than one more thing on "
+"screen, keep a single function that can draw any step, and call it from both "
+"directions:"
+msgstr ""
+
+#: src/visuals.md:141
+msgid "// nothing in the markup carries data-step\n"
+msgstr ""
+
+#: src/visuals.md:162
+msgid "Three details there are not decoration:"
+msgstr ""
+
+#: src/visuals.md:164
+msgid ""
+"**`onReveal` applies the current step as well.** A deep link applies its "
+"step before this module exists, so listening only for `deck:stepchange` "
+"leaves the scene blank at `#/slide/2`."
+msgstr ""
+
+#: src/visuals.md:167
+msgid ""
+"**`setStepCount` is required** when nothing carries `data-step`; without it "
+"the slide has no steps and the first arrow key leaves it. `deck check` knows "
+"about the declaration, so it does not report the disagreement with the "
+"markup."
+msgstr ""
+
+#: src/visuals.md:170
+msgid ""
+"**`event.detail.instant`** is set when the step was arrived at rather than "
+"walked to — a catch-up on connect, a reload, a jump from the presenter view. "
+"Animating then replays reveals nobody asked for."
+msgstr ""
+
+#: src/visuals.md:174
+msgid "When the audience should drive"
+msgstr ""
+
+#: src/visuals.md:176
+msgid ""
+"Some things are worth handing over: a parameter with a surprising shape, a "
+"trade-off that is easier felt than described. Navigation lives inside the "
+"slide document — a click on the right half advances, arrow keys step — so "
+"the runtime hands input back to anything that plainly wants it: `input`, "
+"`select`, `textarea`, `button`, links, `details`, `[contenteditable]`, "
+"`[tabindex]`, and elements carrying an interactive `role`."
+msgstr ""
+
+#: src/visuals.md:182
 msgid ""
 "The split is by key, not just by element. A focused text field or slider "
 "keeps **every** key, because any of them could change its value. A focused "
 "button keeps only Space and Enter, so the arrow keys still move the deck."
 msgstr ""
 
-#: src/visuals.md:105
+#: src/visuals.md:186
 msgid "Anything else that is operable has to say so:"
 msgstr ""
 
-#: src/visuals.md:109
+#: src/visuals.md:190
 msgid "\"field\""
 msgstr ""
 
-#: src/visuals.md:109 src/visuals.md:175
+#: src/visuals.md:190 src/visuals.md:229
 msgid "\"720\""
 msgstr ""
 
-#: src/visuals.md:109 src/visuals.md:175
+#: src/visuals.md:190 src/visuals.md:229
 msgid "\"360\""
 msgstr ""
 
-#: src/visuals.md:113
+#: src/visuals.md:194
 msgid ""
 "`data-deck-no-nav` covers the whole subtree, for clicks and for keys. "
 "`canvas` and `svg` are not on the automatic list on purpose: a decorative "
@@ -1115,101 +1165,36 @@ msgid ""
 "clicking with nothing happening is a worse failure than a stray page turn."
 msgstr ""
 
-#: src/visuals.md:118
+#: src/visuals.md:199
 msgid ""
-"For a slide that is entirely a widget, put the attribute on `deck-slide` "
-"itself and navigate from the presenter view, or leave a control that calls "
-"`deck.advance()`."
+"Render the resting state immediately, so the slide reads before anyone "
+"touches it and the printed copy is not blank, and reset the control from "
+"`deck.onReveal` so re-entering the slide starts from a known state rather "
+"than wherever the last person left it."
 msgstr ""
 
-#: src/visuals.md:122
-msgid "\"flex items-center gap-3\""
-msgstr ""
-
-#: src/visuals.md:124
-msgid "\"threads\""
-msgstr ""
-
-#: src/visuals.md:124
-msgid "\"range\""
-msgstr ""
-
-#: src/visuals.md:124
-msgid "\"4\""
-msgstr ""
-
-#: src/visuals.md:125
-msgid "\"throughput\""
-msgstr ""
-
-#: src/visuals.md:125
-msgid "\"font-mono\""
-msgstr ""
-
-#: src/visuals.md:129 src/visuals.md:205 src/visuals.md:206
-msgid "\"#threads\""
-msgstr ""
-
-#: src/visuals.md:130 src/visuals.md:207
-msgid "\"#throughput\""
-msgstr ""
-
-#: src/visuals.md:133 src/own-components.md:78
-msgid "`"
-msgstr ""
-
-#: src/visuals.md:133
-msgid "x`"
-msgstr ""
-
-#: src/visuals.md:135 src/visuals.md:206
-msgid "\"input\""
-msgstr ""
-
-#: src/visuals.md:140
-msgid "Two things make a live control survive a real room:"
-msgstr ""
-
-#: src/visuals.md:142
-msgid ""
-"**Render the resting state immediately**, so the slide reads before anyone "
-"touches it — and so the printed copy is not blank."
-msgstr ""
-
-#: src/visuals.md:144
-msgid ""
-"**Keep it operable with one gesture.** A presenter has one hand and a few "
-"seconds."
-msgstr ""
-
-#: src/visuals.md:146
-msgid ""
-"`deck.onReveal` is the place to reset a widget, so re-entering a slide "
-"starts from a known state rather than wherever the last person left it."
-msgstr ""
-
-#: src/visuals.md:149
+#: src/visuals.md:203
 msgid "Canvas and generated artwork"
 msgstr ""
 
-#: src/visuals.md:151
+#: src/visuals.md:205
 msgid ""
 "Canvas suits particle fields, plots of many points and anything simulated. "
 "Draw on reveal and stop on abort:"
 msgstr ""
 
-#: src/visuals.md:156
+#: src/visuals.md:210
 msgid "\"2d\""
 msgstr ""
 
-#: src/visuals.md:164
+#: src/visuals.md:218
 msgid ""
 "Canvas is invisible to the layout checks and to text extraction, so anything "
 "that has to be read — labels, legends, numbers — belongs in HTML or SVG on "
 "top of it."
 msgstr ""
 
-#: src/visuals.md:167
+#: src/visuals.md:221
 msgid ""
 "For artwork, prefer generating it to going looking for one. An SVG you write "
 "scales, themes and animates; a stock photo does none of that. When you do "
@@ -1218,59 +1203,71 @@ msgid ""
 "`height` so the layout does not jump:"
 msgstr ""
 
-#: src/visuals.md:173 src/visuals.md:174
+#: src/visuals.md:227 src/visuals.md:228
 msgid "\"Sampled trajectories\""
 msgstr ""
 
-#: src/visuals.md:174
+#: src/visuals.md:228
 msgid "\"/assets/images/trajectories.png\""
 msgstr ""
 
-#: src/visuals.md:179
+#: src/visuals.md:233
 msgid ""
 "Keep whatever produced it — the script, the prompt — next to the output, "
 "because the one certainty is that it will need regenerating."
 msgstr ""
 
-#: src/visuals.md:182
-msgid "Checking an interactive slide"
+#: src/visuals.md:236
+msgid "Checking a scene"
 msgstr ""
 
-#: src/visuals.md:184
+#: src/visuals.md:238
 msgid ""
 "`deck check` applies to a drawing as much as to prose: `slide_overflow` when "
 "the SVG is taller than the canvas, `min_font_size` and `low_contrast` on SVG "
 "text, `missing_file` on a generated image that was never written."
 msgstr ""
 
-#: src/visuals.md:188
+#: src/visuals.md:242
 msgid ""
-"A demo that is _meant_ to fail a rule — a contrast box you can drag into the "
+"A demo that is _meant_ to fail a rule — a contrast box you drive into the "
 "red — should say so on the element rather than lower the rule for the whole "
 "deck:"
 msgstr ""
 
-#: src/visuals.md:192
+#: src/visuals.md:246
 msgid "\"low_contrast min_font_size\""
 msgstr ""
 
-#: src/visuals.md:195
-msgid "Then drive it, which is the part a check cannot do:"
+#: src/visuals.md:249
+msgid "Then watch it move, which is the part a check cannot do:"
 msgstr ""
 
-#: src/visuals.md:202
+#: src/visuals.md:256 src/agents.md:85
+msgid "\"true\""
+msgstr ""
+
+#: src/visuals.md:256
 msgid "// wait for this first\n"
 msgstr ""
 
-#: src/visuals.md:204
-msgid "// does the reveal replay?\n"
+#: src/visuals.md:257
+msgid "// walk it, do not jump\n"
 msgstr ""
 
-#: src/visuals.md:205
-msgid "\"12\""
+#: src/visuals.md:258
+msgid "\"#token\""
 msgstr ""
 
-#: src/visuals.md:210
+#: src/visuals.md:258
+msgid "// did the ride happen?\n"
+msgstr ""
+
+#: src/visuals.md:260
+msgid "// does it replay?\n"
+msgstr ""
+
+#: src/visuals.md:263
 msgid ""
 "One caveat worth knowing: `requestAnimationFrame` does not fire in a "
 "document that is not being composited, so an animation cannot be observed in "
@@ -1278,10 +1275,10 @@ msgid ""
 "that before suspecting the code."
 msgstr ""
 
-#: src/visuals.md:214
+#: src/visuals.md:267
 msgid ""
 "Finally, add `?deck-mode=check` to freeze animation and confirm the still "
-"image still makes the point. That is what the printed deck, and the person "
+"frame still makes the point. That is what the printed deck, and the person "
 "reading from the back, actually get."
 msgstr ""
 
@@ -1332,6 +1329,10 @@ msgstr ""
 
 #: src/components.md:27
 msgid "\"40\""
+msgstr ""
+
+#: src/components.md:28
+msgid "\"16\""
 msgstr ""
 
 #: src/components.md:29
@@ -1897,6 +1898,10 @@ msgstr ""
 msgid ""
 "`window.deck` is available inside every slide, so a component can react to "
 "the deck rather than just to its own attributes:"
+msgstr ""
+
+#: src/own-components.md:78
+msgid "`"
 msgstr ""
 
 #: src/own-components.md:78
@@ -3237,14 +3242,15 @@ msgstr ""
 
 #: src/agents.md:36
 msgid ""
-"**`deck-visuals`** — explaining something visually or interactively: inline "
-"SVG driven by `data-step`, Anime.js and its SVG helpers, canvas, live "
-"controls, and generating artwork rather than sourcing it. Without it an "
-"agent defaults to three cards of prose, which is what a slide tool with no "
-"HTML would have produced anyway."
+"**`deck-visuals`** — explaining something with a drawing that moves: inline "
+"SVG scenes driven by `data-step` or by an `apply(step)` of their own, "
+"Anime.js and its SVG helpers in the exact shapes they expect, canvas, and "
+"generating artwork rather than sourcing it. Without it an agent defaults to "
+"three cards of prose, which is what a slide tool with no HTML would have "
+"produced anyway."
 msgstr ""
 
-#: src/agents.md:41
+#: src/agents.md:42
 msgid ""
 "**`deck-styling`** — how the deck looks. Which of the four `design/` files "
 "to reach for, the token families, the Tailwind entry and the cascade order, "
@@ -3252,7 +3258,7 @@ msgid ""
 "styles, and the checks that styling breaks."
 msgstr ""
 
-#: src/agents.md:46
+#: src/agents.md:47
 msgid ""
 "**`deck-components`** — Custom Elements. The project prefix, Light DOM by "
 "default, idempotent `connectedCallback`, styling from `design/` rather than "
@@ -3260,93 +3266,93 @@ msgid ""
 "`deck.onReveal` rather than to construction."
 msgstr ""
 
-#: src/agents.md:51
+#: src/agents.md:52
 msgid ""
 "Each one names the others, so an agent that lands on the wrong skill is "
 "pointed at the right one rather than guessing."
 msgstr ""
 
-#: src/agents.md:54
+#: src/agents.md:55
 msgid "Looking at a slide"
 msgstr ""
 
-#: src/agents.md:56
+#: src/agents.md:57
 msgid ""
 "A slide is a URL on localhost, so an agent with browser access can open it, "
 "read the DOM, evaluate JavaScript against it and screenshot it — the same "
 "loop a person has, without waiting to be told what went wrong."
 msgstr ""
 
-#: src/agents.md:60
+#: src/agents.md:61
 msgid "Start the server on a fixed port and open one slide on its own:"
 msgstr ""
 
-#: src/agents.md:66
+#: src/agents.md:67
 msgid ""
 "```text\n"
 "http://127.0.0.1:5173/slides/architecture\n"
 "```"
 msgstr ""
 
-#: src/agents.md:70
+#: src/agents.md:71
 msgid ""
 "A single slide page has no presenter chrome, and the document **is** the "
 "canvas at exactly 1280×720 — so a 1280×720 viewport captures the slide and "
 "nothing else. Query parameters put it in a known state:"
 msgstr ""
 
-#: src/agents.md:76
+#: src/agents.md:77
 msgid "`?step=2`"
 msgstr ""
 
-#: src/agents.md:76
+#: src/agents.md:77
 msgid "a specific step"
 msgstr ""
 
-#: src/agents.md:77
+#: src/agents.md:78
 msgid "`?step=final`"
 msgstr ""
 
-#: src/agents.md:77
+#: src/agents.md:78
 msgid "everything revealed"
 msgstr ""
 
-#: src/agents.md:78
+#: src/agents.md:79
 msgid "`?deck-mode=check`"
 msgstr ""
 
-#: src/agents.md:78
+#: src/agents.md:79
 msgid "animation disabled, so a screenshot is deterministic"
 msgstr ""
 
-#: src/agents.md:80
+#: src/agents.md:81
 msgid ""
 "Wait for readiness before measuring anything, or you will screenshot a "
 "half-laid-out document:"
 msgstr ""
 
-#: src/agents.md:87
+#: src/agents.md:88
 msgid ""
 "Then the runtime is available for questions the DOM alone will not answer:"
 msgstr ""
 
-#: src/agents.md:90
+#: src/agents.md:91
 msgid "// 2\n"
 msgstr ""
 
-#: src/agents.md:91
+#: src/agents.md:92
 msgid "// 3\n"
 msgstr ""
 
-#: src/agents.md:92
+#: src/agents.md:93
 msgid "// { index: 3, number: 4, total: 18 }\n"
 msgstr ""
 
-#: src/agents.md:93
+#: src/agents.md:94
 msgid "// anything the slide reported\n"
 msgstr ""
 
-#: src/agents.md:96
+#: src/agents.md:97
 msgid ""
 "`/present` works too, but the slide lives inside an iframe there, so reach "
 "it through `window.deckShell.currentFrame().iframe.contentDocument`. "
@@ -3355,57 +3361,57 @@ msgid ""
 "repository check hot reload and step behaviour."
 msgstr ""
 
-#: src/agents.md:101
+#: src/agents.md:102
 msgid "Why `deck check` still matters"
 msgstr ""
 
-#: src/agents.md:103
+#: src/agents.md:104
 msgid ""
 "Being able to look at a slide does not make the checks redundant; they "
 "answer a different question."
 msgstr ""
 
-#: src/agents.md:108
+#: src/agents.md:109
 msgid "# PNG per slide in .deck/screenshots/\n"
 msgstr ""
 
-#: src/agents.md:111
+#: src/agents.md:112
 msgid ""
 "**It is exhaustive.** Eighteen slides, every rule, without deciding which "
 "ones to look at."
 msgstr ""
 
-#: src/agents.md:113
+#: src/agents.md:114
 msgid ""
 "**It is measured, not judged.** `contrast 4.36 < 4.5` and `+12px` are facts. "
 "\"Looks a bit tight\" is not something to act on with confidence."
 msgstr ""
 
-#: src/agents.md:115
+#: src/agents.md:116
 msgid ""
 "**It is reproducible.** Viewport, locale, timezone, device scale and reduced "
 "motion are pinned and animation is off, so two runs agree and a fix can be "
 "verified."
 msgstr ""
 
-#: src/agents.md:117
+#: src/agents.md:118
 msgid ""
 "**It catches what rendering hides.** A console error, a font that silently "
 "fell back, a request that left localhost — all invisible in a screenshot "
 "that looks fine."
 msgstr ""
 
-#: src/agents.md:120
+#: src/agents.md:121
 msgid ""
 "So the useful instruction is \"make `deck check` pass, then look at it\" — "
 "the checks for the facts, the browser for the judgement."
 msgstr ""
 
-#: src/agents.md:123
+#: src/agents.md:124
 msgid "Editing them"
 msgstr ""
 
-#: src/agents.md:125
+#: src/agents.md:126
 msgid ""
 "They are normal files in your project — edit them. Deck-specific conventions "
 "belong there: the fonts you use, the components you have added, the slide "
@@ -3413,7 +3419,7 @@ msgid ""
 "wrong."
 msgstr ""
 
-#: src/agents.md:129
+#: src/agents.md:130
 msgid ""
 "The frontmatter decides when a skill is loaded, so keep each `description` "
 "concrete about the situations it applies to, and distinct from its siblings:"

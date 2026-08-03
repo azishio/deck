@@ -138,32 +138,35 @@ recipes, and one asked to warm up the accent colour gets the token and cascade r
 - Content goes in child elements. Large JSON blobs in attributes are a DSL in disguise —
   don't.
 
-### Slides that do something
+### Slides that draw the argument
 
 Cards and headings are the floor, not the ceiling. Because a slide is a whole web page,
-the middle of it can be a drawing that fills in as you step, or a control the audience
-watches you move:
+the middle of it can be an SVG scene that moves as you step through it:
 
 ```html
 <svg viewBox="0 0 720 200" fill="none">
   <g data-step="1">
     <path id="flow" d="M180 100 H 420" stroke="var(--deck-color-accent)" stroke-width="3"/>
+    <circle id="token" r="8" transform="translate(180 100)" fill="var(--deck-color-accent)"/>
   </g>
 </svg>
-
-<label>Threads <input id="threads" type="range" min="1" max="16" value="4"></label>
 
 <script type="module">
   import { animate, svg } from "/@deck/vendor/animejs.js";
 
   const flow = document.querySelector("#flow");
-  window.deck.onReveal(flow, () => animate(svg.createDrawable(flow), { draw: ["0 0", "0 1"] }));
+
+  window.deck.onReveal(flow, () => {
+    animate(svg.createDrawable(flow), { draw: ["0 0", "0 1"], duration: 600 });
+    animate("#token", { ...svg.createMotionPath("#flow"), duration: 900, delay: 600 });
+  });
 </script>
 ```
 
-`data-step` reveals SVG children exactly as it does HTML, `deck.onReveal` ties an
-animation to visibility rather than to load, and form controls keep their own clicks and
-keys so operating one never turns the page. The
+`data-step` reveals SVG children exactly as it does HTML, and `deck.onReveal` ties the
+animation to visibility rather than to load — so it never runs on a preloaded slide and
+replays when you step back. Anime.js is vendored, including its drawable, morph and
+motion-path helpers. The
 [deck this repository publishes](https://azishio.github.io/deck/slide/) is built this way
 throughout — its source is in [`site/slides/`](site/slides). Guide:
 [Visual and interactive slides](https://azishio.github.io/deck/visuals.html).

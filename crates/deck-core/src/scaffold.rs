@@ -412,21 +412,9 @@ const ARCHITECTURE_SLIDE: &str = r##"<!doctype html>
         stroke-width: 2.5;
       }
 
-      #architecture .control {
-        display: flex;
-        align-items: center;
-        gap: var(--deck-space-3);
+      #architecture .caption {
+        color: var(--deck-color-muted);
         font-size: var(--deck-font-size-small);
-      }
-
-      #architecture .control input {
-        width: 280px;
-        accent-color: var(--deck-color-accent);
-      }
-
-      #architecture .control output {
-        font-family: var(--deck-font-mono);
-        color: var(--deck-color-accent);
       }
     }
   </style>
@@ -462,25 +450,32 @@ const ARCHITECTURE_SLIDE: &str = r##"<!doctype html>
           <text class="detail" x="870" y="118">queries fan out</text>
         </g>
       </g>
+
+      <g data-step="3">
+        <!-- Geometry only: the route the sample takes, never stroked. -->
+        <path id="route" d="M130 95 H 500 H 870"/>
+        <!-- Parked on the route: a motion path drives the transform, so the
+             circle's own coordinates stay at the origin. -->
+        <circle id="sample" cx="0" cy="0" r="9" transform="translate(130 95)"
+                fill="var(--deck-color-accent)"/>
+      </g>
     </svg>
 
-    <label class="control">
-      Probes
-      <input id="probes" type="range" min="1" max="24" value="6">
-      <output id="rate">6 probes — 1.2k samples/s</output>
-    </label>
+    <p class="caption">
+      Every stage is SVG, revealed by <code>data-step</code> and animated on reveal.
+    </p>
 
     <deck-notes>
-      The slider is a real control: form elements keep their own clicks and keys,
-      so operating one never turns the page.
+      Nothing here starts at load: the shell preloads neighbouring slides, so an
+      animation begun at construction would run where nobody can see it.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
     import { animate, svg } from "/@deck/vendor/animejs.js";
 
-    // Tie the animation to the reveal, never to load: the shell preloads
-    // neighbouring slides, so anything started at construction runs off-screen.
+    // Each connector draws itself as its step arrives, and again if you step
+    // back and come forward, because onReveal is tied to visibility.
     for (const id of ["link-1", "link-2"]) {
       const path = document.querySelector(`#${id}`);
       window.deck.onReveal(path, async ({ signal }) => {
@@ -496,18 +491,21 @@ const ARCHITECTURE_SLIDE: &str = r##"<!doctype html>
       });
     }
 
-    const probes = document.querySelector("#probes");
-    const rate = document.querySelector("#rate");
-    const render = () => {
-      const count = Number(probes.value);
-      rate.textContent = `${count} probes — ${(count * 0.2).toFixed(1)}k samples/s`;
-    };
-    probes.addEventListener("input", render);
-    window.deck.onReveal(probes, () => {
-      probes.value = "6";
-      render();
+    // A motion path is spread into the parameters: it supplies translateX,
+    // translateY and rotate.
+    const sample = document.querySelector("#sample");
+    window.deck.onReveal(sample, async ({ signal }) => {
+      if (!(await window.deck.animator())) {
+        return;
+      }
+      const ride = animate(sample, {
+        ...svg.createMotionPath("#route"),
+        duration: 1400,
+        ease: "inOutQuad",
+        loop: true,
+      });
+      signal.addEventListener("abort", () => ride.revert());
     });
-    render();
   </script>
 </body>
 </html>

@@ -445,6 +445,9 @@ fn check_url(
 struct ProbeResult {
     #[serde(default)]
     step_count: Option<u32>,
+    /// What the slide passed to `setStepCount()`, or `None` if it never did.
+    #[serde(default)]
+    declared_step_count: Option<u32>,
     #[serde(default)]
     diagnostics: Vec<ProbeDiagnostic>,
     #[serde(default)]
@@ -551,8 +554,12 @@ async fn runtime_checks(
                     diagnostics.push(diagnostic);
                 }
 
+                // A slide that animates its own reveals has no [data-step] to
+                // count, and says so with setStepCount(). Only an undeclared
+                // disagreement is a mistake.
                 if let (Some(actual), Some(slide)) = (result.step_count, manifest.slide(slide_id))
                     && actual != slide.step_count
+                    && result.declared_step_count.is_none()
                 {
                     diagnostics.push(
                         Diagnostic::new(

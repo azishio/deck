@@ -33,10 +33,11 @@ complete HTML document, the canvas is fixed at 1280×720, content goes in child 
 assets use root-absolute paths), file conventions, a skeleton to copy, the built-in
 components, the absolute step model, and what each check rule means when it fires.
 
-**`deck-visuals`** — explaining something visually or interactively: inline SVG driven by
-`data-step`, Anime.js and its SVG helpers, canvas, live controls, and generating artwork
-rather than sourcing it. Without it an agent defaults to three cards of prose, which is
-what a slide tool with no HTML would have produced anyway.
+**`deck-visuals`** — explaining something with a drawing that moves: inline SVG scenes
+driven by `data-step` or by an `apply(step)` of their own, Anime.js and its SVG helpers in
+the exact shapes they expect, canvas, and generating artwork rather than sourcing it.
+Without it an agent defaults to three cards of prose, which is what a slide tool with no
+HTML would have produced anyway.
 
 **`deck-styling`** — how the deck looks. Which of the four `design/` files to reach for,
 the token families, the Tailwind entry and the cascade order, webfonts in

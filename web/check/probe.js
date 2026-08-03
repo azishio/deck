@@ -299,6 +299,7 @@
     title: document.title,
     step: deck.step ?? null,
     stepCount: deck.stepCount ?? null,
+    declaredStepCount: deck.declaredStepCount ?? null,
     ready: Boolean(deck.ready),
     runtimeDiagnostics: typeof deck.diagnostics === "object" ? deck.diagnostics : [],
     diagnostics,

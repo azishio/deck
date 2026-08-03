@@ -869,6 +869,10 @@ const deck = {
   get stepCount() {
     return state.stepCount;
   },
+  /** What `setStepCount()` was given, or null if the DOM alone decided. */
+  get declaredStepCount() {
+    return declaredStepCount;
+  },
   get reducedMotion() {
     return state.reducedMotion;
   },

@@ -10,152 +10,106 @@
 
   <style>
     @layer slide {
-      #discovery .map {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 120px;
-        align-content: start;
-      }
-
-      #discovery .wires {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        overflow: visible;
-      }
-
-      #discovery .tree {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-small);
-      }
-
-      #discovery .tree button {
-        display: block;
+      #discovery .scene {
         width: 100%;
-        padding: 5px var(--deck-space-1);
-        border: 1px solid transparent;
-        border-radius: var(--deck-radius-small);
-        background: none;
-        color: var(--deck-color-text);
-        font: inherit;
-        text-align: left;
-        cursor: pointer;
+        height: auto;
       }
 
-      #discovery .tree button:hover {
-        background: var(--deck-color-surface);
-      }
-
-      #discovery .tree button[aria-current="true"] {
-        border-color: var(--deck-color-accent);
-        background: var(--deck-color-accent-soft);
-        color: var(--deck-color-accent);
-      }
-
-      #discovery .tree .dir {
-        padding: 5px var(--deck-space-1);
-        color: var(--deck-color-muted);
-      }
-
-      #discovery .order {
-        display: flex;
-        flex-direction: column;
-        gap: var(--deck-space-1);
-      }
-
-      #discovery .order li {
-        display: grid;
-        grid-template-columns: 28px 1fr;
-        gap: var(--deck-space-2);
-        align-items: baseline;
-        padding: 6px var(--deck-space-2);
-        border: 1px solid var(--deck-color-border);
-        border-radius: var(--deck-radius-small);
-        background: var(--deck-color-background);
-        font-size: var(--deck-font-size-small);
-        margin-block-start: 0;
-      }
-
-      #discovery .order li[aria-current="true"] {
-        border-color: var(--deck-color-accent);
-        box-shadow: var(--deck-shadow-card);
-      }
-
-      #discovery .order .num {
-        color: var(--deck-color-muted);
+      #discovery .path {
+        fill: var(--deck-color-muted);
         font-family: var(--deck-font-mono);
+        font-size: 18px;
+        white-space: pre;
       }
 
-      #discovery .order .id {
-        color: var(--deck-color-accent);
+      #discovery .num {
+        fill: var(--deck-color-muted);
         font-family: var(--deck-font-mono);
+        font-size: 18px;
+        text-anchor: middle;
       }
 
-      #discovery .order .title {
-        color: var(--deck-color-text);
+      #discovery .id {
+        fill: var(--deck-color-accent);
+        font-family: var(--deck-font-mono);
+        font-size: 18px;
       }
 
-      #discovery .legend {
-        display: flex;
-        gap: var(--deck-space-4);
-        font-size: var(--deck-font-size-small);
-        color: var(--deck-color-muted);
+      #discovery .title {
+        fill: var(--deck-color-text);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+      }
+
+      #discovery .caption {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+      }
+
+      #discovery .slot rect {
+        fill: var(--deck-color-background);
+        stroke: var(--deck-color-border);
+        stroke-width: 1.5;
       }
     }
   </style>
 </head>
 <body>
   <deck-slide id="discovery">
-    <deck-heading eyebrow="Discovery" sub="Pick a file. There is no slide list in deck.toml to keep in step with it.">
+    <deck-heading eyebrow="Discovery" sub="Adding a file adds a slide. There is no list in deck.toml to keep in step with it.">
       The file system is the outline
     </deck-heading>
 
-    <div class="map grow">
-      <svg class="wires" aria-hidden="true" fill="none"></svg>
+    <svg class="scene" viewBox="0 0 1150 350" fill="none" role="img"
+         aria-label="Slide files sorting themselves into deck order, then gaining ids and titles">
+      <text class="caption" x="10" y="26">slides/</text>
+      <text class="caption" x="700" y="26">deck order</text>
 
-      <div class="tree" id="tree">
-        <div class="dir">slides/</div>
-        <button type="button" data-slide="title">├── 00-title.html</button>
-        <button type="button" data-slide="background">├── 10-background.html</button>
-        <div class="dir">├── 20-architecture/</div>
-        <button type="button" data-slide="overview">│&nbsp;&nbsp; ├── 00-overview.html</button>
-        <button type="button" data-slide="ingestion">│&nbsp;&nbsp; └── 10-ingestion.html</button>
-        <button type="button" data-slide="summary">└── 90-summary.html</button>
-      </div>
+      <g id="files">
+        <text class="path" x="10" y="76" data-slot="0">├── 00-title.html</text>
+        <text class="path" x="10" y="126" data-slot="1">├── 10-background.html</text>
+        <text class="path" x="10" y="176" data-slot="2">├── 20-architecture/</text>
+        <text class="path" x="10" y="226" data-slot="3">│&#160;&#160; ├── 00-overview.html</text>
+        <text class="path" x="10" y="276" data-slot="4">│&#160;&#160; └── 10-ingestion.html</text>
+        <text class="path" x="10" y="326" data-slot="5">└── 90-summary.html</text>
+      </g>
 
-      <ol class="order" id="order">
-        <li data-slide="title">
-          <span class="num">1</span>
-          <span><span class="id">#title</span> <span class="title">deck</span></span>
-        </li>
-        <li data-slide="background">
-          <span class="num">2</span>
-          <span><span class="id">#background</span> <span class="title">Why bother</span></span>
-        </li>
-        <li data-slide="overview">
-          <span class="num">3</span>
-          <span><span class="id">#overview</span> <span class="title">One pipeline</span></span>
-        </li>
-        <li data-slide="ingestion">
-          <span class="num">4</span>
-          <span><span class="id">#ingestion</span> <span class="title">Ingestion</span></span>
-        </li>
-        <li data-slide="summary">
-          <span class="num">5</span>
-          <span><span class="id">#summary</span> <span class="title">Takeaways</span></span>
-        </li>
-      </ol>
-    </div>
+      <g id="slots">
+        <g class="slot" data-slot="0">
+          <rect x="610" y="46" width="530" height="40" rx="8"/>
+          <text class="num" x="640" y="72">1</text>
+          <text class="id" x="668" y="72" data-role="id">#title</text>
+          <text class="title" x="800" y="72" data-role="title">deck</text>
+        </g>
+        <g class="slot" data-slot="1">
+          <rect x="610" y="96" width="530" height="40" rx="8"/>
+          <text class="num" x="640" y="122">2</text>
+          <text class="id" x="668" y="122" data-role="id">#background</text>
+          <text class="title" x="800" y="122" data-role="title">Why bother</text>
+        </g>
+        <g class="slot" data-slot="3">
+          <rect x="610" y="146" width="530" height="40" rx="8"/>
+          <text class="num" x="640" y="172">3</text>
+          <text class="id" x="668" y="172" data-role="id">#overview</text>
+          <text class="title" x="800" y="172" data-role="title">One pipeline</text>
+        </g>
+        <g class="slot" data-slot="4">
+          <rect x="610" y="196" width="530" height="40" rx="8"/>
+          <text class="num" x="640" y="222">4</text>
+          <text class="id" x="668" y="222" data-role="id">#ingestion</text>
+          <text class="title" x="800" y="222" data-role="title">Ingestion</text>
+        </g>
+        <g class="slot" data-slot="5">
+          <rect x="610" y="246" width="530" height="40" rx="8"/>
+          <text class="num" x="640" y="272">5</text>
+          <text class="id" x="668" y="272" data-role="id">#summary</text>
+          <text class="title" x="800" y="272" data-role="title">Takeaways</text>
+        </g>
+      </g>
 
-    <div class="legend">
-      <span data-step="1"><strong>Order</strong> — the path, sorted lexicographically</span>
-      <span data-step="2"><strong>Identity</strong> — <code>deck-slide[id]</code></span>
-      <span data-step="3"><strong>Title</strong> — <code>&lt;title&gt;</code></span>
-    </div>
+      <text class="caption" x="610" y="322" id="note"></text>
+    </svg>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -163,71 +117,94 @@
     </deck-footer>
 
     <deck-notes>
-      Renumbering moves a slide without breaking a deep link, because the link is
-      built from the id and the id lives inside the file.
+      A directory contributes its children, not itself. Renumbering moves a slide
+      without breaking a deep link, because the link is built from the id.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
-    import { animate, svg } from "/@deck/vendor/animejs.js";
+    import { animate, stagger, utils } from "/@deck/vendor/animejs.js";
 
-    const map = document.querySelector(".map");
-    const wires = document.querySelector(".wires");
-    const files = [...document.querySelectorAll("#tree button")];
-    const entries = [...document.querySelectorAll("#order li")];
+    // The reveals here are animated rather than declared with data-step, so the
+    // step count has to be stated.
+    window.deck.setStepCount(3);
 
-    /** A cubic from the right edge of one box to the left edge of another. */
-    function wirePath(from, to) {
-      const origin = map.getBoundingClientRect();
-      const a = from.getBoundingClientRect();
-      const b = to.getBoundingClientRect();
-      const x1 = a.right - origin.left;
-      const y1 = a.top + a.height / 2 - origin.top;
-      const x2 = b.left - origin.left;
-      const y2 = b.top + b.height / 2 - origin.top;
-      const bend = (x2 - x1) * 0.6;
-      return `M${x1} ${y1} C${x1 + bend} ${y1} ${x2 - bend} ${y2} ${x2} ${y2}`;
+    const slots = [...document.querySelectorAll("#slots .slot")];
+    const files = [...document.querySelectorAll("#files .path")];
+    const ids = [...document.querySelectorAll('#slots [data-role="id"]')];
+    const titles = [...document.querySelectorAll('#slots [data-role="title"]')];
+    const scene = document.querySelector(".scene");
+
+    /** Where a file's row sits relative to the slot it becomes. */
+    function offsetFor(slot) {
+      const file = files.find((entry) => entry.dataset.slot === slot.dataset.slot);
+      if (!file) {
+        return { x: 0, y: 0 };
+      }
+      const from = file.getBBox();
+      const to = slot.getBBox();
+      return { x: from.x - to.x, y: from.y + from.height / 2 - (to.y + to.height / 2) };
     }
 
-    function select(slideId, { animated = true } = {}) {
-      const file = files.find((button) => button.dataset.slide === slideId);
-      const entry = entries.find((item) => item.dataset.slide === slideId);
-      for (const button of files) {
-        button.setAttribute("aria-current", String(button === file));
-      }
-      for (const item of entries) {
-        item.setAttribute("aria-current", String(item === entry));
-      }
-      if (!file || !entry) {
+    const NOTES = [
+      "",
+      "order — the path, sorted lexicographically",
+      "identity — deck-slide[id], independent of the number",
+      "title — the document's own <title>",
+    ];
+
+    const note = document.querySelector("#note");
+    let arrived = false;
+
+    /**
+     * Draw the state for `step`.
+     *
+     * Called from the reveal as well as from `deck:stepchange`, because a deep
+     * link applies its step before this module has a listener to hear it.
+     */
+    async function apply(step, { animated }) {
+      note.textContent = NOTES[Math.min(step, NOTES.length - 1)];
+
+      if (!animated) {
+        utils.set(slots, { opacity: step >= 1 ? 1 : 0, translateX: 0, translateY: 0 });
+        utils.set(ids, { opacity: step >= 2 ? 1 : 0 });
+        utils.set(titles, { opacity: step >= 3 ? 1 : 0 });
+        arrived = step >= 1;
         return;
       }
 
-      const size = map.getBoundingClientRect();
-      wires.setAttribute("viewBox", `0 0 ${size.width} ${size.height}`);
-      wires.innerHTML = "";
-
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", wirePath(file, entry));
-      path.setAttribute("stroke", "var(--deck-color-accent)");
-      path.setAttribute("stroke-width", "2");
-      wires.append(path);
-
-      if (animated && !window.deck.reducedMotion) {
-        animate(svg.createDrawable(path), { draw: ["0 0", "0 1"], duration: 420, ease: "outQuad" });
+      if (step < 1) {
+        utils.set(slots, { opacity: 0 });
+        utils.set([...ids, ...titles], { opacity: 0 });
+        arrived = false;
+        return;
       }
+
+      // The files fly across into deck order once, on the step that claims it.
+      if (!arrived) {
+        arrived = true;
+        animate(slots, {
+          opacity: [0, 1],
+          translateX: (slot) => [offsetFor(slot).x, 0],
+          translateY: (slot) => [offsetFor(slot).y, 0],
+          duration: 620,
+          delay: stagger(70),
+          ease: "outQuad",
+        });
+      }
+
+      animate(ids, { opacity: step >= 2 ? 1 : 0, duration: 260, delay: stagger(60) });
+      animate(titles, { opacity: step >= 3 ? 1 : 0, duration: 260, delay: stagger(60) });
     }
 
-    for (const button of files) {
-      button.addEventListener("click", () => select(button.dataset.slide));
-    }
-    for (const item of entries) {
-      item.addEventListener("click", () => select(item.dataset.slide));
-      item.setAttribute("data-deck-no-nav", "");
-    }
+    window.deck.onReveal(scene, async () => {
+      arrived = false;
+      await apply(window.deck.step, { animated: Boolean(await window.deck.animator()) });
+    });
 
-    // Re-entering the slide starts from the same pairing every time.
-    window.deck.onReveal(map, () => select("overview"));
-    select("overview", { animated: false });
+    document.addEventListener("deck:stepchange", async (event) => {
+      await apply(event.detail.to, { animated: Boolean(await window.deck.animator()) });
+    });
   </script>
 </body>
 </html>

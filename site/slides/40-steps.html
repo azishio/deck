@@ -10,113 +10,100 @@
 
   <style>
     @layer slide {
-      #steps .demo {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: var(--deck-space-5);
-        align-items: center;
+      #steps .scene {
+        width: 100%;
+        height: auto;
       }
 
-      #steps .scrubber {
-        display: flex;
-        align-items: center;
-        gap: var(--deck-space-3);
+      #steps .rail {
+        stroke: var(--deck-color-border);
+        stroke-width: 3;
       }
 
-      #steps .scrubber input {
-        flex: 1;
-        accent-color: var(--deck-color-accent);
+      #steps .travelled {
+        stroke: var(--deck-color-accent);
+        stroke-width: 3;
+      }
+
+      #steps .tick circle {
+        fill: var(--deck-color-background);
+        stroke: var(--deck-color-border);
+        stroke-width: 2;
+      }
+
+      #steps .tick text {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-mono);
+        font-size: 18px;
+        text-anchor: middle;
+      }
+
+      #steps .head {
+        fill: var(--deck-color-accent);
       }
 
       #steps .address {
-        display: inline-flex;
-        align-items: baseline;
-        gap: var(--deck-space-1);
-        padding: var(--deck-space-1) var(--deck-space-2);
-        border: 1px solid var(--deck-color-border);
-        border-radius: var(--deck-radius-small);
-        background: var(--deck-color-surface);
+        fill: var(--deck-color-accent);
         font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-small);
+        font-size: 22px;
+        text-anchor: middle;
       }
 
-      #steps .address b {
-        color: var(--deck-color-accent);
-        font-weight: 700;
+      #steps .panel rect {
+        fill: var(--deck-color-accent-soft);
       }
 
-      #steps .track {
-        display: flex;
-        flex-direction: column;
-        gap: var(--deck-space-2);
-      }
-
-      #steps .bar {
-        display: flex;
-        align-items: center;
-        gap: var(--deck-space-2);
-        padding: var(--deck-space-2);
-        border-radius: var(--deck-radius-small);
-        background: var(--deck-color-accent-soft);
-        color: var(--deck-color-accent);
-        font-size: var(--deck-font-size-small);
-      }
-
-      #steps .bar span:first-child {
-        display: inline-flex;
-        width: 30px;
-        height: 30px;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: var(--deck-color-accent);
-        color: #ffffff;
-        font-family: var(--deck-font-mono);
+      #steps .panel text {
+        fill: var(--deck-color-accent);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
       }
 
       #steps .formula {
+        fill: var(--deck-color-muted);
         font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-small);
-        color: var(--deck-color-muted);
+        font-size: 18px;
+        text-anchor: middle;
       }
     }
   </style>
 </head>
 <body>
   <deck-slide id="steps">
-    <deck-heading eyebrow="Steps &amp; animation" sub="Drag the slider, or use the arrow keys. Both move the same number.">
+    <deck-heading eyebrow="Steps &amp; animation" sub="Every arrow key you press moves the number below. Nothing else is remembered.">
       Screen state = f(slide, step)
     </deck-heading>
 
-    <div class="demo grow">
-      <deck-stack gap="24">
-        <div class="scrubber">
-          <label for="scrub" class="text-small">step</label>
-          <input id="scrub" type="range" min="0" max="3" step="1" value="0">
-          <output id="value" class="font-mono">0</output>
-        </div>
+    <svg class="scene" viewBox="0 0 1150 330" fill="none" role="img"
+         aria-label="A playhead moving along a step track as the slide advances">
+      <path class="rail" d="M120 90 H 1030"/>
+      <path class="travelled" id="travelled" d="M120 90 H 120"/>
 
-        <p class="address">
-          <span>#/steps/</span><b id="fragment">0</b>
-        </p>
+      <g class="tick" data-at="120"><circle cx="120" cy="90" r="14"/><text x="120" y="140">0</text></g>
+      <g class="tick" data-at="423"><circle cx="423" cy="90" r="14"/><text x="423" y="140">1</text></g>
+      <g class="tick" data-at="727"><circle cx="727" cy="90" r="14"/><text x="727" y="140">2</text></g>
+      <g class="tick" data-at="1030"><circle cx="1030" cy="90" r="14"/><text x="1030" y="140">3</text></g>
 
-        <p class="text-small">
-          The slider is not a prop: it calls <code>deck.goToStep()</code>, which is the
-          same absolute request the arrow keys and the presenter view send. A reload,
-          a deep link and a hot swap all land here too.
-        </p>
+      <circle class="head" id="head" cx="120" cy="90" r="9"/>
+      <text class="address" id="address" x="120" y="52">#/steps/0</text>
 
-        <p class="formula">
-          reveal = element.dataset.step &lt;= step
-        </p>
-      </deck-stack>
+      <g class="panel">
+        <g data-step="1">
+          <rect x="120" y="190" width="290" height="70" rx="10"/>
+          <text x="144" y="232">revealed at step 1</text>
+        </g>
+        <g data-step="2">
+          <rect x="430" y="190" width="290" height="70" rx="10"/>
+          <text x="454" y="232">revealed at step 2</text>
+        </g>
+        <g data-step="3">
+          <rect x="740" y="190" width="290" height="70" rx="10"/>
+          <text x="764" y="232">revealed at step 3</text>
+        </g>
+      </g>
 
-      <div class="track">
-        <div class="bar" data-step="1"><span>1</span> Collection</div>
-        <div class="bar" data-step="2"><span>2</span> Aggregation</div>
-        <div class="bar" data-step="3"><span>3</span> Visualisation</div>
-      </div>
-    </div>
+      <text class="formula" x="575" y="305">a reload, a deep link and a second client all land on the same frame</text>
+    </svg>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -124,31 +111,57 @@
     </deck-footer>
 
     <deck-notes>
-      Steps are absolute, never a relative "next", which is what lets a reload or a
-      second client land in exactly this state.
+      Navigation sends an absolute step, never a relative "next". That is what lets
+      the presenter view, the audience view and a hot swap agree without a handshake.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
-    const scrub = document.querySelector("#scrub");
-    const value = document.querySelector("#value");
-    const fragment = document.querySelector("#fragment");
+    import { animate } from "/@deck/vendor/animejs.js";
 
-    scrub.addEventListener("input", () => {
-      window.deck.goToStep(Number(scrub.value));
+    const ticks = [...document.querySelectorAll(".tick")].map((tick) =>
+      Number(tick.dataset.at),
+    );
+    const head = document.querySelector("#head");
+    const travelled = document.querySelector("#travelled");
+    const address = document.querySelector("#address");
+
+    // The playhead follows the step model rather than the other way round: it is
+    // reading the same number the presenter view and every audience client read.
+    async function moveTo(step, { animated }) {
+      const x = ticks[Math.min(Math.max(step, 0), ticks.length - 1)];
+      address.textContent = `#/steps/${step}`;
+
+      if (!animated) {
+        head.setAttribute("cx", String(x));
+        address.setAttribute("x", String(x));
+        travelled.setAttribute("d", `M120 90 H ${x}`);
+        return;
+      }
+
+      animate(head, { cx: x, duration: 360, ease: "outQuad" });
+      animate(address, { x, duration: 360, ease: "outQuad" });
+
+      // A plain object is a valid target, which is the tidiest way to drive a
+      // path that has no animatable attribute of its own.
+      const trail = { length: Number(travelled.getAttribute("d").split("H")[1]) };
+      animate(trail, {
+        length: x,
+        duration: 360,
+        ease: "outQuad",
+        onUpdate: () => travelled.setAttribute("d", `M120 90 H ${trail.length}`),
+      });
+    }
+
+    window.deck.onReveal(document.querySelector(".scene"), async () => {
+      await moveTo(window.deck.step, { animated: false });
     });
 
-    // The step model is the source of truth; the slider only reflects it, so
-    // arrow keys, the presenter view and a second client all keep it honest.
-    const sync = (step) => {
-      scrub.value = String(step);
-      value.textContent = String(step);
-      fragment.textContent = String(step);
-    };
-
-    document.addEventListener("deck:stepchange", (event) => sync(event.detail.to));
-    document.addEventListener("deck:ready", () => sync(window.deck.step));
-    sync(window.deck.step);
+    document.addEventListener("deck:stepchange", async (event) => {
+      await moveTo(event.detail.to, {
+        animated: Boolean(await window.deck.animator()) && !event.detail.instant,
+      });
+    });
   </script>
 </body>
 </html>

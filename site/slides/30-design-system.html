@@ -9,115 +9,64 @@
   <script type="module" src="/@deck/boot.js"></script>
 
   <style>
-    /* Every rule below sits in the layer it is named after, so the swatch is
-       decided by the real cascade rather than by a script pretending to be it. */
-    @layer deck {
-      #swatch.on-deck { background: #475569; }
-    }
-
-    @layer project {
-      #swatch.on-project { background: #4338ca; }
-    }
-
     @layer slide {
-      #swatch.on-slide { background: #0f766e; }
-
-      #design-system .cascade {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        gap: var(--deck-space-5);
-        align-items: center;
+      #design-system .scene {
+        width: 100%;
+        height: auto;
       }
 
-      #design-system .stack {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 6px;
+      #design-system .slab {
+        transform-box: fill-box;
+        transform-origin: center;
       }
 
-      #design-system .stack label {
-        display: flex;
-        align-items: center;
-        gap: var(--deck-space-2);
-        padding: 6px var(--deck-space-2);
-        border: 1px solid var(--deck-color-border);
-        border-radius: var(--deck-radius-small);
-        background: var(--deck-color-background);
+      #design-system .slab polygon {
+        fill: var(--deck-color-surface);
+        stroke: var(--deck-color-border);
+        stroke-width: 1.5;
+      }
+
+      #design-system .slab.lit polygon {
+        fill: var(--deck-color-accent-soft);
+        stroke: var(--deck-color-accent);
+      }
+
+      #design-system .slab text {
+        fill: var(--deck-color-text);
         font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-small);
-        cursor: pointer;
+        font-size: 18px;
       }
 
-      #design-system .stack input {
-        width: 18px;
-        height: 18px;
-        accent-color: var(--deck-color-accent);
-      }
-
-      #design-system .stack .chip {
-        width: 16px;
-        height: 16px;
-        margin-inline-start: auto;
-        border-radius: 4px;
-      }
-
-      /* Not `.fixed`: that is a Tailwind utility, and utilities outrank the
-         slide layer — which is the very thing this slide is about. */
-      #design-system .stack .always {
-        color: var(--deck-color-muted);
-        opacity: 0.75;
-      }
-
-      /* No background is declared here on purpose: a `slide` layer default
-         would outrank the `deck` and `project` rules the demo is about. */
-      #swatch {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 180px;
-        border-radius: var(--deck-radius-card);
-        color: #ffffff;
-        font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-heading);
-      }
-
-      #swatch.on-none {
-        border: 2px dashed var(--deck-color-border);
-        color: var(--deck-color-muted);
+      #design-system .slab.lit text {
+        fill: var(--deck-color-accent);
       }
 
       #design-system .verdict {
-        margin-block-start: var(--deck-space-2);
-        color: var(--deck-color-muted);
-        font-size: var(--deck-font-size-small);
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+      }
+
+      #design-system .drop {
+        fill: var(--deck-color-accent);
       }
     }
   </style>
 </head>
 <body>
   <deck-slide id="design-system">
-    <deck-heading eyebrow="Design system" sub="Tick a layer. The swatch is styled by the layer that wins, read back from the computed style.">
+    <deck-heading eyebrow="Design system" sub="Web Components in Light DOM, Tailwind compiled inside every slide, and one fixed cascade.">
       Batteries included, none of them sealed
     </deck-heading>
 
-    <div class="cascade grow">
-      <div class="stack">
-        <label><input type="checkbox" data-layer="deck" checked> deck <span class="chip" style="background:#475569"></span></label>
-        <label><input type="checkbox" data-layer="project" checked> project <span class="chip" style="background:#4338ca"></span></label>
-        <label><input type="checkbox" data-layer="slide"> slide <span class="chip" style="background:#0f766e"></span></label>
-        <label class="always">utilities — always last</label>
-      </div>
+    <svg class="scene" viewBox="0 0 1150 330" fill="none" role="img"
+         aria-label="The seven cascade layers stacked, with a declaration landing on the one that wins">
+      <g id="stack"></g>
 
-      <div>
-        <div id="swatch" class="on-none">unstyled</div>
-        <p class="verdict" id="verdict"></p>
-      </div>
-    </div>
+      <circle class="drop" id="drop" cx="0" cy="0" r="9" opacity="0"/>
 
-    <deck-callout tone="info" label="Cascade" data-step="1" class="text-small">
-      <code>@layer base, theme, deck, project, slide, components, utilities;</code>
-      — your CSS outranks the design system, and a Tailwind utility outranks yours.
-    </deck-callout>
+      <text class="verdict" id="verdict" x="120" y="310"></text>
+    </svg>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -125,51 +74,151 @@
     </deck-footer>
 
     <deck-notes>
-      The layers are declared once by the runtime, so a slide can add rules to any
-      of them. Components render in Light DOM, which is why an ordinary selector
-      reaches them at all.
+      Your CSS outranks the design system and a Tailwind utility outranks yours —
+      not by specificity tricks, but because the layer order is declared once by
+      the runtime and never changes.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
-    const swatch = document.querySelector("#swatch");
+    import { animate, createTimeline, stagger, utils } from "/@deck/vendor/animejs.js";
+
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    // Bottom of the cascade first, so the drawing stacks the way the spec reads.
+    const LAYERS = [
+      { name: "base", note: "Tailwind's reset" },
+      { name: "theme", note: "Tailwind variables" },
+      { name: "deck", note: "the design system" },
+      { name: "project", note: "your design/ files" },
+      { name: "slide", note: "this document's <style>" },
+      { name: "components", note: "component overrides" },
+      { name: "utilities", note: "Tailwind utilities" },
+    ];
+
+    const STEPS = [
+      { lit: null, verdict: "" },
+      { lit: "deck", verdict: "deck-card brings its own background — the design system's default." },
+      { lit: "project", verdict: "design/theme.css declares one too, and sits higher. It wins." },
+      { lit: "utilities", verdict: "A bg-surface utility outranks both. Utilities are last by design." },
+    ];
+
+    const stack = document.querySelector("#stack");
+    const drop = document.querySelector("#drop");
     const verdict = document.querySelector("#verdict");
-    const boxes = [...document.querySelectorAll(".stack input")];
 
-    const NAMES = {
-      "rgb(71, 85, 105)": "deck",
-      "rgb(67, 56, 202)": "project",
-      "rgb(15, 118, 110)": "slide",
-    };
+    const SKEW = 150;
+    const WIDTH = 560;
+    const HEIGHT = 30;
+    const GAP = 8;
+    const LEFT = 120;
+    const TOP = 20;
 
-    function apply() {
-      for (const box of boxes) {
-        swatch.classList.toggle(`on-${box.dataset.layer}`, box.checked);
-      }
-      // Read back rather than reason about it — which is also why the swatch
-      // has no background transition: mid-transition the computed value is an
-      // interpolation belonging to no layer at all.
-      const colour = getComputedStyle(swatch).backgroundColor;
-      const winner = NAMES[colour];
-      swatch.classList.toggle("on-none", !winner);
-      swatch.textContent = winner ? `@layer ${winner}` : "unstyled";
-      verdict.textContent = winner
-        ? `Three declarations, one winner: ${winner} sits highest of those enabled.`
-        : "Nothing declared for this element yet.";
+    /** An isometric slab: the same rectangle, sheared and stacked. */
+    function slabFor(index) {
+      const y = TOP + (LAYERS.length - 1 - index) * (HEIGHT + GAP);
+      const x = LEFT + index * 14;
+      return {
+        points: `${x},${y + HEIGHT} ${x + WIDTH},${y + HEIGHT} ${x + WIDTH + SKEW},${y} ${x + SKEW},${y}`,
+        labelX: x + SKEW / 2 + 24,
+        labelY: y + HEIGHT - 8,
+        centreX: x + SKEW / 2 + WIDTH / 2,
+        centreY: y + HEIGHT / 2,
+      };
     }
 
-    for (const box of boxes) {
-      box.addEventListener("change", apply);
-    }
+    const slabs = LAYERS.map((layer, index) => {
+      const geometry = slabFor(index);
+      const group = document.createElementNS(SVG_NS, "g");
+      group.setAttribute("class", "slab");
+      group.dataset.layer = layer.name;
 
-    // Start from the same state every time the slide is entered.
-    window.deck.onReveal(swatch, () => {
-      for (const box of boxes) {
-        box.checked = box.dataset.layer !== "slide";
-      }
-      apply();
+      const polygon = document.createElementNS(SVG_NS, "polygon");
+      polygon.setAttribute("points", geometry.points);
+      group.append(polygon);
+
+      const label = document.createElementNS(SVG_NS, "text");
+      label.setAttribute("x", String(geometry.labelX));
+      label.setAttribute("y", String(geometry.labelY));
+      label.textContent = layer.name;
+      group.append(label);
+
+      const note = document.createElementNS(SVG_NS, "text");
+      note.setAttribute("x", String(geometry.labelX + 190));
+      note.setAttribute("y", String(geometry.labelY));
+      note.setAttribute("fill", "var(--deck-color-muted)");
+      note.textContent = layer.note;
+      group.append(note);
+
+      stack.append(group);
+      return { ...layer, group, geometry };
     });
-    apply();
+
+    window.deck.setStepCount(STEPS.length - 1);
+
+    function paint(step) {
+      const target = STEPS[Math.min(step, STEPS.length - 1)];
+      verdict.textContent = target.verdict;
+      for (const slab of slabs) {
+        slab.group.classList.toggle("lit", slab.name === target.lit);
+      }
+      return target;
+    }
+
+    async function apply(step, { animated }) {
+      const target = paint(step);
+
+      if (!animated) {
+        utils.set(
+          slabs.map((slab) => slab.group),
+          { opacity: 1, translateX: 0 },
+        );
+        utils.set(drop, { opacity: target.lit ? 1 : 0 });
+        if (target.lit) {
+          const winner = slabs.find((slab) => slab.name === target.lit);
+          utils.set(drop, { cx: winner.geometry.centreX, cy: winner.geometry.centreY });
+        }
+        return;
+      }
+
+      if (step === 0) {
+        // The stack builds itself from the bottom up, which is the order the
+        // layers are declared in.
+        animate(
+          slabs.map((slab) => slab.group),
+          {
+            opacity: [0, 1],
+            translateX: [-40, 0],
+            duration: 420,
+            delay: stagger(70, { from: "last" }),
+            ease: "outQuad",
+          },
+        );
+        utils.set(drop, { opacity: 0 });
+        return;
+      }
+
+      const winner = slabs.find((slab) => slab.name === target.lit);
+      utils.set(slabs.map((slab) => slab.group), { opacity: 1, translateX: 0 });
+
+      const arrival = createTimeline();
+      arrival.add(drop, {
+        cx: winner.geometry.centreX,
+        cy: [winner.geometry.centreY - 90, winner.geometry.centreY],
+        opacity: [0, 1],
+        duration: 420,
+        ease: "outQuad",
+      });
+      arrival.add(winner.group, { scale: [1, 1.02, 1], duration: 320 });
+    }
+
+    window.deck.onReveal(document.querySelector(".scene"), async () => {
+      await apply(window.deck.step, { animated: Boolean(await window.deck.animator()) });
+    });
+
+    document.addEventListener("deck:stepchange", async (event) => {
+      await apply(event.detail.to, { animated: Boolean(await window.deck.animator()) });
+    });
   </script>
 </body>
 </html>

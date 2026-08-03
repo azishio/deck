@@ -80,10 +80,14 @@
     font-size: max(0.92em, var(--deck-font-size-small));
   }
 
+  /* The tinted background is what makes the colour explicit: inheriting a muted
+     colour onto it lands at roughly 4.3:1, under the AA floor the contrast rule
+     enforces. Code is content, so it takes the full text colour. */
   :not(pre) > code {
     padding: 0.1em 0.35em;
     border-radius: 4px;
     background: var(--deck-color-surface-strong);
+    color: var(--deck-color-text);
   }
 
   a {

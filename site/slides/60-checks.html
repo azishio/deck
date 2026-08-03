@@ -10,136 +10,92 @@
 
   <style>
     @layer slide {
-      #checks .lab {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--deck-space-4);
-        align-items: start;
-      }
-
-      #checks .controls {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        gap: var(--deck-space-1) var(--deck-space-3);
-        align-items: center;
-        font-size: var(--deck-font-size-small);
-      }
-
-      #checks .controls input[type="color"] {
+      #checks .scene {
         width: 100%;
-        height: 34px;
-        padding: 0;
-        border: 1px solid var(--deck-color-border);
-        border-radius: var(--deck-radius-small);
-        background: none;
+        height: auto;
       }
 
-      #checks .controls input[type="range"] {
-        width: 100%;
-        accent-color: var(--deck-color-accent);
+      #checks .sample text {
+        font-family: var(--deck-font-sans);
+        text-anchor: middle;
       }
 
-      #checks .controls output {
+      #checks .meta {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+      }
+
+      #checks .readout {
+        fill: var(--deck-color-text);
         font-family: var(--deck-font-mono);
-        color: var(--deck-color-muted);
+        font-size: 26px;
       }
 
-      #checks .sample {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 84px;
-        margin-block-start: var(--deck-space-2);
-        border: 1px solid var(--deck-color-border);
-        border-radius: var(--deck-radius-small);
-      }
-
-      #checks .verdicts {
-        display: flex;
-        gap: var(--deck-space-2);
-        margin-block-start: var(--deck-space-2);
-      }
-
-      #checks .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--deck-space-1);
-        padding: 4px var(--deck-space-2);
-        border-radius: 999px;
+      #checks .badge text {
         font-family: var(--deck-font-mono);
-        font-size: var(--deck-font-size-small);
+        font-size: 18px;
       }
 
-      #checks .badge.pass {
-        background: #e7f4e8;
-        color: #1b5e20;
+      #checks .badge rect {
+        fill: #fdecec;
       }
 
-      #checks .badge.fail {
-        background: #fdecec;
-        color: #b3261e;
+      #checks .badge text {
+        fill: #b3261e;
       }
 
-      #checks .families {
-        display: flex;
-        gap: var(--deck-space-3);
-        font-size: var(--deck-font-size-small);
-        color: var(--deck-color-muted);
+      #checks .badge.pass rect {
+        fill: #e7f4e8;
+      }
+
+      #checks .badge.pass text {
+        fill: #1b5e20;
+      }
+
+      #checks .cli {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-mono);
+        font-size: 18px;
       }
     }
   </style>
 </head>
 <body>
   <deck-slide id="checks">
-    <deck-heading eyebrow="Checks" sub="Move the controls. Two of the real rules are running on the box below as you do.">
+    <deck-heading eyebrow="Checks" sub="headless Chromium with a pinned viewport, locale, timezone and device scale.">
       Slides you can lint
     </deck-heading>
 
-    <div class="lab grow">
-      <div>
-        <div class="controls">
-          <label for="bg">background</label>
-          <input id="bg" type="color" value="#f6f8fb">
-          <output id="bg-value">#f6f8fb</output>
+    <svg class="scene" viewBox="0 0 1150 320" fill="none" role="img"
+         aria-label="A sample of slide text being measured against the contrast and font-size rules">
+      <rect id="surface" x="10" y="16" width="540" height="190" rx="12" fill="#eef2f7"/>
+      <!-- The box exists to fail these rules on cue, so they must not be
+           reported against this slide. -->
+      <g class="sample" data-deck-check-ignore="low_contrast min_font_size">
+        <text id="sample" x="280" y="118" font-size="20" fill="#8b93a7">Read from the back of the room</text>
+      </g>
+      <text class="meta" x="10" y="238">the rules measure the rendered pixels, not the stylesheet</text>
 
-          <label for="fg">text</label>
-          <input id="fg" type="color" value="#667085">
-          <output id="fg-value">#667085</output>
+      <text class="meta" x="620" y="34">contrast against the computed background</text>
+      <rect x="620" y="52" width="520" height="18" rx="9" fill="var(--deck-color-surface-strong)"/>
+      <rect id="bar" x="620" y="52" width="0" height="18" rx="9" fill="#b3261e"/>
+      <path d="M785 44 V 78" stroke="var(--deck-color-text)" stroke-width="2"/>
+      <text class="meta" x="785" y="98" text-anchor="middle">4.5 — AA</text>
 
-          <label for="size">font size</label>
-          <input id="size" type="range" min="12" max="30" step="1" value="20">
-          <output id="size-value">20px</output>
-        </div>
+      <text class="readout" id="ratio" x="620" y="146">—</text>
 
-        <!-- The point of the box is to fail on demand, so the rules it is
-             demonstrating must not be reported against this slide. -->
-        <div class="sample" id="sample" data-deck-check-ignore="low_contrast min_font_size">
-          <span id="sample-text">Measured from the back of the room</span>
-        </div>
+      <g class="badge" id="badge-contrast">
+        <rect x="620" y="170" width="300" height="38" rx="19"/>
+        <text x="644" y="195">low_contrast</text>
+      </g>
+      <g class="badge" id="badge-size">
+        <rect x="620" y="220" width="300" height="38" rx="19"/>
+        <text x="644" y="245">min_font_size</text>
+      </g>
 
-        <div class="verdicts">
-          <span class="badge" id="contrast-badge"></span>
-          <span class="badge" id="size-badge"></span>
-        </div>
-      </div>
-
-      <deck-code language="bash" class="text-small">
-$ deck check --report human
-security  30-security.html
-  error   [clipped_text]
-          text is cut off vertically: +12px
-  warning [low_contrast]
-          contrast 4.36 &lt; 4.5
-
-6 slides checked: 1 errors, 1 warnings
-      </deck-code>
-    </div>
-
-    <p class="families">
-      <strong>Static</strong> ids, files, components ·
-      <strong>Runtime</strong> errors, requests, readiness ·
-      <strong>Layout</strong> overflow, clipping, size, contrast
-    </p>
+      <text class="cli" id="cli" x="10" y="300"></text>
+    </svg>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -147,70 +103,104 @@ security  30-security.html
     </deck-footer>
 
     <deck-notes>
-      Contrast is measured against the actual computed background, which is why a
-      tinted surface with muted text gets reported even though it looked fine.
-      Human, JSON or SARIF output; exit code 1 means violations.
+      Static rules need no browser: duplicate ids, missing files, unknown component
+      names. Runtime rules catch console errors and readiness timeouts. Layout rules
+      are these. Human, JSON or SARIF output; exit code 1 means violations.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
-    const bg = document.querySelector("#bg");
-    const fg = document.querySelector("#fg");
-    const size = document.querySelector("#size");
+    import { animate, utils } from "/@deck/vendor/animejs.js";
+
+    const SCALE = { min: 1, max: 12, width: 520, left: 620 };
+
+    const STATES = [
+      { colour: "#8b93a7", size: 20, ratio: 2.72, cli: "$ deck check" },
+      {
+        colour: "#8b93a7",
+        size: 20,
+        ratio: 2.72,
+        cli: "warning [low_contrast] contrast 2.72 < 4.5",
+      },
+      {
+        colour: "#3f4a60",
+        size: 20,
+        ratio: 7.91,
+        cli: "1 slide checked: 0 errors, 0 warnings",
+      },
+      {
+        colour: "#3f4a60",
+        size: 15,
+        ratio: 7.91,
+        cli: "warning [min_font_size] font size is too small: 15px < 18px",
+      },
+    ];
+
+    window.deck.setStepCount(STATES.length - 1);
+
     const sample = document.querySelector("#sample");
-    const text = document.querySelector("#sample-text");
+    const bar = document.querySelector("#bar");
+    const ratioText = document.querySelector("#ratio");
+    const cli = document.querySelector("#cli");
+    const badges = {
+      contrast: document.querySelector("#badge-contrast"),
+      size: document.querySelector("#badge-size"),
+    };
 
-    /** WCAG relative luminance, the same definition the layout check uses. */
-    function luminance(hex) {
-      const channels = [1, 3, 5].map((index) => {
-        const value = Number.parseInt(hex.slice(index, index + 2), 16) / 255;
-        return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    const widthFor = (ratio) =>
+      Math.max(0, Math.min(1, (ratio - SCALE.min) / (SCALE.max - SCALE.min))) * SCALE.width;
+
+    function label(step) {
+      const state = STATES[Math.min(step, STATES.length - 1)];
+      const contrastPasses = state.ratio >= 4.5;
+      const sizePasses = state.size >= 18;
+
+      badges.contrast.classList.toggle("pass", contrastPasses);
+      badges.size.classList.toggle("pass", sizePasses);
+      badges.contrast.querySelector("text").textContent =
+        `low_contrast  ${state.ratio.toFixed(2)} / 4.5`;
+      badges.size.querySelector("text").textContent = `min_font_size  ${state.size} / 18`;
+      cli.textContent = state.cli;
+      return state;
+    }
+
+    function apply(step, { animated }) {
+      const state = label(step);
+      const width = widthFor(state.ratio);
+      const colour = state.ratio >= 4.5 ? "#1b5e20" : "#b3261e";
+
+      if (!animated) {
+        utils.set(sample, { fill: state.colour, fontSize: state.size });
+        utils.set(bar, { width, fill: colour });
+        ratioText.textContent = `${state.ratio.toFixed(2)} : 1`;
+        return;
+      }
+
+      animate(sample, { fill: state.colour, fontSize: state.size, duration: 520, ease: "outQuad" });
+      animate(bar, { width, fill: colour, duration: 620, ease: "outQuad" });
+
+      // The number is tweened by animating a plain object and writing the label
+      // on each frame — the same trick deck-stat's countup uses.
+      const counter = { value: Number.parseFloat(ratioText.textContent) || SCALE.min };
+      animate(counter, {
+        value: state.ratio,
+        duration: 620,
+        ease: "outQuad",
+        onUpdate: () => {
+          ratioText.textContent = `${counter.value.toFixed(2)} : 1`;
+        },
       });
-      return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
     }
 
-    function ratio(a, b) {
-      const [high, low] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-      return (high + 0.05) / (low + 0.05);
-    }
-
-    function badge(element, ok, label) {
-      element.className = `badge ${ok ? "pass" : "fail"}`;
-      element.textContent = `${ok ? "pass" : "fail"} ${label}`;
-    }
-
-    function apply() {
-      sample.style.background = bg.value;
-      text.style.color = fg.value;
-      text.style.fontSize = `${size.value}px`;
-      document.querySelector("#bg-value").textContent = bg.value;
-      document.querySelector("#fg-value").textContent = fg.value;
-      document.querySelector("#size-value").textContent = `${size.value}px`;
-
-      const contrast = ratio(bg.value, fg.value);
-      badge(
-        document.querySelector("#contrast-badge"),
-        contrast >= 4.5,
-        `low_contrast ${contrast.toFixed(2)} / 4.5`,
-      );
-      badge(
-        document.querySelector("#size-badge"),
-        Number(size.value) >= 18,
-        `min_font_size ${size.value} / 18`,
-      );
-    }
-
-    for (const control of [bg, fg, size]) {
-      control.addEventListener("input", apply);
-    }
-
-    window.deck.onReveal(sample, () => {
-      bg.value = "#f6f8fb";
-      fg.value = "#667085";
-      size.value = "20";
-      apply();
+    window.deck.onReveal(document.querySelector(".scene"), async () => {
+      apply(window.deck.step, { animated: false });
     });
-    apply();
+
+    document.addEventListener("deck:stepchange", async (event) => {
+      apply(event.detail.to, {
+        animated: Boolean(await window.deck.animator()) && !event.detail.instant,
+      });
+    });
   </script>
 </body>
 </html>

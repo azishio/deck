@@ -390,6 +390,60 @@ async fn an_interactive_slide_keeps_the_input_it_needs() {
     browser.close().await;
 }
 
+/// A slide that animates its own reveals declares its steps instead of marking
+/// them up, and that is not a mistake to report.
+///
+/// `step_count_mismatch` compares the runtime count against the `[data-step]`
+/// elements, so before this it fired on every scene driven by `setStepCount()`
+/// — which is the documented way to have steps without markup.
+#[tokio::test]
+async fn declaring_a_step_count_is_not_a_mismatch() {
+    let temp = TempProject::new("declared-steps");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("skipping: no Chromium available");
+        return;
+    }
+
+    std::fs::write(
+        project.slides_dir().join("30-declared.html"),
+        r#"<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Declared</title>
+<link rel="stylesheet" href="/@deck/design.css">
+<script type="module" src="/@deck/boot.js"></script></head>
+<body>
+  <deck-slide id="declared"><p>Nothing here carries data-step.</p></deck-slide>
+  <script type="module">window.deck.setStepCount(3);</script>
+</body>
+</html>
+"#,
+    )
+    .expect("write slide");
+
+    let report = deck_core::check::run(
+        &project,
+        &deck_core::check::CheckOptions {
+            slides: vec!["declared".to_owned()],
+            ..Default::default()
+        },
+    )
+    .await
+    .expect("check");
+
+    let mismatches: Vec<_> = report
+        .diagnostics
+        .iter()
+        .filter(|diagnostic| diagnostic.rule == "step_count_mismatch")
+        .collect();
+    assert!(mismatches.is_empty(), "declaring the count should not be reported: {mismatches:?}");
+    assert_eq!(
+        report.diagnostics.iter().filter(|d| d.rule == "javascript_exception").count(),
+        0,
+        "the slide itself should be clean"
+    );
+}
+
 /// A step driven from one client must animate on the others.
 ///
 /// The presenter and the audience view are separate pages kept in step over a

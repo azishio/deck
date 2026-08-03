@@ -9,10 +9,10 @@ This project is a **deck**: a slide deck where one slide is one complete HTML
 document. There is no slide DSL and no build step. Edit HTML directly.
 
 That means a slide is a web page, and the interesting slides are built like one:
-an SVG diagram that fills in as you step, a chart that draws itself, a control
-the presenter can drag. Text and cards are the fallback for when a picture would
-not help — not the starting point. **deck-visuals** covers that side and is
-usually the skill to reach for once you know what a slide has to say.
+an SVG scene that fills in as you step, a chart that draws itself, a token that
+rides the pipeline you are describing. Text and cards are the fallback for when a
+drawing would not help — not the starting point. **deck-visuals** covers that
+side and is usually the skill to reach for once you know what a slide has to say.
 
 Sibling skills: **deck-visuals** for diagrams, animation and interaction,
 **deck-styling** for the look (tokens, themes, Tailwind, fonts),
@@ -99,9 +99,10 @@ Write an explicit `id` on any slide worth linking to.
 the free space; `deck-footer` then sits at the bottom on its own.
 
 The two cards above are a placeholder for whatever actually explains the point.
-Before shipping a slide, ask what the audience is meant to *see*: if the answer
-is a structure, a change over time, a quantity or a trade-off, the middle of the
-slide should be a drawing or a control rather than prose. See **deck-visuals**.
+Before shipping a slide, ask what the audience is meant to *watch happen*: if the
+answer is a structure, a change over time, a quantity or a trade-off, the middle
+of the slide should be an animated SVG scene rather than prose. See
+**deck-visuals**.
 
 ## Components available
 
