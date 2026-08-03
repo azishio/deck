@@ -275,6 +275,121 @@ async fn a_single_slide_page_navigates_by_click() {
     browser.close().await;
 }
 
+/// A slide is a whole web page, so a control on one has to receive the input
+/// that operates it.
+///
+/// Navigation lives inside the slide document — a click on the right half
+/// advances, arrow keys step — which means an unguarded runtime eats the very
+/// clicks and keys an interactive slide is made of.
+#[tokio::test]
+async fn an_interactive_slide_keeps_the_input_it_needs() {
+    let temp = TempProject::new("interactive");
+    let project = temp.open();
+    if !chromium_available(&project) {
+        eprintln!("skipping: no Chromium available");
+        return;
+    }
+
+    std::fs::write(
+        project.slides_dir().join("30-interactive.html"),
+        r##"<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Interactive</title>
+<link rel="stylesheet" href="/@deck/design.css">
+<script type="module" src="/@deck/boot.js"></script></head>
+<body>
+  <deck-slide id="interactive">
+    <input id="dial" type="range" min="0" max="10" value="5"
+           style="position:absolute;left:900px;top:80px;width:300px">
+    <button id="tap" type="button"
+            style="position:absolute;left:900px;top:200px;width:300px;height:60px">0</button>
+    <div id="pad" data-deck-no-nav
+         style="position:absolute;left:900px;top:320px;width:300px;height:200px"></div>
+    <p data-step="1">revealed</p>
+  </deck-slide>
+  <script type="module">
+    const tap = document.querySelector("#tap");
+    tap.addEventListener("click", () => {
+      tap.textContent = String(Number(tap.textContent) + 1);
+    });
+  </script>
+</body>
+</html>
+"##,
+    )
+    .expect("write slide");
+
+    let canvas = project.config().canvas;
+    let browser_config = project.config().browser.clone();
+    let server = Server::bind(project).await.expect("bind");
+    let origin = server.origin();
+    let _task = server.spawn();
+
+    let browser = BrowserSession::launch(&browser_config, canvas).await.expect("launch");
+    let page = browser.open(&format!("{origin}/slides/interactive")).await.expect("open");
+    assert!(
+        page.wait_for(
+            "document.documentElement.dataset.deckReady === 'true'",
+            Duration::from_secs(15)
+        )
+        .await
+        .expect("evaluate"),
+        "slide never became ready"
+    );
+
+    // A button on the right half is a button, not a page turn.
+    page.click_at(1050.0, 230.0).await.expect("click");
+    assert!(
+        page.wait_for("document.querySelector('#tap').textContent === '1'", Duration::from_secs(5))
+            .await
+            .expect("evaluate"),
+        "the button never saw its own click"
+    );
+    assert_eq!(
+        page.evaluate::<u32>("window.deck.step").await.expect("evaluate"),
+        0,
+        "clicking a button must not advance the deck"
+    );
+
+    // Arrow keys belong to a focused slider, not to the deck.
+    page.click_at(1050.0, 90.0).await.expect("click");
+    page.press_key("ArrowRight").await.expect("press");
+    assert!(
+        page.wait_for("document.querySelector('#dial').value === '6'", Duration::from_secs(5))
+            .await
+            .expect("evaluate"),
+        "the slider never moved"
+    );
+    assert_eq!(
+        page.evaluate::<u32>("window.deck.step").await.expect("evaluate"),
+        0,
+        "a key the focused control needs must not step the deck"
+    );
+
+    // An opted-out region is the slide's, however plain its contents.
+    page.click_at(1050.0, 420.0).await.expect("click");
+    assert_eq!(
+        page.evaluate::<u32>("window.deck.step").await.expect("evaluate"),
+        0,
+        "data-deck-no-nav did not hold the click"
+    );
+
+    // Everywhere else still navigates, which is the point of guarding narrowly.
+    page.click_at(700.0, 600.0).await.expect("click");
+    assert!(
+        page.wait_for("window.deck.step === 1", Duration::from_secs(5)).await.expect("evaluate"),
+        "plain background clicks must still advance"
+    );
+    page.press_key("ArrowLeft").await.expect("press");
+    assert!(
+        page.wait_for("window.deck.step === 0", Duration::from_secs(5)).await.expect("evaluate"),
+        "arrow keys must still work outside a control"
+    );
+
+    page.close().await;
+    browser.close().await;
+}
+
 /// A step driven from one client must animate on the others.
 ///
 /// The presenter and the audience view are separate pages kept in step over a

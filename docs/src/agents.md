@@ -5,13 +5,14 @@ agent can carry out and you can review as a diff. There is no intermediate
 representation to translate through, and no build output to inspect separately from the
 source.
 
-`deck init` writes three skills so the agent starts with the house rules instead of
+`deck init` writes four skills so the agent starts with the house rules instead of
 guessing them:
 
 ```text
 my-deck/
 ├── .agents/skills/                       ← the canonical copies
 │   ├── deck-slides/SKILL.md
+│   ├── deck-visuals/SKILL.md
 │   ├── deck-styling/SKILL.md
 │   └── deck-components/SKILL.md
 └── .claude/skills -> ../.agents/skills   ← symlink, so Claude Code finds them
@@ -21,7 +22,7 @@ One set of files, two paths. `.agents/skills/` is the vendor-neutral location; t
 symlink means Claude Code picks them up without a second copy to keep in sync. On
 Windows, where symlinks need elevation, `deck init` falls back to copies and says so.
 
-## Three skills, three jobs
+## Four skills, four jobs
 
 They are split by task, because "add a slide about X" and "make the accent colour warmer"
 need different things in front of the agent — and a skill that tries to cover both ends
@@ -31,6 +32,11 @@ up too long to be read carefully.
 complete HTML document, the canvas is fixed at 1280×720, content goes in child elements,
 assets use root-absolute paths), file conventions, a skeleton to copy, the built-in
 components, the absolute step model, and what each check rule means when it fires.
+
+**`deck-visuals`** — explaining something visually or interactively: inline SVG driven by
+`data-step`, Anime.js and its SVG helpers, canvas, live controls, and generating artwork
+rather than sourcing it. Without it an agent defaults to three cards of prose, which is
+what a slide tool with no HTML would have produced anyway.
 
 **`deck-styling`** — how the deck looks. Which of the four `design/` files to reach for,
 the token families, the Tailwind entry and the cascade order, webfonts in

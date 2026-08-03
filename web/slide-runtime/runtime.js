@@ -686,6 +686,71 @@ async function advance(direction) {
   openSlide((await loadPosition()).previous, "final");
 }
 
+/**
+ * Elements that take their own input.
+ *
+ * A slide is a whole web page, so a control on one has to receive the clicks
+ * and keys that operate it — otherwise a range slider is a picture of a slider.
+ * Only unambiguous cases are listed: `canvas` and `svg` are deliberately absent,
+ * because a decorative one covering the slide would silently kill click
+ * navigation. Mark those with `data-deck-no-nav` when they are operable.
+ */
+const CONTROL_SELECTOR = [
+  "a",
+  "audio",
+  "button",
+  "details",
+  "dialog",
+  "input",
+  "label",
+  "option",
+  "select",
+  "summary",
+  "textarea",
+  "video",
+  "[contenteditable]:not([contenteditable='false'])",
+  "[draggable='true']",
+  "[tabindex]:not([tabindex^='-'])",
+  "[role='button']",
+  "[role='checkbox']",
+  "[role='combobox']",
+  "[role='link']",
+  "[role='listbox']",
+  "[role='menuitem']",
+  "[role='option']",
+  "[role='radio']",
+  "[role='slider']",
+  "[role='spinbutton']",
+  "[role='switch']",
+  "[role='tab']",
+  "[role='textbox']",
+  "[data-deck-no-nav]",
+].join(",");
+
+/**
+ * Controls where a key could change a value, so every key belongs to them.
+ *
+ * Everywhere else only the activation keys are the control's: a focused button
+ * should swallow Space, but a presenter still expects the arrow keys to move
+ * the deck.
+ */
+const VALUE_CONTROL_SELECTOR = [
+  "input:not([type='button']):not([type='submit']):not([type='reset'])",
+  "select",
+  "textarea",
+  "[contenteditable]:not([contenteditable='false'])",
+  "[role='combobox']",
+  "[role='listbox']",
+  "[role='menu']",
+  "[role='slider']",
+  "[role='spinbutton']",
+  "[role='tablist']",
+  "[role='textbox']",
+  "[data-deck-no-nav]",
+].join(",");
+
+const ACTIVATION_KEYS = new Set([" ", "Enter"]);
+
 /** Clicks that are the author's, not navigation. */
 function isInteractive(event) {
   if (event.defaultPrevented || event.button !== 0) {
@@ -697,11 +762,18 @@ function isInteractive(event) {
   if (!getSelection()?.isCollapsed) {
     return true;
   }
-  return Boolean(
-    event.target?.closest?.(
-      "a, button, input, select, textarea, label, summary, video, audio, [data-deck-no-nav]",
-    ),
-  );
+  return Boolean(event.target?.closest?.(CONTROL_SELECTOR));
+}
+
+/** Whether a key press belongs to whatever is focused rather than to the deck. */
+function isControlKey(target, key) {
+  if (!target?.closest) {
+    return false;
+  }
+  if (target.closest(VALUE_CONTROL_SELECTOR)) {
+    return true;
+  }
+  return ACTIVATION_KEYS.has(key) && Boolean(target.closest(CONTROL_SELECTOR));
 }
 
 /**
@@ -737,6 +809,11 @@ function installPointerNavigation() {
 function installKeyboardNavigation() {
   window.addEventListener("keydown", (event) => {
     if (event.metaKey || event.ctrlKey || event.altKey) {
+      return;
+    }
+    // A slide that handled the key itself, or a focused control that needs it,
+    // outranks navigation.
+    if (event.defaultPrevented || isControlKey(event.target, event.key)) {
       return;
     }
     switch (event.key) {

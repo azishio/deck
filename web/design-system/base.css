@@ -70,11 +70,14 @@
     font-weight: 700;
   }
 
+  /* Monospace runs small at the same size, so it is stepped down — but never
+     below the floor the `min_font_size` check enforces, because inline code in
+     an 18px line would otherwise be reported against every slide that uses it. */
   code,
   kbd,
   samp {
     font-family: var(--deck-font-mono);
-    font-size: 0.92em;
+    font-size: max(0.92em, var(--deck-font-size-small));
   }
 
   :not(pre) > code {

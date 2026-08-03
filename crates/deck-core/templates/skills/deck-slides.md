@@ -1,6 +1,6 @@
 ---
 name: deck-slides
-description: Write and edit the slides of this deck. Use when adding a slide, rewriting one under slides/, reordering or renumbering slides, working with data-step reveals or speaker notes, or fixing a `deck check` layout violation. For colours, fonts and themes use deck-styling; for Custom Elements use deck-components.
+description: Write and edit the slides of this deck. Use when adding a slide, rewriting one under slides/, reordering or renumbering slides, working with data-step reveals or speaker notes, or fixing a `deck check` layout violation. For diagrams, animation and interaction use deck-visuals; for colours, fonts and themes use deck-styling; for Custom Elements use deck-components.
 ---
 
 # Writing slides in this deck
@@ -8,7 +8,14 @@ description: Write and edit the slides of this deck. Use when adding a slide, re
 This project is a **deck**: a slide deck where one slide is one complete HTML
 document. There is no slide DSL and no build step. Edit HTML directly.
 
-Sibling skills: **deck-styling** for the look (tokens, themes, Tailwind, fonts),
+That means a slide is a web page, and the interesting slides are built like one:
+an SVG diagram that fills in as you step, a chart that draws itself, a control
+the presenter can drag. Text and cards are the fallback for when a picture would
+not help — not the starting point. **deck-visuals** covers that side and is
+usually the skill to reach for once you know what a slide has to say.
+
+Sibling skills: **deck-visuals** for diagrams, animation and interaction,
+**deck-styling** for the look (tokens, themes, Tailwind, fonts),
 **deck-components** for Custom Elements. The full guide is at
 <https://azishio.github.io/deck/>.
 
@@ -91,6 +98,11 @@ Write an explicit `id` on any slide worth linking to.
 `deck-slide` is a flex column. `class="grow"` on the main block makes it take
 the free space; `deck-footer` then sits at the bottom on its own.
 
+The two cards above are a placeholder for whatever actually explains the point.
+Before shipping a slide, ask what the audience is meant to *see*: if the answer
+is a structure, a change over time, a quantity or a trade-off, the middle of the
+slide should be a drawing or a control rather than prose. See **deck-visuals**.
+
 ## Components available
 
 | Component | For |
@@ -123,10 +135,14 @@ step is directly addressable and a reload lands in the same place.
 
 Elements keep their space while hidden, so nothing jumps.
 
+Steps drive drawings as well as text: `data-step` on an SVG `<g>` reveals it the
+same way, and `deck.onReveal` starts an animation at the right moment.
+
 Any page navigates the same way — arrow keys, or a click on the left or right
 half — including a single slide opened on its own, which carries on to the
-adjacent slide once its steps run out. Put `data-deck-no-nav` on anything
-clickable that must not advance the deck.
+adjacent slide once its steps run out. Form controls, links, buttons and
+anything focusable keep their own clicks and keys; mark anything else that is
+operable, such as a canvas you drag on, with `data-deck-no-nav`.
 
 For anything richer, listen for the event:
 

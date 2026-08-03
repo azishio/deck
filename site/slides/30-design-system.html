@@ -7,42 +7,116 @@
 
   <link rel="stylesheet" href="/@deck/design.css">
   <script type="module" src="/@deck/boot.js"></script>
+
+  <style>
+    /* Every rule below sits in the layer it is named after, so the swatch is
+       decided by the real cascade rather than by a script pretending to be it. */
+    @layer deck {
+      #swatch.on-deck { background: #475569; }
+    }
+
+    @layer project {
+      #swatch.on-project { background: #4338ca; }
+    }
+
+    @layer slide {
+      #swatch.on-slide { background: #0f766e; }
+
+      #design-system .cascade {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: var(--deck-space-5);
+        align-items: center;
+      }
+
+      #design-system .stack {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 6px;
+      }
+
+      #design-system .stack label {
+        display: flex;
+        align-items: center;
+        gap: var(--deck-space-2);
+        padding: 6px var(--deck-space-2);
+        border: 1px solid var(--deck-color-border);
+        border-radius: var(--deck-radius-small);
+        background: var(--deck-color-background);
+        font-family: var(--deck-font-mono);
+        font-size: var(--deck-font-size-small);
+        cursor: pointer;
+      }
+
+      #design-system .stack input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--deck-color-accent);
+      }
+
+      #design-system .stack .chip {
+        width: 16px;
+        height: 16px;
+        margin-inline-start: auto;
+        border-radius: 4px;
+      }
+
+      /* Not `.fixed`: that is a Tailwind utility, and utilities outrank the
+         slide layer — which is the very thing this slide is about. */
+      #design-system .stack .always {
+        color: var(--deck-color-muted);
+        opacity: 0.75;
+      }
+
+      /* No background is declared here on purpose: a `slide` layer default
+         would outrank the `deck` and `project` rules the demo is about. */
+      #swatch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 180px;
+        border-radius: var(--deck-radius-card);
+        color: #ffffff;
+        font-family: var(--deck-font-mono);
+        font-size: var(--deck-font-size-heading);
+      }
+
+      #swatch.on-none {
+        border: 2px dashed var(--deck-color-border);
+        color: var(--deck-color-muted);
+      }
+
+      #design-system .verdict {
+        margin-block-start: var(--deck-space-2);
+        color: var(--deck-color-muted);
+        font-size: var(--deck-font-size-small);
+      }
+    }
+  </style>
 </head>
 <body>
   <deck-slide id="design-system">
-    <deck-heading eyebrow="Design system" sub="Web Components in Light DOM, plus Tailwind CSS compiled inside every slide.">
+    <deck-heading eyebrow="Design system" sub="Tick a layer. The swatch is styled by the layer that wins, read back from the computed style.">
       Batteries included, none of them sealed
     </deck-heading>
 
-    <deck-grid columns="3" gap="24" class="grow items-stretch content-center">
-      <deck-card data-step="1">
-        <h2 class="text-body font-bold">Light DOM</h2>
-        <p>
-          Components render into the normal document, so ordinary CSS selectors,
-          Anime.js and DevTools all keep working.
-        </p>
-      </deck-card>
+    <div class="cascade grow">
+      <div class="stack">
+        <label><input type="checkbox" data-layer="deck" checked> deck <span class="chip" style="background:#475569"></span></label>
+        <label><input type="checkbox" data-layer="project" checked> project <span class="chip" style="background:#4338ca"></span></label>
+        <label><input type="checkbox" data-layer="slide"> slide <span class="chip" style="background:#0f766e"></span></label>
+        <label class="always">utilities — always last</label>
+      </div>
 
-      <deck-card data-step="2">
-        <h2 class="text-body font-bold">Design tokens</h2>
-        <p>
-          CSS Custom Properties drive every built-in style, and they are bridged
-          into the Tailwind theme.
-        </p>
-      </deck-card>
+      <div>
+        <div id="swatch" class="on-none">unstyled</div>
+        <p class="verdict" id="verdict"></p>
+      </div>
+    </div>
 
-      <deck-card data-step="3" variant="accent">
-        <h2 class="text-body font-bold">Tailwind CSS</h2>
-        <p>
-          Utilities compile in the browser from a vendored build. No Node.js, no
-          bundler, no CDN.
-        </p>
-      </deck-card>
-    </deck-grid>
-
-    <deck-callout tone="info" label="Cascade" data-step="4" class="text-small">
-      base → theme → deck → project → slide → utilities. Your CSS outranks the design
-      system; Tailwind utilities outrank everything.
+    <deck-callout tone="info" label="Cascade" data-step="1" class="text-small">
+      <code>@layer base, theme, deck, project, slide, components, utilities;</code>
+      — your CSS outranks the design system, and a Tailwind utility outranks yours.
     </deck-callout>
 
     <deck-footer divider>
@@ -51,9 +125,51 @@
     </deck-footer>
 
     <deck-notes>
-      Shadow DOM is used only where hiding internals pays for itself — deck-code is
-      the one built-in that uses it.
+      The layers are declared once by the runtime, so a slide can add rules to any
+      of them. Components render in Light DOM, which is why an ordinary selector
+      reaches them at all.
     </deck-notes>
   </deck-slide>
+
+  <script type="module">
+    const swatch = document.querySelector("#swatch");
+    const verdict = document.querySelector("#verdict");
+    const boxes = [...document.querySelectorAll(".stack input")];
+
+    const NAMES = {
+      "rgb(71, 85, 105)": "deck",
+      "rgb(67, 56, 202)": "project",
+      "rgb(15, 118, 110)": "slide",
+    };
+
+    function apply() {
+      for (const box of boxes) {
+        swatch.classList.toggle(`on-${box.dataset.layer}`, box.checked);
+      }
+      // Read back rather than reason about it — which is also why the swatch
+      // has no background transition: mid-transition the computed value is an
+      // interpolation belonging to no layer at all.
+      const colour = getComputedStyle(swatch).backgroundColor;
+      const winner = NAMES[colour];
+      swatch.classList.toggle("on-none", !winner);
+      swatch.textContent = winner ? `@layer ${winner}` : "unstyled";
+      verdict.textContent = winner
+        ? `Three declarations, one winner: ${winner} sits highest of those enabled.`
+        : "Nothing declared for this element yet.";
+    }
+
+    for (const box of boxes) {
+      box.addEventListener("change", apply);
+    }
+
+    // Start from the same state every time the slide is entered.
+    window.deck.onReveal(swatch, () => {
+      for (const box of boxes) {
+        box.checked = box.dataset.layer !== "slide";
+      }
+      apply();
+    });
+    apply();
+  </script>
 </body>
 </html>

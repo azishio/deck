@@ -7,43 +7,98 @@
 
   <link rel="stylesheet" href="/@deck/design.css">
   <script type="module" src="/@deck/boot.js"></script>
+
+  <style>
+    @layer slide {
+      /* Sized from the viewBox rather than stretched to the free space: a
+         height-driven scale would push the drawing past the safe area. */
+      #output .fan {
+        width: 100%;
+        height: auto;
+      }
+
+      #output .box rect {
+        fill: var(--deck-color-surface);
+        stroke: var(--deck-color-border);
+        stroke-width: 1.5;
+      }
+
+      #output .box.source rect {
+        fill: var(--deck-color-accent-soft);
+        stroke: var(--deck-color-accent);
+      }
+
+      #output .box .name {
+        fill: var(--deck-color-text);
+        font-family: var(--deck-font-sans);
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      #output .box .detail {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+      }
+
+      #output .branch {
+        stroke: var(--deck-color-accent);
+        stroke-width: 2.5;
+      }
+
+      #output .caption {
+        color: var(--deck-color-muted);
+        font-size: var(--deck-font-size-small);
+      }
+    }
+  </style>
 </head>
 <body>
   <deck-slide id="output">
-    <deck-heading eyebrow="Output">
+    <deck-heading eyebrow="Output" sub="The same documents, opened three ways. Nothing is transpiled on the way out.">
       Present, print, publish
     </deck-heading>
 
-    <deck-grid columns="3" gap="24" class="grow items-stretch content-center">
-      <deck-card data-step="1">
-        <h2 class="text-body font-bold">Presenter View</h2>
-        <p>
-          Current and next slide, speaker notes, timer, clock, blackout and live
-          diagnostics — synchronised over a websocket.
-        </p>
-      </deck-card>
+    <svg class="fan" viewBox="0 0 1150 320" fill="none" role="img"
+         aria-label="One set of slide documents feeding the presenter view, printing and a static build">
+      <g class="box source">
+        <rect x="10" y="118" width="210" height="84" rx="10"/>
+        <text class="name" x="115" y="152" text-anchor="middle">slides/*.html</text>
+        <text class="detail" x="115" y="180" text-anchor="middle">the only source</text>
+      </g>
 
-      <deck-card data-step="2">
-        <h2 class="text-body font-bold">Printing</h2>
-        <p>
-          The print view loads every slide, drives it to the requested step, waits for
-          fonts and images, then enables the button. One slide, one page.
-        </p>
-      </deck-card>
+      <g data-step="1">
+        <path class="branch" id="b1" d="M220 160 C 380 160 400 52 560 52"/>
+        <g class="box">
+          <rect x="560" y="10" width="580" height="84" rx="10"/>
+          <text class="name" x="590" y="44">Presenter view</text>
+          <text class="detail" x="590" y="72">next slide, notes, timer, blackout — synced over a websocket</text>
+        </g>
+      </g>
 
-      <deck-card data-step="3">
-        <h2 class="text-body font-bold">Static build</h2>
-        <p>
-          <strong>deck build</strong> emits a folder any static host can serve. This deck
-          is that output, on GitHub Pages.
-        </p>
-      </deck-card>
-    </deck-grid>
+      <g data-step="2">
+        <path class="branch" id="b2" d="M220 160 H 560"/>
+        <g class="box">
+          <rect x="560" y="118" width="580" height="84" rx="10"/>
+          <text class="name" x="590" y="152">Printing</text>
+          <text class="detail" x="590" y="180">every slide driven to its final step, then the browser's print dialog</text>
+        </g>
+      </g>
 
-    <deck-callout tone="success" label="No PDF pipeline" data-step="4" class="text-small">
-      The CLI never generates a PDF. Printing is the browser's job, and the same
-      print page is what a headless run would open.
-    </deck-callout>
+      <g data-step="3">
+        <path class="branch" id="b3" d="M220 160 C 380 160 400 268 560 268"/>
+        <g class="box">
+          <rect x="560" y="226" width="580" height="84" rx="10"/>
+          <text class="name" x="590" y="260">deck build</text>
+          <text class="detail" x="590" y="288">a folder any static host can serve — this deck is that output</text>
+        </g>
+      </g>
+    </svg>
+
+    <p class="caption">
+      No PDF pipeline: printing is the browser's job, and the page it opens is the
+      same one a headless run would.
+    </p>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -55,5 +110,26 @@
       asynchronously still makes it onto the page.
     </deck-notes>
   </deck-slide>
+
+  <script type="module">
+    import { animate, svg } from "/@deck/vendor/animejs.js";
+
+    // Each branch draws itself as its step arrives, and re-draws if you step
+    // back and come forward again.
+    for (const id of ["b1", "b2", "b3"]) {
+      const path = document.querySelector(`#${id}`);
+      window.deck.onReveal(path, async ({ signal }) => {
+        if (!(await window.deck.animator())) {
+          return;
+        }
+        const drawing = animate(svg.createDrawable(path), {
+          draw: ["0 0", "0 1"],
+          duration: 620,
+          ease: "outQuad",
+        });
+        signal.addEventListener("abort", () => drawing.revert());
+      });
+    }
+  </script>
 </body>
 </html>

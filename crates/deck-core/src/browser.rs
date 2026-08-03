@@ -10,6 +10,7 @@ use chromiumoxide::browser::{Browser, BrowserConfig as LaunchConfig};
 use chromiumoxide::cdp::browser_protocol::emulation::{
     SetLocaleOverrideParams, SetTimezoneOverrideParams,
 };
+use chromiumoxide::cdp::browser_protocol::input::{DispatchKeyEventParams, DispatchKeyEventType};
 use chromiumoxide::cdp::browser_protocol::network::{EventLoadingFailed, EventRequestWillBeSent};
 use chromiumoxide::cdp::browser_protocol::page::CaptureScreenshotFormat;
 use chromiumoxide::cdp::js_protocol::runtime::EventExceptionThrown;
@@ -229,6 +230,37 @@ impl PageSession {
             .click(chromiumoxide::layout::Point::new(x, y))
             .await
             .map_err(|error| Error::browser(format!("could not click at ({x}, {y}): {error}")))?;
+        Ok(())
+    }
+
+    /// Press a key with a real input event, delivered to whatever has focus.
+    ///
+    /// Only the keys the deck itself navigates with are mapped, because a full
+    /// key table would be a keyboard emulator nobody asked for.
+    pub async fn press_key(&self, key: &str) -> Result<()> {
+        let virtual_key = match key {
+            "ArrowLeft" => 37,
+            "ArrowRight" => 39,
+            "ArrowUp" => 38,
+            "ArrowDown" => 40,
+            " " => 32,
+            "Enter" => 13,
+            other => return Err(Error::browser(format!("no key code is mapped for {other:?}"))),
+        };
+        for kind in [DispatchKeyEventType::KeyDown, DispatchKeyEventType::KeyUp] {
+            let params = DispatchKeyEventParams::builder()
+                .r#type(kind)
+                .key(key)
+                .code(if key == " " { "Space" } else { key })
+                .windows_virtual_key_code(virtual_key)
+                .native_virtual_key_code(virtual_key)
+                .build()
+                .map_err(Error::browser)?;
+            self.page
+                .execute(params)
+                .await
+                .map_err(|error| Error::browser(format!("could not press {key:?}: {error}")))?;
+        }
         Ok(())
     }
 

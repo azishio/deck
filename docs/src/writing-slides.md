@@ -3,6 +3,10 @@
 A slide is a complete HTML document. Nothing is generated from a template at build time,
 so what you read in the file is what the browser gets.
 
+This page covers the parts every slide has. What goes in the middle of one is a separate
+question, and usually a more interesting one — see
+[Visual and interactive slides](./visuals.md).
+
 ```html
 {{#include ../snippets/slide.html}}
 ```

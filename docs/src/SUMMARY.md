@@ -10,6 +10,7 @@
 # Authoring
 
 - [Writing a slide](./writing-slides.md)
+- [Visual and interactive slides](./visuals.md)
 - [Built-in components](./components.md)
 - [Editing the template](./editing-the-template.md)
 - [Styling and theming](./styling.md)

@@ -83,6 +83,7 @@ pub fn init(root: &Utf8Path, title: &str, theme: Theme) -> Result<()> {
 /// to them so Claude Code picks them up without a second copy to keep in sync.
 pub const SKILLS: &[(&str, &str)] = &[
     ("deck-slides", include_str!("../templates/skills/deck-slides.md")),
+    ("deck-visuals", include_str!("../templates/skills/deck-visuals.md")),
     ("deck-styling", include_str!("../templates/skills/deck-styling.md")),
     ("deck-components", include_str!("../templates/skills/deck-components.md")),
 ];
@@ -363,7 +364,10 @@ const OVERVIEW_SLIDE: &str = r#"<!doctype html>
 </html>
 "#;
 
-const ARCHITECTURE_SLIDE: &str = r#"<!doctype html>
+/// The starter slide that shows what the format is actually for: a drawing that
+/// fills in as you step, and a control the audience can watch you move. Three
+/// cards of prose would have needed no HTML at all.
+const ARCHITECTURE_SLIDE: &str = r##"<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -373,46 +377,141 @@ const ARCHITECTURE_SLIDE: &str = r#"<!doctype html>
   <link rel="stylesheet" href="/@deck/design.css">
   <script type="module" src="/@deck/boot.js"></script>
 
+  <style>
+    @layer slide {
+      /* Sized from the viewBox: stretching an SVG to the free space scales the
+         drawing up and pushes it past the safe area. */
+      #architecture .pipeline {
+        width: 100%;
+        height: auto;
+      }
+
+      #architecture .stage rect {
+        fill: var(--deck-color-surface);
+        stroke: var(--deck-color-border);
+        stroke-width: 1.5;
+      }
+
+      #architecture .stage .name {
+        fill: var(--deck-color-text);
+        font-family: var(--deck-font-sans);
+        font-size: 22px;
+        font-weight: 700;
+        text-anchor: middle;
+      }
+
+      #architecture .stage .detail {
+        fill: var(--deck-color-muted);
+        font-family: var(--deck-font-sans);
+        font-size: 18px;
+        text-anchor: middle;
+      }
+
+      #architecture .link {
+        stroke: var(--deck-color-accent);
+        stroke-width: 2.5;
+      }
+
+      #architecture .control {
+        display: flex;
+        align-items: center;
+        gap: var(--deck-space-3);
+        font-size: var(--deck-font-size-small);
+      }
+
+      #architecture .control input {
+        width: 280px;
+        accent-color: var(--deck-color-accent);
+      }
+
+      #architecture .control output {
+        font-family: var(--deck-font-mono);
+        color: var(--deck-color-accent);
+      }
+    }
+  </style>
 </head>
 <body>
   <deck-slide id="architecture">
-    <deck-heading eyebrow="Architecture">
+    <deck-heading eyebrow="Architecture" sub="Inline SVG, revealed step by step and drawn by Anime.js.">
       One pipeline, end to end
     </deck-heading>
 
-    <deck-grid columns="2" class="grow">
-      <deck-card data-step="1" class="justify-between">
-        <h2 class="text-body font-bold">Collection</h2>
-        <p>Probes push measurements into the ingest tier.</p>
-        <span class="text-small text-muted font-mono">probe -&gt; ingest</span>
-      </deck-card>
+    <svg class="pipeline" viewBox="0 0 1000 200" fill="none" role="img"
+         aria-label="Probes collect, the ingest tier aggregates, the query layer serves">
+      <g class="stage">
+        <rect x="10" y="50" width="240" height="90" rx="10"/>
+        <text class="name" x="130" y="90">Collect</text>
+        <text class="detail" x="130" y="118">probes push measurements</text>
+      </g>
 
-      <deck-card data-step="2" variant="accent" class="justify-between">
-        <h2 class="text-body font-bold">Visualization</h2>
-        <p>Queries fan out to the visualisation layer.</p>
-        <span class="text-small text-accent font-mono">query -&gt; render</span>
-      </deck-card>
-    </deck-grid>
+      <g data-step="1">
+        <path class="link" id="link-1" d="M250 95 H 380"/>
+        <g class="stage">
+          <rect x="380" y="50" width="240" height="90" rx="10"/>
+          <text class="name" x="500" y="90">Aggregate</text>
+          <text class="detail" x="500" y="118">windowed, then stored</text>
+        </g>
+      </g>
 
-    <deck-callout tone="info" label="Note" data-step="3">
-      Richer animation is just JavaScript inside the slide.
-    </deck-callout>
+      <g data-step="2">
+        <path class="link" id="link-2" d="M620 95 H 750"/>
+        <g class="stage">
+          <rect x="750" y="50" width="240" height="90" rx="10"/>
+          <text class="name" x="870" y="90">Serve</text>
+          <text class="detail" x="870" y="118">queries fan out</text>
+        </g>
+      </g>
+    </svg>
+
+    <label class="control">
+      Probes
+      <input id="probes" type="range" min="1" max="24" value="6">
+      <output id="rate">6 probes — 1.2k samples/s</output>
+    </label>
 
     <deck-notes>
-      Explain the ingest path and the query path separately.
+      The slider is a real control: form elements keep their own clicks and keys,
+      so operating one never turns the page.
     </deck-notes>
   </deck-slide>
 
   <script type="module">
-    document.addEventListener("deck:stepchange", (event) => {
-      if (event.detail.to === 3) {
-        document.querySelector("deck-callout")?.setAttribute("tone", "success");
-      }
+    import { animate, svg } from "/@deck/vendor/animejs.js";
+
+    // Tie the animation to the reveal, never to load: the shell preloads
+    // neighbouring slides, so anything started at construction runs off-screen.
+    for (const id of ["link-1", "link-2"]) {
+      const path = document.querySelector(`#${id}`);
+      window.deck.onReveal(path, async ({ signal }) => {
+        if (!(await window.deck.animator())) {
+          return;
+        }
+        const drawing = animate(svg.createDrawable(path), {
+          draw: ["0 0", "0 1"],
+          duration: 520,
+          ease: "outQuad",
+        });
+        signal.addEventListener("abort", () => drawing.revert());
+      });
+    }
+
+    const probes = document.querySelector("#probes");
+    const rate = document.querySelector("#rate");
+    const render = () => {
+      const count = Number(probes.value);
+      rate.textContent = `${count} probes — ${(count * 0.2).toFixed(1)}k samples/s`;
+    };
+    probes.addEventListener("input", render);
+    window.deck.onReveal(probes, () => {
+      probes.value = "6";
+      render();
     });
+    render();
   </script>
 </body>
 </html>
-"#;
+"##;
 
 /* -------------------------------------------------------------------------- */
 /* deck add slide                                                              */

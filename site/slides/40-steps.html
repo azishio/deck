@@ -7,43 +7,116 @@
 
   <link rel="stylesheet" href="/@deck/design.css">
   <script type="module" src="/@deck/boot.js"></script>
+
+  <style>
+    @layer slide {
+      #steps .demo {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: var(--deck-space-5);
+        align-items: center;
+      }
+
+      #steps .scrubber {
+        display: flex;
+        align-items: center;
+        gap: var(--deck-space-3);
+      }
+
+      #steps .scrubber input {
+        flex: 1;
+        accent-color: var(--deck-color-accent);
+      }
+
+      #steps .address {
+        display: inline-flex;
+        align-items: baseline;
+        gap: var(--deck-space-1);
+        padding: var(--deck-space-1) var(--deck-space-2);
+        border: 1px solid var(--deck-color-border);
+        border-radius: var(--deck-radius-small);
+        background: var(--deck-color-surface);
+        font-family: var(--deck-font-mono);
+        font-size: var(--deck-font-size-small);
+      }
+
+      #steps .address b {
+        color: var(--deck-color-accent);
+        font-weight: 700;
+      }
+
+      #steps .track {
+        display: flex;
+        flex-direction: column;
+        gap: var(--deck-space-2);
+      }
+
+      #steps .bar {
+        display: flex;
+        align-items: center;
+        gap: var(--deck-space-2);
+        padding: var(--deck-space-2);
+        border-radius: var(--deck-radius-small);
+        background: var(--deck-color-accent-soft);
+        color: var(--deck-color-accent);
+        font-size: var(--deck-font-size-small);
+      }
+
+      #steps .bar span:first-child {
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--deck-color-accent);
+        color: #ffffff;
+        font-family: var(--deck-font-mono);
+      }
+
+      #steps .formula {
+        font-family: var(--deck-font-mono);
+        font-size: var(--deck-font-size-small);
+        color: var(--deck-color-muted);
+      }
+    }
+  </style>
 </head>
 <body>
   <deck-slide id="steps">
-    <deck-heading eyebrow="Steps &amp; animation">
+    <deck-heading eyebrow="Steps &amp; animation" sub="Drag the slider, or use the arrow keys. Both move the same number.">
       Screen state = f(slide, step)
     </deck-heading>
 
-    <deck-grid columns="2" gap="40" class="grow items-center">
-      <deck-stack gap="20">
-        <p data-step="1">
-          Reveals are declarative: put <code>data-step="2"</code> on an element and the
-          runtime handles the rest.
+    <div class="demo grow">
+      <deck-stack gap="24">
+        <div class="scrubber">
+          <label for="scrub" class="text-small">step</label>
+          <input id="scrub" type="range" min="0" max="3" step="1" value="0">
+          <output id="value" class="font-mono">0</output>
+        </div>
+
+        <p class="address">
+          <span>#/steps/</span><b id="fragment">0</b>
         </p>
-        <p data-step="2">
-          Navigation sends an <strong>absolute</strong> step, never a relative "next", so a
-          reload, a deep link or a hot swap all land in the same state.
+
+        <p class="text-small">
+          The slider is not a prop: it calls <code>deck.goToStep()</code>, which is the
+          same absolute request the arrow keys and the presenter view send. A reload,
+          a deep link and a hot swap all land here too.
         </p>
-        <p data-step="3">
-          Anime.js ships with the runtime. Import it in a slide and drive whatever you
-          like; register a timeline and printing seeks it to its final frame.
+
+        <p class="formula">
+          reveal = element.dataset.step &lt;= step
         </p>
       </deck-stack>
 
-      <deck-stack gap="16" class="justify-center">
-        <deck-stat countup data-step="1">
-          <span>1280</span>
-          <span>logical canvas width, always</span>
-        </deck-stat>
-        <deck-stat countup data-step="2">
-          <span>720</span>
-          <span>logical canvas height, always</span>
-        </deck-stat>
-        <p data-step="3" class="text-muted text-small">
-          The shell scales the iframe. Slides never do viewport-dependent layout.
-        </p>
-      </deck-stack>
-    </deck-grid>
+      <div class="track">
+        <div class="bar" data-step="1"><span>1</span> Collection</div>
+        <div class="bar" data-step="2"><span>2</span> Aggregation</div>
+        <div class="bar" data-step="3"><span>3</span> Visualisation</div>
+      </div>
+    </div>
 
     <deck-footer divider>
       <span>deck — one slide is one complete HTML document</span>
@@ -51,9 +124,31 @@
     </deck-footer>
 
     <deck-notes>
-      The counters on the right are a project component using window.deck.animator(),
-      which resolves to Anime.js unless reduced motion is requested.
+      Steps are absolute, never a relative "next", which is what lets a reload or a
+      second client land in exactly this state.
     </deck-notes>
   </deck-slide>
+
+  <script type="module">
+    const scrub = document.querySelector("#scrub");
+    const value = document.querySelector("#value");
+    const fragment = document.querySelector("#fragment");
+
+    scrub.addEventListener("input", () => {
+      window.deck.goToStep(Number(scrub.value));
+    });
+
+    // The step model is the source of truth; the slider only reflects it, so
+    // arrow keys, the presenter view and a second client all keep it honest.
+    const sync = (step) => {
+      scrub.value = String(step);
+      value.textContent = String(step);
+      fragment.textContent = String(step);
+    };
+
+    document.addEventListener("deck:stepchange", (event) => sync(event.detail.to));
+    document.addEventListener("deck:ready", () => sync(window.deck.step));
+    sync(window.deck.step);
+  </script>
 </body>
 </html>

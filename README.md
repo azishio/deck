@@ -87,11 +87,12 @@ The names `slides/`, `components/`, `design/` and `assets/` are fixed by convent
 cannot be reconfigured. Keeping the layout predictable keeps the CLI, the watcher, the
 static build and any agent editing the deck simple.
 
-`deck init` also writes three agent skills to `.agents/skills/` — `deck-slides`,
-`deck-styling` and `deck-components` — with `.claude/skills` symlinked to them so Claude
-Code finds them without a second copy to keep in sync. They are split by task, so an
-agent asked to "add a slide about X" gets the slide conventions and the check rules, and
-one asked to warm up the accent colour gets the token and cascade rules instead.
+`deck init` also writes four agent skills to `.agents/skills/` — `deck-slides`,
+`deck-visuals`, `deck-styling` and `deck-components` — with `.claude/skills` symlinked to
+them so Claude Code finds them without a second copy to keep in sync. They are split by
+task, so an agent asked to "add a slide about X" gets the slide conventions and the check
+rules, one asked to explain something visually gets the SVG, animation and interaction
+recipes, and one asked to warm up the accent colour gets the token and cascade rules.
 
 ## Writing a slide
 
@@ -136,6 +137,36 @@ one asked to warm up the accent colour gets the token and cascade rules instead.
 - The `<link>` and `<script>` tags are injected automatically if you leave them out.
 - Content goes in child elements. Large JSON blobs in attributes are a DSL in disguise —
   don't.
+
+### Slides that do something
+
+Cards and headings are the floor, not the ceiling. Because a slide is a whole web page,
+the middle of it can be a drawing that fills in as you step, or a control the audience
+watches you move:
+
+```html
+<svg viewBox="0 0 720 200" fill="none">
+  <g data-step="1">
+    <path id="flow" d="M180 100 H 420" stroke="var(--deck-color-accent)" stroke-width="3"/>
+  </g>
+</svg>
+
+<label>Threads <input id="threads" type="range" min="1" max="16" value="4"></label>
+
+<script type="module">
+  import { animate, svg } from "/@deck/vendor/animejs.js";
+
+  const flow = document.querySelector("#flow");
+  window.deck.onReveal(flow, () => animate(svg.createDrawable(flow), { draw: ["0 0", "0 1"] }));
+</script>
+```
+
+`data-step` reveals SVG children exactly as it does HTML, `deck.onReveal` ties an
+animation to visibility rather than to load, and form controls keep their own clicks and
+keys so operating one never turns the page. The
+[deck this repository publishes](https://azishio.github.io/deck/slide/) is built this way
+throughout — its source is in [`site/slides/`](site/slides). Guide:
+[Visual and interactive slides](https://azishio.github.io/deck/visuals.html).
 
 ### Built-in components
 
